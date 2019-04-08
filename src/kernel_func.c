@@ -22,5 +22,5 @@ void kernel_main(void)
  
 	print_good("Kernel has booted!\n");
 	print_bad("This would be an error....\n");
-	print("normal text.\n");
+	print("normal text in grey.\n");
 }
