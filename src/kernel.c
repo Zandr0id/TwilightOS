@@ -1,8 +1,4 @@
 
-#include <stdbool.h>
-#include <stddef.h>
-#include <stdint.h>
- 
 
 /* Check if the compiler thinks you are targeting the wrong operating system. 
 #if defined(__linux__)
@@ -14,7 +10,7 @@
 #error "This tutorial needs to be compiled with a ix86-elf compiler"
 #endif*/
  
- #include "vga_controller.h"
+ #include "stdlib.h"
 
 void kernel_main(void) 
 {
@@ -22,5 +18,7 @@ void kernel_main(void)
  
 	print_good("Kernel has booted!\n");
 	print_bad("This would be an error....\n");
-	print("normal text in grey.\n");
+	char eh[10];
+	hex_string(0xFFFFFFFF,eh);
+	print(eh);
 }
