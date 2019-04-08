@@ -10,9 +10,12 @@ OBJ=boot_utils.o kernel_func.o#any .o file in the objects folder
 CC = i686-elf-gcc
 CFLAGS = -std=gnu99 -ffreestanding -O2 -Wall -Wextra -c
 
-#C++ = ~/opt/cross_compiler/bin/i686-elf-g++
+#If I ever want to use C++
+#CC = ~/opt/cross_compiler/bin/i686-elf-g++
 #CPPFLAGS = -ffreestanding -O2 -Wall -Wextra -fno-exceptions -fno-rtti
-LINKFLAGS = -T link.ld -ffreestanding -O2 -lgcc -nostdlib
+
+#Linker Flags
+LDFLAGS = -T link.ld -ffreestanding -O2 -lgcc -nostdlib
 
 #The assembler and its flags
 ASM = nasm
@@ -24,18 +27,19 @@ CASM=i686-elf-as
 all : kernel.bin
 
 kernel.bin : boot_utils.o kernel_func.o	vga_controller.o
-	i686-elf-gcc -T link.ld -ffreestanding -O2 -lgcc -nostdlib boot_utils.o kernel_func.o vga_controller.o -o kernel.bin
+	$(CC) $(LDFLAGS) boot_utils.o kernel_func.o vga_controller.o -o kernel.bin
 
 # assemble any .asm files and put them in the OBJS_DIR
 boot_utils.o : boot_utils.asm
-	nasm -felf32 $< -o $@ 
-
-vga_controller.o: vga_controller.c vga_controller.h
-	i686-elf-gcc -std=gnu99 -ffreestanding -O2 -Wall -Wextra -c $< -o $@
+	$(ASM) $(ASMFLAGS) $< -o $@
 
 #compile any .c files and put them in the OBJS_DIR
+vga_controller.o: vga_controller.c vga_controller.h
+	$(CC) $(CFLAGS) $< -o $@
+
 kernel_func.o : kernel_func.c
-	i686-elf-gcc -std=gnu99 -ffreestanding -O2 -Wall -Wextra -c $< -o $@
+	$(CC) $(CFLAGS) $< -o $@
+
 
 # assemble any .asm files and put them in the OBJS_DIR
 #%.o : %.asm
