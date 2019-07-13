@@ -1,7 +1,7 @@
 //just prints strings to the screen memory in white on black
 //pehaps add changing colors later
 
-#include "vga_controller.h"
+#include "stdlib.h"
 
 size_t vga_width = 80;
 size_t vga_height = 25;
@@ -34,23 +34,11 @@ void place_char_at_location(char c, size_t x, size_t y)
     screen_buffer[(x * vga_width) + y] = format_char_data(c); //put the char at the location
 }
 
-
-//returns the length of the string
-size_t strlen(const char* data)
-{
-    size_t len = 0;
-    while(data[len])
-    {
-        len++;
-    }
-    return len;
-}
-
 //prints the string at the current location
 //also handles new-lines and tabs
 void print_text(const char* data)
 {
-    for (size_t i=0; i < strlen(data); i++)
+    for (int i=0; i < strlen(data); i++)
     {
         
         if ((coursor_x > vga_width) || (data[i] == '\n'))
