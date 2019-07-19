@@ -21,6 +21,8 @@ void kernel_main(void)
 	unsigned int * mem2 = (unsigned int *) 0xA6000;
 	*mem2=0x3;
 
+
 	clear_screen();
-	printf("Int: %d\nChar: %c\nHex: %x\nOct: %o\nStr: %s\0",-85,"R",255,128,"Hello");
+	printf("Int: %d\nChar: %c\nHex: %x\nOct: %o\nStr: %s\n\0",-85,"R",255,128,"Hello");
+	printf("12345\n678\t90\n");//\n67890\n67890\n67890\n67890\n67890");
 }

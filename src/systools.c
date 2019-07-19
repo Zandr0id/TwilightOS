@@ -46,5 +46,3 @@ int strlen(const char* data)
     }
     return len;
 }
-
-
