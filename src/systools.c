@@ -47,48 +47,4 @@ int strlen(const char* data)
     return len;
 }
 
-//prints out a number as a hex string
-/*
-This was a tricky one to make
-This algorithm ends up filling the char array 
-in reverse with the hex digits.
-*/
-void hex_string(unsigned int num)
-{
-    print("0x");
-    int temp = num;
-    char result = 0;
-    int spot = 0;
-    char * out = 0;
-
-    while (temp != 0)
-    {
-        result = temp % 16;
-        if (result < 10)
-        {
-            result = result + 48;
-        }
-        else
-        {
-            result = result + 55;
-        }
-        out[spot] = result;
-        spot++;
-        temp = temp / 16;
-    }
-    spot--;
-    /*
-    The print function watches for a \0 to stop,
-    so I have to send it each individual digit with a \0 after it
-    it's kind of hacky.....
-    */
-    char flipped[2];    
-    for (int j=0; j<=spot; j++)
-    {
-        flipped[0] = out[spot-j];
-        flipped[1]='\0';
-        print(flipped);
-    }
-
-}
 

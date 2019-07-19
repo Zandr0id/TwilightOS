@@ -29,8 +29,8 @@ ASMFLAGS = -felf32
 #GCC assembler does not need flags
 #ASM=i686-elf-as
 
-all : $(OUTPUT_FILE)
-
+build : $(OUTPUT_FILE)
+	make print
 $(OUTPUT_FILE) : $(OBJ)
 	@$(CC) $(LDFLAGS) $(OBJ) -o $(OUTPUT_FILE)
 	@echo "Linking $(OBJ) ----------> $@"
@@ -49,10 +49,50 @@ files:
 	@echo $(SRC_FILES)
 
 #.PHONY tells make that there will never be file called clean
-.PHONY: clean 
+.PHONY: clean print run all list
+
+list:
+	@echo "list    ---> list all options"
+	@echo "build   ---> build any changes"
+	@echo "clean   ---> remove all compiled files"
+	@echo "rebuild ---> clean, then build"
+	@echo "run     ---> run virtual test"
+	@echo "all     ---> clean, build, then run"
+	@echo "print   ---> prints a sick message"
+
+rebuild:
+	make clean
+	make build
+	@echo "Full Clean and Make done..."
+
+all:
+	make build
+	make run
+
 
 clean:
 	@echo "Clean up..."
 	rm -f *.o *~ *.bin
 
+print:
+	@echo ""
+	@echo ""
+	@echo "     CCCCCCCCCCC                                           OOOOOOOOOOO             SSSSSSSSSSSS    "
+	@echo "   CCCCCCCCCCCCCCC                                      OOOOOOOOOOOOOOOOO        SSSSSSSSSSSSSSSS  "
+	@echo " CCCCC         CCCCC   hhh                           OOOOOO           OOOOOO    SSSSSS      SSSSSS "              
+	@echo "CCCCC           CCCCC  hhh                          OOOOOO             OOOOOO  SSSSSS        SSSSSS"
+	@echo "CCCCC                  hhh                          OOOOOO             OOOOOO    SSSSSSS           "
+	@echo "CCCCC                  hhh            aaaaaa  aaa   OOOOOO             OOOOOO       SSSSSSSS       "
+	@echo "CCCCC                  hhh           aaa  aaa aaa   OOOOOO             OOOOOO           SSSSSSS    "
+	@echo "CCCCC                  hhh hhhh     aaa     aaaaa   OOOOOO             OOOOOO               SSSSSS "
+	@echo "CCCCC           CCCCC  hhhhhhhhhh   aaa      aaaa   OOOOOO             OOOOOO  SSSSSS        SSSSSS"
+	@echo " CCCCC         CCCCC   hhh     hhh  aaa     aaaaa    OOOOOO           OOOOOO    SSSSSS      SSSSSS "
+	@echo "   CCCCCCCCCCCCCCC     hhh     hhh   aaa  aaa aaa       OOOOOOOOOOOOOOOOO        SSSSSSSSSSSSSSSS  "
+	@echo "      CCCCCCCCCC       hhh     hhh    aaaaaa  aaaaa        OOOOOOOOOOO             SSSSSSSSSSSS    "
+	@echo ""
+	@echo ""
 	
+
+run:
+	@echo "Starting QEMU"
+	powershell.exe start ../scripts/run_qemu.bat

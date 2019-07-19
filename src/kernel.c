@@ -14,23 +14,13 @@
 
 void kernel_main(void) 
 {
+
+	 //print mem 
+	unsigned int * mem1 = (unsigned int *)0xA5000;
+	*mem1=0x1;
+	unsigned int * mem2 = (unsigned int *) 0xA6000;
+	*mem2=0x3;
+
 	clear_screen();
- 	
-	int * mem = (int*) 0xA5983;
-	*mem=0xFF88FF;
-	hex_string(*mem);
-	print("\n");
-
-	int count = 1;
-	unsigned char value = 0xFF;
-	unsigned char * loc = (unsigned char *) 0xC1000;
-
-	hex_string((unsigned int) memset(loc, value, count));
-	print("\n");
-	hex_string(*loc);
-	print("\n");
-
-	print_good("Kernel has booted!\n\0");
-	print_bad("This would be an error....\n\0");
-
+	printf("Int: %d\nChar: %c\nHex: %x\nOct: %o\nStr: %s\0",-85,"R",255,128,"Hello");
 }

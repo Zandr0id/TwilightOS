@@ -11,17 +11,17 @@
 
 // screen related functions
 extern void clear_screen();
-extern void print(const char* data);
-extern void print_good(const char* data);
-extern void print_bad(const char* data);
+extern void print_line(const char* data);
+extern void print_char(const char * c);
+
 
 //memory related functions
 extern unsigned char* memcpy(unsigned char* dest, unsigned char* src, int count);
 extern unsigned char* memset(unsigned char* dest, unsigned char val, int count);
 extern unsigned short* memsetw(unsigned char* dest, unsigned short val, int count);
-extern void hex_string(unsigned int num);//, char* ret);
 extern int strlen(const char* data);
 
 //I/O related functions
-
+extern void printf(const char * format, ...);
+char* convert(unsigned int num, int base); //Convert integer number into octal, hex, etc.
 #endif //STDLIB_H
