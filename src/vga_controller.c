@@ -6,35 +6,35 @@
 
 #include "stdlib.h"
 
-enum color_options
-{
-    BLACK = 0,
-    BLUE = 1,
-    GREEN = 2,
-    CYAN = 3,
-    RED = 4,
-    MAGENTA = 5,
-    BROWN = 6,
-    LIGHT_GREY = 7,
-    DARK_GREY = 8,
-    LIGHT_BLUE = 9,
-    LIGHT_GREEN = 10,
-    LIGHT_CYAN = 11,
-    LIGHT_RED = 12,
-    PINK = 13,
-    YELLOW = 14,
-    WHITE = 15,
+enum vga_color {
+	VGA_COLOR_BLACK = 0,
+	VGA_COLOR_BLUE = 1,
+	VGA_COLOR_GREEN = 2,
+	VGA_COLOR_CYAN = 3,
+	VGA_COLOR_RED = 4,
+	VGA_COLOR_MAGENTA = 5,
+	VGA_COLOR_BROWN = 6,
+	VGA_COLOR_LIGHT_GREY = 7,
+	VGA_COLOR_DARK_GREY = 8,
+	VGA_COLOR_LIGHT_BLUE = 9,
+	VGA_COLOR_LIGHT_GREEN = 10,
+	VGA_COLOR_LIGHT_CYAN = 11,
+	VGA_COLOR_LIGHT_RED = 12,
+	VGA_COLOR_LIGHT_MAGENTA = 13,
+	VGA_COLOR_LIGHT_BROWN = 14,
+	VGA_COLOR_WHITE = 15,
 };
 
-size_t vga_width = 80;
-size_t vga_height = 25;
-uint16_t * screen_buffer = (uint16_t *) 0xB8000; //location of screen memory
+static const size_t vga_width = 80;
+static const size_t vga_height = 25;
 
 size_t coursor_x = 0;
 size_t coursor_y = 0;
 
-uint8_t text_colors = LIGHT_GREY;
-uint8_t background = BLACK;
+uint8_t text_colors = VGA_COLOR_LIGHT_GREY;
+int8_t background = VGA_COLOR_BLACK;
+    
+uint16_t * screen_buffer = (uint16_t *)0xB8000;//location of screen memory
 
 void set_colors(char text, char back)
 {
@@ -96,7 +96,7 @@ void print_char(const char * c)
 void carraige_return()
 {
     coursor_x++;
-    coursor_y = 0;
+    coursor_y= 0;
 }
 
 //goes through the entire screen and puts in blank spaces
@@ -113,4 +113,24 @@ void clear_screen()
     }
     coursor_x = 0;
     coursor_y = 0;
+}
+
+void set_text_red()
+{
+    set_colors(VGA_COLOR_LIGHT_RED, VGA_COLOR_BLACK);
+}
+
+void set_text_green()
+{
+    set_colors(VGA_COLOR_LIGHT_GREEN, VGA_COLOR_BLACK);
+}
+
+void set_text_blue()
+{
+    set_colors(VGA_COLOR_LIGHT_BLUE, VGA_COLOR_BLACK);
+}
+
+void set_text_grey()
+{
+    set_colors(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLACK);
 }

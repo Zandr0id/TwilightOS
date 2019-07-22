@@ -1,5 +1,23 @@
 #include "stdlib.h"
 
+//converts a number to a base of choice
+char *convert(unsigned int num, int base) 
+{ 
+	static char Representation[]= "0123456789ABCDEF";
+	static char buffer[50]; 
+	char *ptr; 
+	
+	ptr = &buffer[49]; 
+	*ptr = '\0'; 
+
+	do 
+	{ 
+		*--ptr = Representation[num%base]; 
+		num /= base; 
+	}while(num != 0); 
+	return(ptr); 
+}
+
 //straight print until \0 is hit
 void print_until_null(const char * data)
 {
@@ -72,20 +90,4 @@ void printf( const char * format, ...)
     va_end(arg);
 }
 
-//converts a number to a base of choice
-char *convert(unsigned int num, int base) 
-{ 
-	static char Representation[]= "0123456789ABCDEF";
-	static char buffer[50]; 
-	char *ptr; 
-	
-	ptr = &buffer[49]; 
-	*ptr = '\0'; 
 
-	do 
-	{ 
-		*--ptr = Representation[num%base]; 
-		num /= base; 
-	}while(num != 0); 
-	return(ptr); 
-}

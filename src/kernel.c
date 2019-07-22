@@ -10,19 +10,23 @@
 #error "This tutorial needs to be compiled with a ix86-elf compiler"
 #endif*/
  
- #include "stdlib.h"
+#include "stdlib.h"
 
+//extern "C" 
 void kernel_main(void) 
 {
-
-	 //print mem 
-	unsigned int * mem1 = (unsigned int *)0xA5000;
-	*mem1=0x1;
-	unsigned int * mem2 = (unsigned int *) 0xA6000;
-	*mem2=0x3;
-
+	gdt_install();
+	idt_install();
+	isr_install();
 
 	clear_screen();
-	printf("Int: %d\nChar: %c\nHex: %x\nOct: %o\nStr: %s\n\0",-85,"R",255,128,"Hello");
-	printf("12345\n678\t90\n");//\n67890\n67890\n67890\n67890\n67890");
+	set_text_green();
+	printf("Int: %d \nChar: %c \nHex: %x \nOct: %o \nStr: %s \n\0",-85,"R",255,128,"Hello");
+
+	set_text_red();
+	printf("HI There\n\0");
+
+	int test = 5/0;
+	printf("%i",test);
+
 }

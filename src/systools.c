@@ -3,36 +3,38 @@
 #include "stdlib.h"
 
 //takes to chars as locations and copies one to another
-unsigned char* memcpy(unsigned char* dest, unsigned char* src, int count)
+void memcpy(void * dest, const void * src, int count)
 {
-    for (int i=0; i<count; i++)
+    const char * src_ptr = (const char *)src;
+    char * dest_ptr = (char*)dest;
+    for(;count > 0;count--)
     {
-        dest[i] = src[i];
+        *dest_ptr++ = *src_ptr++;
     }
-    return dest;
 }
 
 //takes a char location and a char value to place count number of slots
-unsigned char* memset(unsigned char* dest, unsigned char val, int count)
+void memset(void * dest, char val, int count)
 {
-    for (int i=0; i<count; i++)
+    char *temp = (char *)dest;
+    for (; count>0; count--)
     {
-         *(dest+i) = val;
+         *temp++ = val;
+    }
+}
+
+//same as above but with shorts
+
+unsigned short* memsetw(unsigned short* dest, unsigned short val, int count)
+{
+    unsigned short *temp = (unsigned short *)dest;
+    for (; count>0; count--)
+    {
+         *temp++ = val;
     }
     return dest;
 }
 
-//same as above but with shorts
-/*
-unsigned short* memsetw(unsigned short* dest, unsigned short val, int count)
-{
-    for (int i=0; i<count; i++)
-    {
-        dest[i] = val;
-    }
-    return dest;
-}
-*/
 
 //returns the length of the string
 //a \0 denotes the end of a string

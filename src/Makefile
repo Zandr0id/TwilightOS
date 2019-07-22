@@ -1,9 +1,10 @@
 #NOTE: $@ is right of the :, and $< is the left
+MAKEFLAGS = -s #silent
 
 #locations of files
 OBJS_DIR = ../objects # .o files
 BIN_DIR = ../bin # .bin files
-SRC_DIR = . # source files and the make file
+SRC_DIR = ../src # source files and the make file
 
 #find every file with a .c or .asm
 SRC_FILES := $(wildcard  *.asm) $(wildcard *.c) $(wildcard *.cpp)
@@ -18,8 +19,8 @@ CC = i686-elf-gcc
 CFLAGS = -c -std=gnu17 -ffreestanding -O2 -Wall -Wextra
 
 #If I ever want to use C++
-#CPP = ~/opt/cross_compiler/bin/i686-elf-g++
-#CPPFLAGS = -ffreestanding -O2 -Wall -Wextra -fno-exceptions -fno-rtti
+CPP = i686-elf-c++
+CPPFLAGS = -c -ffreestanding -O2 -Wall -Wextra -fno-exceptions #-fno-rtti
 
 #Linker Flags
 LDFLAGS = -T ../src/link.ld -ffreestanding -O2 -lgcc -nostdlib
@@ -40,12 +41,14 @@ $(OUTPUT_FILE) : $(OBJ)
 	@echo "Linking $(OBJ) ----------> $@"
 	@mv $@ $(BIN_DIR)
 
+
 # assemble any .asm files and put them in the OBJS_DIR
 %.o : %.asm
 	@$(ASM) $(ASMFLAGS) $< -o $@
 	@echo "$<  ----->  $@"
 	@mv $@ $(OBJS_DIR)
 
+ 
 #compile any .c files and put them in the OBJS_DIR
 
 %.o : %.c 
@@ -53,7 +56,12 @@ $(OUTPUT_FILE) : $(OBJ)
 	@echo "$<  ----->  $@"
 	@mv $@ $(OBJS_DIR)
 
-files: 
+%.o : %.cpp 
+	@$(CPP) $(CPPFLAGS) $< -o $@
+	@echo "$<  ----->  $@"
+	@mv $@ $(OBJS_DIR)
+
+src: 
 	@echo $(SRC_FILES)
 
 #.PHONY tells make that there will never be file called clean
@@ -66,7 +74,7 @@ list:
 	@echo "rebuild ---> clean, then build"
 	@echo "run     ---> run virtual test"
 	@echo "all     ---> clean, build, then run"
-	@echo "files   ---> show what files will be used when building"
+	@echo "src     ---> show what source files will be used when building"
 	@echo "print   ---> prints a sick message"
 
 rebuild:
@@ -85,6 +93,7 @@ clean:
 	@rm -f *.o *~
 	@cd $(BIN_DIR)
 	@rm -f *~ *.bin
+
 
 print:
 	@echo ""
