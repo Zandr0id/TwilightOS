@@ -1,13 +1,10 @@
-//this is standard lib!
-// This H file will be included into the kernel, and all other files will be liked into this one.
+//this is syslib
+//it's just stuff that the kernel can use
 
-#ifndef STDLIB_H
-#define STDLIB_H
+#ifndef SYSLIB_H
+#define SYSLIB_H
 
-#include <stdbool.h>
-#include <stddef.h>
-#include <stdint.h>
-#include <stdarg.h>
+#include "basiclib.h"
 
 // screen related functions
 extern void clear_screen(); //whipe out the screen
@@ -18,17 +15,6 @@ extern void set_text_grey();
 extern void set_text_blue();
 extern void set_text_green();
 extern void set_text_red();
-
-
-//memory related functions
-extern void memcpy(void * dest, const void * src, int count);
-extern void memset(void * dest, char val, int count);
-extern unsigned short* memsetw(unsigned short* dest, unsigned short val, int count);
-extern int strlen(const char* data);
-
-
-//I/O related functions
-extern void printf(const char * format, ...); // The good ol' printf function
 
 //These must be defined here to avoid compiler warnings
 //It wasn't liking me trying to use Extern Inline as a function signature, and have it defined somewhere else
@@ -61,4 +47,7 @@ struct regs
     unsigned int eip, cs, eflags, useresp, ss;
 };
 
-#endif //STDLIB_H
+
+
+
+#endif

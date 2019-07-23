@@ -4,7 +4,7 @@
 //change text color
 //move the cursor
 
-#include "stdlib.h"
+#include "libs/stdlib.h"
 
 enum vga_color {
 	VGA_COLOR_BLACK = 0,
