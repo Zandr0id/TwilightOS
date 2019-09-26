@@ -60,6 +60,9 @@ stublet:
     ; code for loading interrupts
     global idt_load
     extern idt_ptr
+
+    extern test_msg ;just prints STOP so I can see what is executing
+
     idt_load:
         lidt[idt_ptr]
         ret
@@ -101,8 +104,10 @@ stublet:
     ;if an ISR does not provide an error code on it's own, just push a 0 to the stack to keep them all the same
     isr0: ;divide by 0 exception
         cli
-        push byte 0 ; a dummy error code
-        push byte 0 ; which exeption it is
+        ;push byte 0 ; a dummy error code
+       ; push byte 0 ; which exeption it is
+        ;call test_msg
+        ;ret
         jmp isr_common_stub ; a common function for all ISRs
     isr1: ;Debug exception
         cli
@@ -142,6 +147,7 @@ stublet:
     isr8: ;Double Fault exception. Already pushes a fault code
         cli
         push byte 8 ; which exeption it is
+        call test_msg
         jmp isr_common_stub ; a common function for all ISRs
     isr9: ;Coprocessor Segment Overrun Exception
         cli
@@ -255,30 +261,33 @@ stublet:
         jmp isr_common_stub ; a common function for all ISRs
 
     extern fault_handler
-    isr_common_stub: ; the place all ISRs will jump to
-        pusha
-        push ds
-        push es
-        push fs
-        push gs
-        mov ax, 0x10 ; Load Kernel Data segment descriptor (GDT)
-        mov ds, ax
-        mov es, ax
-        mov fs, ax
-        mov gs, ax
-        mov eax, esp ;push us the stack
-        push eax
-        mov eax, fault_handler
-        call eax  ; run the fault handler
-        pop eax
-        pop gs
-        pop fs
-        pop es
-        pop ds
-        popa
-        add esp, 8
-        iret
 
+    isr_common_stub: ; the place all ISRs will jump to
+       
+        pusha
+        ;push ds
+        ;push es
+        ;push fs
+        ;push gs
+
+        ;mov ax, 0x10   ; Load the Kernel Data Segment descriptor!
+        ;mov ds, ax
+        ;mov es, ax
+        ;mov fs, ax
+        ;mov gs, ax
+        call test_msg
+        ;mov eax, esp   ; Push us the stack pointer
+        ;push eax
+        ;mov eax, fault_handler
+        ;call eax       ; A special call, preserves the 'eip' register
+        ;pop eax
+        ;pop gs
+        ;pop fs
+        ;pop es
+        ;pop ds
+        popa
+        ;add esp, 8     ; Cleans up the pushed error code and pushed ISR number
+        iret           ; pops 5 things at once: CS, EIP, EFLAGS, SS, and ESP!
 
 SECTION .bss
 ALIGN 16

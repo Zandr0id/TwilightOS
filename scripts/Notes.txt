@@ -1,7 +1,0 @@
-This is the location of any scripts that help me with development.
-The test.sh and qemu_start.bat scripts run qemu and feed it the output .bin file.
-
-I'm using the Ubuntu under linux in Visual Studio Code, with Bash as the terminal, so the shell script 
-runs the bat file that then runs qemu to do the test.
-
-Eventually there will also be a script here that creates bootable iso files

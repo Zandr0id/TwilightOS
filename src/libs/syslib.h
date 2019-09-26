@@ -32,10 +32,12 @@ inline uint8_t inb(uint16_t port) //read a value from a port
 }
 
 
+extern void test_msg(); //just prints STOP
+
 // descriptor table functions
-extern void gdt_set_gate(int num, unsigned long base, unsigned long limit, unsigned char access, unsigned char gran);
+extern void gdt_add_entry(int num, unsigned long base, unsigned long limit, unsigned char access, unsigned char gran);
 extern void gdt_install();
-extern void idt_set_gate(unsigned char num, unsigned long base, unsigned short sel, unsigned char flags);
+extern void idt_add_entry(unsigned char num, unsigned long base, unsigned short sel, unsigned char flags);
 extern void idt_install();
 extern void isr_install();
 
