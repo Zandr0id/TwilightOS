@@ -7,14 +7,14 @@ This is built using the cross compiler described in the [OSDev Cross Compiler](h
 The make file has a number of useful options, however, you'll want to change the Make run to point to wherever you have qemu installed.
 I'm developing this on windows with WLS, so qemu must be started in a hacky way with windows.
 
-##**Some useful makefile commands**
-...
+## **Some useful makefile commands**
+```
 make run
 make all
 make deploy
-...
+```
 
-##**Goals**
+## **Goals**
 - [x] Be able to boot
 - [x] Display text to the screen
 - [x] GTD
@@ -24,7 +24,7 @@ make deploy
 - [ ] Graphics
 
 
-##**Problems**
+## **Problems**
 - [ ] IDT does not seem to be working. Exceptions cause a triple fault
 - [ ] Library situation is very bad. Everything is in syslib. Need to reorganize
 
