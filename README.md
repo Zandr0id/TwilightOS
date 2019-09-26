@@ -1,3 +1,15 @@
+
+# ChaOS
+Experimental operating system from the ground up
+
+
+This is a personal project. Perhaps I'll open it up to others if it gets anywhere.
+As a first set of goals, I want it to
+1. Be able to boot. -DONE
+2. Display text to the screen. -DONE
+3. Accept keyboard input.
+4. Have at least one timer working.
+=======
 # ChaOS
 This is an experimental operating system from the ground up. I want to learn about what's going on *"under the hood"* and this is the best way to do it. It is built using the cross compiler described in the [OSDev.org Cross Compiler](https://wiki.osdev.org/GCC_Cross-Compiler) section.
 

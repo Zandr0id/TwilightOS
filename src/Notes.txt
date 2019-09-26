@@ -1,4 +1,0 @@
-This is where all of the source code lives. Eventually it will be divided up into appropriate folders for different portions
-and make much more sense over all.
-
-The Makefile and linker script should eventually be moved out of here and in to a "Build" folder or something
