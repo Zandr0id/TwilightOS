@@ -1,8 +1,5 @@
 # ChaOS
-Experimental operating system from the ground up.
-This is a personal project. Perhaps I'll open it up to others if it gets anywhere.
-
-This is built using the cross compiler described in the [OSDev Cross Compiler](https://wiki.osdev.org/GCC_Cross-Compiler) section.
+Experimental operating system from the ground up. I want to learn about what's going on __"under the hood"__, and this would be a good way to do it. It is built using the cross compiler described in the [OSDev Cross Compiler](https://wiki.osdev.org/GCC_Cross-Compiler) section.
 
 The make file has a number of useful options, however, you'll want to change the Make run to point to wherever you have qemu installed.
 I'm developing this on windows with WLS, so qemu must be started in a hacky way with windows.
