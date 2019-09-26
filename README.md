@@ -6,10 +6,10 @@ I'm developing this on windows with WLS, so qemu must be started in a hacky way 
 
 ## **Some useful makefile commands**
 Check out the make file to see all the options, but these are the most useful
-`make clean` will clean all built files
-`make all` will build all files
-`make run` will start the OS with Qemu
-`make deploy` will do all of the above in one step
+- `make clean` will clean all built files
+- `make all` will build all files
+- `make run` will start the OS with Qemu
+- `make deploy` will do all of the above in one step
 
 
 ## **Goals**
