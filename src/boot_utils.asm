@@ -103,156 +103,124 @@ stublet:
 
     ;if an ISR does not provide an error code on it's own, just push a 0 to the stack to keep them all the same
     isr0: ;divide by 0 exception
-        cli
         push byte 0 ; a dummy error code
         push byte 0 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr1: ;Debug exception
-        cli
         push byte 0 ; a dummy error code
         push byte 1 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr2: ;non maskable interrupt exception
-        cli
         push byte 0 ; a dummy error code
         push byte 2 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr3: ;Breakpoint exception
-        cli
         push byte 0 ; a dummy error code
         push byte 3 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr4: ;Into Detected Overflow exception
-        cli
         push byte 0 ; a dummy error code
         push byte 4 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr5: ;Out Of bounds exception
-        cli
         push byte 0 ; a dummy error code
         push byte 5 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr6: ;Invalide Opcode exception
-        cli
         push byte 0 ; a dummy error code
         push byte 6 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr7: ;No Coprocessor exception
-        cli
         push byte 0 ; a dummy error code
         push byte 7 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr8: ;Double Fault exception. Already pushes a fault code
-        cli
         push byte 8 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr9: ;Coprocessor Segment Overrun Exception
-        cli
         push byte 0 ; a dummy error code
         push byte 9 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr10: ;Bad TSS exception. Already pushes a fault code
-        cli
         push byte 10 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr11: ;Segment Not Present Exception. Already pushes a fault code
-        cli
         push byte 11 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr12: ;Stack Fault Exception. Already pushes a fault code
-        cli
         push byte 12 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr13: ;General Protection Fault Exception. Already pushes a fault code
-        cli
         push byte 13 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr14: ;Page Fault Exception. Already pushes a fault code
-        cli
         push byte 14 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr15: ;Unknown Interrupt Exception
-        cli
         push byte 0 ; a dummy error code
         push byte 15 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr16: ;Coprocessor Fault Exception
-        cli
         push byte 0 ; a dummy error code
         push byte 16 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr17: ;Alignment Check Exception
-        cli
         push byte 0 ; a dummy error code
         push byte 17 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr18: ;Machine Check Exception
-        cli
         push byte 0 ; a dummy error code
         push byte 18 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr19: ;Reserved Exception
-        cli
         push byte 0 ; a dummy error code
         push byte 19 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr20: ;Reserved Exception
-        cli
         push byte 0 ; a dummy error code
         push byte 20 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr21: ;Reserved Exception
-        cli
         push byte 0 ; a dummy error code
         push byte 21 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr22: ;Reserved Exception
-        cli
         push byte 0 ; a dummy error code
         push byte 22 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr23: ;Reserved Exception
-        cli
         push byte 0 ; a dummy error code
         push byte 23 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr24: ;Reserved Exception
-        cli
         push byte 0 ; a dummy error code
         push byte 24 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr25: ;Reserved Exception
-        cli
         push byte 0 ; a dummy error code
         push byte 25 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr26: ;Reserved Exception
-        cli
         push byte 0 ; a dummy error code
         push byte 26 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr27: ;Reserved Exception
-        cli
         push byte 0 ; a dummy error code
         push byte 27 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr28: ;Reserved Exception
-        cli
         push byte 0 ; a dummy error code
         push byte 28 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr29: ;Reserved Exception
-        cli
         push byte 0 ; a dummy error code
         push byte 29 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr30: ;Reserved Exception
-        cli
         push byte 0 ; a dummy error code
         push byte 30 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr31: ;Reserved Exception
-        cli
         push byte 0 ; a dummy error code
         push byte 31 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
@@ -260,13 +228,11 @@ stublet:
     extern fault_handler
 
     isr_common_stub: ; the place all ISRs will jump to
-       
         pusha
         push ds
         push es
         push fs
         push gs
-
         mov ax, 0x10   ; Load the Kernel Data Segment descriptor!
         mov ds, ax
         mov es, ax

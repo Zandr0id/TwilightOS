@@ -113,11 +113,13 @@ char *exception_messages[] =
 
 void fault_handler(struct regs *r)
 {
-    printf("FALUT HANDLER\n");
+    printf("***EXCEPTION***\n");
     if (r->int_no < 32)
     {
         printf("%s\n",exception_messages[r->int_no]);
-        printf("SYSTEM HALT. EXCEPTION");
+        printf("Error Code: %d\n",r->err_code);
+        printf("Exeption Number: %d\n",r->int_no);
+        printf("SYSTEM HALT...");
         while(true);
     }
     else

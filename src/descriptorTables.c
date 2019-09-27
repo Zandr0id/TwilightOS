@@ -43,7 +43,6 @@ struct idt_ptr
     unsigned int base;
 };
 
-
 struct gdt_entry gdt[3];
 struct gdt_ptr gdt_ptr;
 
@@ -66,7 +65,6 @@ void gdt_add_entry(int num, unsigned long base, unsigned long limit, unsigned ch
     gdt[num].granularity |= (gran & 0xF0);
     gdt[num].access = access;
 }
-
 void gdt_install()
 {
     printf("Install GDT\n");
@@ -84,7 +82,6 @@ void gdt_install()
 
     gdt_flush();
 }
-
 void idt_add_entry(unsigned char num, unsigned long base, unsigned short sel, unsigned char flags)
 {
     idt[num].always0 = 0;
@@ -93,7 +90,6 @@ void idt_add_entry(unsigned char num, unsigned long base, unsigned short sel, un
     idt[num].sel = sel;
     idt[num].flags = flags;
 }
-
 void idt_install()
 {
     printf("Install IDT\n");
