@@ -4,8 +4,6 @@ This is an experimental operating system from the ground up. I want to learn abo
 
 The make file has a number of useful options, however, you'll want to change the `make run` option to point to wherever you have qemu installed. I'm developing this on Windows with WLS, so qemu must be started in a hacky way with a Windows powershell.
 
-I'm using Visual Studio Code as my IDE, and the workspace file (.vscode) is supplied to make sure you get all the files imported automatically. You're welcome :)
-
 ## **Some useful makefile commands**
 Check out the make file to see all the options, but these are the most useful
 - `make clean` will clean all built files
