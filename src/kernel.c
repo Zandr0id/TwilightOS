@@ -18,9 +18,8 @@ void kernel_main(void)
 	printf("HI There\n\0");
 
 //exception test
-
-	int test = 5/0;
-	printf("%i",test);
+	//int test = 0;
+	//__asm volatile ("div %b0" : "+a"(test));
 
 	printf("DONE\n\0");
 }

@@ -98,7 +98,7 @@ void idt_install()
 {
     printf("Install IDT\n");
     idt_ptr.limit = (sizeof(struct idt_entry) * 256)-1;
-    memset((unsigned char*)&idt_ptr,0,sizeof(struct idt_entry)*256); //0 out all that memory
+    memset((unsigned char*)&idt,0,sizeof(idt)); //0 out all that memory
     idt_ptr.base = (unsigned int)&idt;
     idt_load();
 }

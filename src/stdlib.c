@@ -50,9 +50,3 @@ int strlen(const char* data)
     }
     return len;
 }
-
-void test_msg()
-{
-    printf("STOP\n");
-    while(true);
-}

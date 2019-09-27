@@ -16,7 +16,7 @@ OUTPUT_FILE = kernel.bin
 
 #The compiler and its flags
 CC = i686-elf-gcc
-CFLAGS = -c -std=gnu17 -ffreestanding -O2 -Wall -Wextra
+CFLAGS = -c -std=gnu17 -ffreestanding -O2 -Wall -Wextra -g
 
 #If I ever want to use C++
 CPP = i686-elf-c++

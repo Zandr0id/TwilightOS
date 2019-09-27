@@ -145,7 +145,6 @@ stublet:
     isr8: ;Double Fault exception. Already pushes a fault code
         cli
         push byte 8 ; which exeption it is
-        call test_msg
         jmp isr_common_stub ; a common function for all ISRs
     isr9: ;Coprocessor Segment Overrun Exception
         cli
@@ -273,7 +272,6 @@ stublet:
         mov es, ax
         mov fs, ax
         mov gs, ax
-        call test_msg
         mov eax, esp   ; Push us the stack pointer
         push eax
         mov eax, fault_handler
