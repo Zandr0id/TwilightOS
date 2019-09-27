@@ -265,28 +265,28 @@ stublet:
     isr_common_stub: ; the place all ISRs will jump to
        
         pusha
-        ;push ds
-        ;push es
-        ;push fs
-        ;push gs
+        push ds
+        push es
+        push fs
+        push gs
 
-        ;mov ax, 0x10   ; Load the Kernel Data Segment descriptor!
-        ;mov ds, ax
-        ;mov es, ax
-        ;mov fs, ax
-        ;mov gs, ax
+        mov ax, 0x10   ; Load the Kernel Data Segment descriptor!
+        mov ds, ax
+        mov es, ax
+        mov fs, ax
+        mov gs, ax
         call test_msg
-        ;mov eax, esp   ; Push us the stack pointer
-        ;push eax
-        ;mov eax, fault_handler
-        ;call eax       ; A special call, preserves the 'eip' register
-        ;pop eax
-        ;pop gs
-        ;pop fs
-        ;pop es
-        ;pop ds
+        mov eax, esp   ; Push us the stack pointer
+        push eax
+        mov eax, fault_handler
+        call eax       ; A special call, preserves the 'eip' register
+        pop eax
+        pop gs
+        pop fs
+        pop es
+        pop ds
         popa
-        ;add esp, 8     ; Cleans up the pushed error code and pushed ISR number
+        add esp, 8     ; Cleans up the pushed error code and pushed ISR number
         iret           ; pops 5 things at once: CS, EIP, EFLAGS, SS, and ESP!
 
 SECTION .bss

@@ -100,9 +100,5 @@ void idt_install()
     idt_ptr.limit = (sizeof(struct idt_entry) * 256)-1;
     memset((unsigned char*)&idt_ptr,0,sizeof(struct idt_entry)*256); //0 out all that memory
     idt_ptr.base = (unsigned int)&idt;
-    /*
-    add new ISR's here
-     */
-
     idt_load();
 }
