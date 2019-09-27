@@ -17,7 +17,7 @@ Check out the make file to see all the options, but these are the most useful
 ## **Goals**
 - [x] Be able to boot
 - [x] Display text to the screen
-- [x] GTD
+- [x] GDT
 - [ ] IDT
 - [ ] Keyboard Support
 - [ ] File System
