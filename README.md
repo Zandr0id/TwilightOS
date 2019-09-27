@@ -16,13 +16,12 @@ Check out the make file to see all the options, but these are the most useful
 - [x] Be able to boot
 - [x] Display text to the screen
 - [x] GDT
-- [ ] IDT
+- [X] IDT
 - [ ] Keyboard Support
 - [ ] File System
 - [ ] Graphics
 
 
 ## **Problems**
-- [ ] IDT does not seem to be working. Exceptions cause a triple fault
 - [ ] Library situation is very bad. Everything is in syslib. Need to clean it up.
 
