@@ -104,10 +104,8 @@ stublet:
     ;if an ISR does not provide an error code on it's own, just push a 0 to the stack to keep them all the same
     isr0: ;divide by 0 exception
         cli
-        ;push byte 0 ; a dummy error code
-       ; push byte 0 ; which exeption it is
-        ;call test_msg
-        ;ret
+        push byte 0 ; a dummy error code
+        push byte 0 ; which exeption it is
         jmp isr_common_stub ; a common function for all ISRs
     isr1: ;Debug exception
         cli

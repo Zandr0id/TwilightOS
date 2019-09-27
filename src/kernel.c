@@ -19,8 +19,8 @@ void kernel_main(void)
 
 //exception test
 
-	//int test = 5/0;
-	//printf("%i",test);
+	int test = 5/0;
+	printf("%i",test);
 
 	printf("DONE\n\0");
 }
