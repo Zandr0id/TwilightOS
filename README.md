@@ -2,7 +2,7 @@
 # ChaOS
 This is an experimental operating system from the ground up. I want to learn about what's going on *"under the hood"* and this is the best way to do it. It is built using the cross compiler described in the [OSDev.org Cross Compiler](https://wiki.osdev.org/GCC_Cross-Compiler) section.
 
-The make file has a number of useful options, however, you'll want to change the `make run` option to point to wherever you have qemu installed. I'm developing this on Windows with WLS, so qemu must be started in a hacky way with a Windows powershell.
+The make file has a number of useful options, however, you'll want to change the `make run` option to point to wherever you have qemu installed. I'm developing this on Windows with WSL, so qemu must be started in a hacky way with a Windows powershell.
 
 ## **Some useful makefile commands**
 Check out the make file to see all the options, but these are the most useful
