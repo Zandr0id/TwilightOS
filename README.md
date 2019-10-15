@@ -17,6 +17,7 @@ Check out the make file to see all the options, but these are the most useful
 - [x] Display text to the screen
 - [x] GDT
 - [X] IDT
+- [ ] System time
 - [ ] Keyboard Support
 - [ ] File System
 - [ ] Graphics
