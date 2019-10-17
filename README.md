@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 # ChaOS
 This is an experimental operating system from the ground up. I want to learn about what's going on *"under the hood"* and this is the best way to do it. It is built using the cross compiler described in the [OSDev.org Cross Compiler](https://wiki.osdev.org/GCC_Cross-Compiler) section.
@@ -27,4 +28,3 @@ Check out the make file to see all the options, but these are the most useful
 
 ## **Problems**
 - [ ] Library situation is very bad. Everything is in syslib. Need to clean it up.
-
