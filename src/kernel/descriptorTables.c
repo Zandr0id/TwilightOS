@@ -2,7 +2,8 @@
 This is the layout for the Global Descriptor Table
  */
 
-#include "libs/stdlib.h"
+#include "../include/stdlib.h"
+#include "../include/stdio.h"
 
 //__attribute__((packed)) is not working for some reason
 //both of these structs should have it.

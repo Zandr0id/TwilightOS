@@ -1,4 +1,4 @@
-#include "libs/stdlib.h"
+#include "../include/stdio.h"
 
 //converts a number to a base of choice
 char *convert(unsigned int num, int base) 
@@ -72,10 +72,6 @@ void printf( const char * format, ...)
             default:
                 break;
             }
-        }
-        else if(*traverse == '\n')
-        {
-            carraige_return();
         }
         else if(*traverse == '\t')
         {

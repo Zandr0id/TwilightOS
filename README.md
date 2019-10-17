@@ -9,6 +9,8 @@ Check out the make file to see all the options, but these are the most useful
 - `make clean` will clean all built files
 - `make build` will build all files
 - `make run` will start the OS with Qemu
+- `make files` will show you every file that is located for use in building
+- `make list` will show you all the other options
 - `make all` will do all of the above in one step
 
 
@@ -17,6 +19,7 @@ Check out the make file to see all the options, but these are the most useful
 - [x] Display text to the screen
 - [x] GDT
 - [X] IDT
+- [ ] System Time
 - [ ] Keyboard Support
 - [ ] File System
 - [ ] Graphics

@@ -4,7 +4,8 @@
 //change text color
 //move the cursor
 
-#include "libs/stdlib.h"
+#include "../include/stdlib.h"
+#include "../include/stdio.h"
 
 enum vga_color {
 	VGA_COLOR_BLACK = 0,
@@ -82,7 +83,8 @@ void print_char(const char * c)
 {
     if ((coursor_x > vga_width) || (*c == '\n'))
     {
-        carraige_return();
+        coursor_x++;
+        coursor_y= 0;
     }
     else
     {
@@ -90,13 +92,6 @@ void print_char(const char * c)
     }
     coursor_y++;
     update_cursor(coursor_x,coursor_y);
-}
-
-//moves the cursor back to the left, and down one row.
-void carraige_return()
-{
-    coursor_x++;
-    coursor_y= 0;
 }
 
 //goes through the entire screen and puts in blank spaces

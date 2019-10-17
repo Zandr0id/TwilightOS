@@ -1,5 +1,6 @@
-#include "libs/stdlib.h"
-
+#include "../include/stdlib.h"
+#include "../include/syslib.h"
+#include "../include/stdio.h"
 
 //all of these are defined in the boot_utils.asm file
 extern void isr0();
