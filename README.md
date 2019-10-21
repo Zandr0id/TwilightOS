@@ -18,11 +18,17 @@ This isan't a strict order, but make sense as a logical progression.
 - [x] GDT
 - [x] IDT
 - [x] Exceptions
-- [ ] System Time
+- [ ] System clock
+   * Keep time
+   * Delay/Sleep functions
 - [ ] Keyboard Support
 - [ ] Dynamic Memory
+   * malloc, heap
 - [ ] File System
+   * ext2
+   * VFS
 - [ ] Graphics
+   * GUI library
 
 
 ## **Problems**
