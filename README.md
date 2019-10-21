@@ -26,7 +26,8 @@ This isan't a strict order, but make sense as a logical progression.
 
 
 ## **Problems**
-- [ ] Organize file structure getter
+- [ ] Organize file structure better
    * Separate CPU based things.
+   * Look at POSIX libC.
 - [ ] Decide on Makefile process
    * Can't decide what is better. Single make file, or individual Makefiles per folder of source
