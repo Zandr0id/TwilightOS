@@ -12,6 +12,7 @@ Check out the make file to see all the options, but these are the most useful
 - `make files` will show you every file that is located for use in building process
 
 ## **Goals**
+This isan't a strict order, but make sense as a logical progression.
 - [x] Be able to boot
 - [x] Display text to the screen
 - [x] GDT
@@ -25,4 +26,7 @@ Check out the make file to see all the options, but these are the most useful
 
 
 ## **Problems**
-- [ ] Library situation is very bad. Everything is in syslib. Need to clean it up.
+- [ ] Organize file structure getter
+   * Separate CPU based things.
+- [ ] Decide on Makefile process
+   * Can't decide what is better. Single make file, or individual Makefiles per folder of source
