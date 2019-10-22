@@ -25,6 +25,7 @@ extern void gdt_install();
 extern void idt_add_entry(unsigned char num, unsigned long base, unsigned short sel, unsigned char flags);
 extern void idt_install();
 extern void isr_install();
+extern void timer_install(int freq);
 
 struct regs
 {

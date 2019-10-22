@@ -57,7 +57,6 @@ $(OUTPUT_FILE) : $(OBJ_FILES)
 	#@cd $(OBJS_DIR) 
 	$(CC) $(LDFLAGS) $(OBJ_FILES) -o $(OUTPUT_FILE)
 	echo "Linking $(OBJ_FILES) ----------> $@"
-	#@mv $@ $(BIN_DIR)
 
 # assemble any .asm files and put them in the OBJS_DIR
 $(OBJS_DIR)/%.o : $(SRC_DIR)/%.asm
@@ -96,7 +95,7 @@ list:
 	echo "rebuild ---> clean, then build"
 	echo "run     ---> run virtual test"
 	echo "all     ---> clean, build, then run"
-	echo "files     ---> show what source files will be used when building"
+	echo "files   ---> show what source files will be used when building"
 	echo "print   ---> prints a sick message"
 
 rebuild: print clean build
@@ -110,22 +109,7 @@ clean:
 	rm -f $(BIN_DIR)/*~ $(BIN_DIR)/*.bin
 
 print:
-	echo ""
-	echo ""
-	echo "     CCCCCCCCCCC                                           OOOOOOOOOOO             SSSSSSSSSSSS    "
-	echo "   CCCCCCCCCCCCCCC                                      OOOOOOOOOOOOOOOOO        SSSSSSSSSSSSSSSS  "
-	echo " CCCCC         CCCCC   hhh                           OOOOOO           OOOOOO    SSSSSS      SSSSSS "              
-	echo "CCCCC           CCCCC  hhh                          OOOOOO             OOOOOO  SSSSSS        SSSSSS"
-	echo "CCCCC                  hhh                          OOOOOO             OOOOOO    SSSSSSS           "
-	echo "CCCCC                  hhh            aaaaaa  aaa   OOOOOO             OOOOOO       SSSSSSSS       "
-	echo "CCCCC                  hhh           aaa  aaa aaa   OOOOOO             OOOOOO           SSSSSSS    "
-	echo "CCCCC                  hhh hhhh     aaa     aaaaa   OOOOOO             OOOOOO               SSSSSS "
-	echo "CCCCC           CCCCC  hhhhhhhhhh   aaa      aaaa   OOOOOO             OOOOOO  SSSSSS        SSSSSS"
-	echo " CCCCC         CCCCC   hhh     hhh  aaa     aaaaa    OOOOOO           OOOOOO    SSSSSS      SSSSSS "
-	echo "   CCCCCCCCCCCCCCC     hhh     hhh   aaa  aaa aaa       OOOOOOOOOOOOOOOOO        SSSSSSSSSSSSSSSS  "
-	echo "      CCCCCCCCCC       hhh     hhh    aaaaaa  aaaaa        OOOOOOOOOOO             SSSSSSSSSSSS    "
-	echo ""
-	echo ""
+	figlet -c ChaOS
 	
 run:
 	echo "Starting QEMU"

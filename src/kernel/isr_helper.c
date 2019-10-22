@@ -1,40 +1,14 @@
 #include "../include/stdlib.h"
 #include "../include/syslib.h"
 #include "../include/stdio.h"
+#include "../include/isr_helper.h"
 
-//all of these are defined in the boot_utils.asm file
-extern void isr0();
-extern void isr1();
-extern void isr2();
-extern void isr3();
-extern void isr4();
-extern void isr5();
-extern void isr6();
-extern void isr7();
-extern void isr8();
-extern void isr9();
-extern void isr10();
-extern void isr11();
-extern void isr12();
-extern void isr13();
-extern void isr14();
-extern void isr15();
-extern void isr16();
-extern void isr17();
-extern void isr18();
-extern void isr19();
-extern void isr20();
-extern void isr21();
-extern void isr22();
-extern void isr23();
-extern void isr24();
-extern void isr25();
-extern void isr26();
-extern void isr27();
-extern void isr28();
-extern void isr29();
-extern void isr30();
-extern void isr31();
+isr_t interrupt_handlers[256];
+
+void register_interrupt_handler(int n, isr_t handler)
+{
+    interrupt_handlers[n] = handler;
+}
 
 //links each ISR number with it's respctive function
 void isr_install()
@@ -72,8 +46,19 @@ void isr_install()
     idt_add_entry(29, (unsigned)isr29, 0x08, 0x8E);
     idt_add_entry(30, (unsigned)isr30, 0x08, 0x8E);
     idt_add_entry(31, (unsigned)isr31, 0x08, 0x8E);
-    //isr0();
-   // isr_common_stub();
+
+    outb(0x20,0x11);
+    outb(0xA0,0x11);
+    outb(0x21,0x20);
+    outb(0xA1,0x28);
+    outb(0x21,0x04);
+    outb(0xA1,0x02);
+    outb(0x21,0x01);
+    outb(0xA1,0x01);
+    outb(0x21,0x0);
+    outb(0xA1,0x0);
+
+    idt_add_entry(32, (unsigned)irq0, 0x08, 0x8E); //timer
 }
 
 char *exception_messages[] =
@@ -127,4 +112,20 @@ void fault_handler(struct regs *r)
     {
         printf("Unknown Exception.....oops....");
     }
+}
+
+void irq_handler(struct regs *r)
+{
+    unsigned int irq_number = r->int_no;
+    if (irq_number >= 40)
+    {
+        outb(0xA0,0x20);
+    }
+    outb(0x20,0x20);
+
+    if (interrupt_handlers[irq_number] != 0)
+   {
+       isr_t handler = interrupt_handlers[irq_number];
+       handler(r);
+   }
 }
