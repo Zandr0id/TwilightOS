@@ -1,5 +1,5 @@
 # ChaOS
-This is a project that is intended to become my every day use OS. I want to learn how to make the tools that I use everyday. It's still in the very first stages, but there are promising resultes so far. It's going to be somewhat POSIX complient so porting software is possible, and it will have some unix-likeness to it. The future plan is to use it as a base to develope standalone applicatoins for it, like a code IDE and web browser. Perhaps even a complier or language interpreter. 
+This is a project that is intended to become my every day use OS. I want to learn how to make the tools that I use everyday. It's still in the very first stages, but there are promising resultes so far. It's going to be somewhat POSIX complient so porting software is possible, and it will have some unix-likeness to it. The future plan is to use it as a base to develope standalone applications for it, like a code IDE and web browser. Perhaps even a complier or language interpreter. 
 
 ## Building
 For now, ChaOS is built using the cross compiler described in the [OSDev.org Cross Compiler](https://wiki.osdev.org/GCC_Cross-Compiler) section. I'm using Visual Studio Code as the main editor and doing the compiling with the Windows Subsystem for Linux. I've only done testing on Qemu and VirtualBox, but you can try any emulator you want. You'll have to change the path in the `make run` recipe to use what you want if you want to use that command.
@@ -18,22 +18,21 @@ This isan't a strict order, but make sense as a logical progression.
 - [x] GDT
 - [x] IDT
 - [x] Exceptions
-- [ ] System clock
-   * Keep time
-   * Delay/Sleep functions
+- [x] System clock
+   - [ ] Keep time
+   - [ ] Delay/Sleep functions
 - [ ] Keyboard Support
 - [ ] Dynamic Memory
-   * malloc, heap
+   - [ ] malloc, heap
 - [ ] File System
-   * ext2
-   * VFS
+   - [ ] ext2
+   - [ ] VFS
 - [ ] Graphics
-   * GUI library
+   - [ ] GUI library
 
 
 ## **Problems**
 #### Code
-- [ ] PIC will not remap
 
 #### Theory
 - [ ] Organize file structure better
