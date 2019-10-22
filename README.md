@@ -33,7 +33,6 @@ This isan't a strict order, but make sense as a logical progression.
 
 ## **Problems**
 #### Code
-- [ ] PIC will not remap
 
 #### Theory
 - [ ] Organize file structure better
