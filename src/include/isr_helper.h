@@ -39,8 +39,8 @@ extern void isr30();
 extern void isr31();
 
 //IRQs
-extern void irq0();
-extern void irq1();
+extern void irq0(); //timer
+extern void irq1(); //keyboard
 extern void irq2();
 extern void irq3();
 extern void irq4();
@@ -59,6 +59,5 @@ extern void irq16();
 
 typedef void (*isr_t)(regs);
 void register_interrupt_handler(int n, isr_t handler);
-
 
 #endif //ISR_HELPER_H_
