@@ -175,11 +175,10 @@
         jmp exception_common_stub ; a common function for all ISRs
     
     irq0: 
-        call TEST_MSG
         push byte 0
         push byte 32
         jmp irq_common_stub
-    irq1: 
+    irq1:
         push byte 1
         push byte 33
         jmp irq_common_stub
@@ -271,19 +270,24 @@
 
     irq_common_stub:
         pusha
-        mov ax, ds
-        push eax
-        mov ax, 0x10
-        mov dx, ax
+        push ds
+        push es
+        push fs
+        push gs
+        mov ax, 0x10   ; Load the Kernel Data Segment descriptor!
+        mov ds, ax
         mov es, ax
         mov fs, ax
         mov gs, ax
-        call irq_handler ; in a different file
-        pop ebx
-        mov ds, bx
-        mov es, bx
-        mov fs, bx
-        mov gs, bx
-        popa 
-        add esp, 0
-        iret
+        mov eax, esp   ; Push us the stack pointer
+        push eax
+        mov eax, irq_handler
+        call eax       ; A special call, preserves the 'eip' register
+        pop eax
+        pop gs
+        pop fs
+        pop es
+        pop ds
+        popa
+        add esp, 8     ; Cleans up the pushed error code and pushed ISR number
+        iret           ; pops 5 things at once: CS, EIP, EFLAGS, SS, and ESP!

@@ -57,7 +57,7 @@ extern void irq14();
 extern void irq15();
 extern void irq16();
 
-typedef void (*isr_t)(regs);
+typedef void (*isr_t)(struct regs);
 void register_interrupt_handler(int n, isr_t handler);
 
 #endif //ISR_HELPER_H_

@@ -10,6 +10,12 @@ void register_interrupt_handler(int n, isr_t handler)
     interrupt_handlers[n] = handler;
 }
 
+
+void TEST_MSG()
+{
+    printf("TEST\n\0");
+}
+
 //links each ISR number with it's respctive function
 void isr_install()
 {
@@ -59,6 +65,7 @@ void isr_install()
     outb(0xA1,0x0);
 
     idt_add_entry(32, (unsigned)irq0, 0x08, 0x8E); //timer
+    idt_add_entry(33, (unsigned)irq1, 0x08, 0x8E); //timer
 }
 
 char *exception_messages[] =
@@ -117,15 +124,18 @@ void fault_handler(struct regs *r)
 void irq_handler(struct regs *r)
 {
     unsigned int irq_number = r->int_no;
+    
+    //acknowledge the PIC so it will send more interrupts
     if (irq_number >= 40)
     {
         outb(0xA0,0x20);
     }
     outb(0x20,0x20);
 
+
     if (interrupt_handlers[irq_number] != 0)
    {
        isr_t handler = interrupt_handlers[irq_number];
-       handler(r);
+       handler(*r);
    }
 }

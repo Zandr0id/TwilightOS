@@ -4,10 +4,11 @@
 
 int ticks = 0;
 
-void timer_callback(struct regs *r)
+void timer_callback()//struct regs *r)
 {
     ticks++;
     printf("Tick %d\n\0",ticks);
+      
 }
 
 void timer_install(int freq)
@@ -22,9 +23,4 @@ void timer_install(int freq)
     outb(0x43,0x36);
     outb(0x40,low);
     outb(0x40,high);
-}
-
-void TEST_MSG()
-{
-    printf("TEST\n\0");
 }

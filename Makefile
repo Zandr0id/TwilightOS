@@ -30,7 +30,7 @@ OUTPUT_FILE = $(BIN_DIR)/kernel.bin
 
 
 #flags used by both compilers
-COMMON_FLAGS = -c -O2 -ffreestanding -lgcc -Wall -Wextra -l$(INCLUDE_DIR)
+COMMON_FLAGS = -c -O2 -ffreestanding -lgcc -Werror -Wall -Wextra -l$(INCLUDE_DIR)
 
 #The compiler and its flags
 CC = i686-elf-gcc
@@ -109,9 +109,10 @@ clean:
 	rm -f $(BIN_DIR)/*~ $(BIN_DIR)/*.bin
 
 print:
-	figlet -c ChaOS
+	figlet -c ChaOS -f banner
 	
 run:
 	echo "Starting QEMU"
-	powershell.exe start scripts/run_qemu.bat
+	qemu-system-i386 -kernel $(OUTPUT_FILE)
+	#powershell.exe start scripts/run_qemu.bat
 

@@ -86,8 +86,8 @@ void gdt_install()
 void idt_add_entry(unsigned char num, unsigned long base, unsigned short sel, unsigned char flags)
 {
     idt[num].always0 = 0;
-    idt[num].base_low = (base & 0xFFFF);
-    idt[num].base_hi = (base >> 16) & 0xFFFF;
+    idt[num].base_low = (unsigned short) (base & 0xFFFF);
+    idt[num].base_hi = (unsigned short) (base >> 16) & 0xFFFF;
     idt[num].sel = sel;
     idt[num].flags = flags;
 }

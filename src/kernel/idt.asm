@@ -4,4 +4,5 @@
 
     idt_load:
         lidt[idt_ptr]
+        sti
         ret
