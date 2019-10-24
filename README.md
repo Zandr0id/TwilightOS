@@ -33,7 +33,7 @@ This isan't a strict order, but make sense as a logical progression.
 
 ## **Problems**
 #### Code
-
+- Keyboard interrupt only fires once, and never again
 #### Theory
 - [ ] Organize file structure better
   * Separate CPU based things
