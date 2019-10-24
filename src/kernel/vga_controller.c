@@ -62,17 +62,6 @@ void update_cursor(int x, int y)
 	outb(0x3D5, (uint8_t) ((pos >> 8) & 0xFF));
 }
 
-void scroll_screen() //TODO: use memcpy
-{
-    uint32_t max = vga_height * vga_width;
-
-    for (uint16_t i = vga_width+1; i<max; i++)
-    {
-        screen_buffer[i-vga_width] = screen_buffer[i];
-    }
-    coursor_x-=1;
-}
-
 //blends the char with the color bits that are needed for vga
 uint16_t format_char_data(char c)
 {
@@ -88,6 +77,22 @@ void place_char_at_location(char c, size_t x, size_t y)
     screen_buffer[(x * vga_width) + y] = format_char_data(c); //put the char at the location
 }
 
+void scroll_screen() //TODO: use memcpy
+{
+    uint32_t max = vga_height * vga_width;
+
+    for (uint16_t i = vga_width+1; i<max; i++)
+    {
+        screen_buffer[i-vga_width] = screen_buffer[i];
+    }
+
+    for (uint16_t i = -1; i < vga_width; i++)
+    {
+        place_char_at_location(' ', vga_height, i);
+    }
+    coursor_x-=1;
+}
+
 //prints a single char to the screen, and keeps track of when 
 //there needs to be a carrage return
 void print_char(const char * c)
@@ -95,7 +100,7 @@ void print_char(const char * c)
     if ((coursor_y > vga_width) || (*c == '\n'))
     {
         coursor_x++;
-        coursor_y= 0;
+        coursor_y=-1;
     }
     else if (coursor_x > vga_height-1)
     {
