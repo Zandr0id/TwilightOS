@@ -19,15 +19,28 @@ void kernel_main(void)
 	printf(" \\____|_| |_|\\__,_|\\___/|____/\n\0");
 	printf("\n\0");
 
-
+	//set the Global Descriptor Table
 	gdt_install();
+
+	//set the Interrupt Descriptor Table
 	idt_install();
+
+	//fill the IDT with interrupt functions
 	isr_install();
-	timer_install(20); //start the system clock
+
+	//reprogram the PIC
+	PIC_install();
+
+	//install the keyboard interrupt
+	keyboard_install();
+
+	//start the system clock
+	time_install(1000); //100hz
 
 	printf("Int: %d \nChar: %c \nHex: %x \nOct: %o \nStr: %s \n\0",-85,"R",255,128,"Hello");
 
 	set_text_green();
+    //printf("Seconds %d\n\0",time->seconds_since_poweron); TODO: make time accessable everywhere
 
 //exception test
 #ifdef INSTA_FAIL
@@ -36,4 +49,9 @@ void kernel_main(void)
 #endif
 
 	printf("DONE\n\0");
+
+	while(true)
+	{
+	}
+
 }

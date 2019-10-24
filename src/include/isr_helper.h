@@ -1,6 +1,15 @@
 #ifndef ISR_HELPER_H_
 #define ISR_HELPER_H_
 
+#include "../include/syslib.h"
+
+enum PIC_Ports
+{
+    PIC0_CMD = 0x20,
+    PIC0_DATA = 0x21,
+    PIC1_CMD = 0xA0,
+    PIC1_DATA = 0xA1
+};
 
 //all of these are defined in the boot_utils.asm file
 

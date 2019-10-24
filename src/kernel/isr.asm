@@ -282,6 +282,7 @@
         mov eax, esp   ; Push us the stack pointer
         push eax
         mov eax, irq_handler
+        ;call TEST_MSG
         call eax       ; A special call, preserves the 'eip' register
         pop eax
         pop gs

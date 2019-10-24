@@ -10,7 +10,7 @@ void register_interrupt_handler(int n, isr_t handler)
     interrupt_handlers[n] = handler;
 }
 
-
+//TODO: Remove this eventually
 void TEST_MSG()
 {
     printf("TEST\n\0");
@@ -19,6 +19,7 @@ void TEST_MSG()
 //links each ISR number with it's respctive function
 void isr_install()
 {
+    //Exception handlers
     printf("Install ISR\n");
     idt_add_entry(0, (unsigned)isr0, 0x08, 0x8E);
     idt_add_entry(1, (unsigned)isr1, 0x08, 0x8E);
@@ -53,19 +54,29 @@ void isr_install()
     idt_add_entry(30, (unsigned)isr30, 0x08, 0x8E);
     idt_add_entry(31, (unsigned)isr31, 0x08, 0x8E);
 
-    outb(0x20,0x11);
-    outb(0xA0,0x11);
-    outb(0x21,0x20);
-    outb(0xA1,0x28);
-    outb(0x21,0x04);
-    outb(0xA1,0x02);
-    outb(0x21,0x01);
-    outb(0xA1,0x01);
-    outb(0x21,0x0);
-    outb(0xA1,0x0);
-
+    //start of IRQs
+    printf("Install IRQs\n");
     idt_add_entry(32, (unsigned)irq0, 0x08, 0x8E); //timer
-    idt_add_entry(33, (unsigned)irq1, 0x08, 0x8E); //timer
+    idt_add_entry(33, (unsigned)irq1, 0x08, 0x8E); //keyboard
+}
+
+void PIC_install()
+{
+    //program the PIC
+    printf("Reprogramming PIC\n");
+    outb(PIC0_CMD,0x11);
+    outb(PIC1_CMD,0x11);
+    outb(PIC0_DATA,0x20);
+    outb(PIC1_DATA,0x28);
+    outb(PIC0_DATA,0x04);
+    outb(PIC1_DATA,0x02);
+    outb(PIC0_DATA,0x01);
+    outb(PIC1_DATA,0x01);
+
+    //set all interrupts on
+    //TODO: turn all of and turn on as needed
+    outb(PIC0_DATA,0x0);
+    outb(PIC1_DATA,0x0);
 }
 
 char *exception_messages[] =
@@ -131,7 +142,6 @@ void irq_handler(struct regs *r)
         outb(0xA0,0x20);
     }
     outb(0x20,0x20);
-
 
     if (interrupt_handlers[irq_number] != 0)
    {

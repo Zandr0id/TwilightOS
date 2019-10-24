@@ -19,13 +19,15 @@ extern void set_text_blue();
 extern void set_text_green();
 extern void set_text_red();
 
-// descriptor table functions
+// system installation functions
 extern void gdt_add_entry(int num, unsigned long base, unsigned long limit, unsigned char access, unsigned char gran);
 extern void gdt_install();
 extern void idt_add_entry(unsigned char num, unsigned long base, unsigned short sel, unsigned char flags);
 extern void idt_install();
 extern void isr_install();
-extern void timer_install(int freq);
+extern void time_install(int freq);
+extern void PIC_install();
+extern void keyboard_install();
 
 struct regs
 {
