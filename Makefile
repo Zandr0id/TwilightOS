@@ -109,10 +109,10 @@ clean:
 	rm -f $(BIN_DIR)/*~ $(BIN_DIR)/*.bin
 
 print:
-	figlet -c ChaOS -f banner
+	figlet -c ChaOS
 	
 run:
 	echo "Starting QEMU"
-	qemu-system-i386 -kernel $(OUTPUT_FILE)
-	#powershell.exe start scripts/run_qemu.bat
+	#qemu-system-i386 -kernel $(OUTPUT_FILE)
+	powershell.exe start scripts/run_qemu.bat
 
