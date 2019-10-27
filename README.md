@@ -19,21 +19,21 @@ This isan't a strict order, but make sense as a logical progression.
 - [x] IDT
 - [x] Exceptions
 - [x] System clock
-   - [ ] Keep time
-   - [ ] Delay/Sleep functions
+   - ~Keep time~
+   - Delay/Sleep functions
 - [ ] Keyboard Support
 - [ ] Dynamic Memory
-   - [ ] malloc, heap
+   - malloc, heap
 - [ ] File System
-   - [ ] ext2
-   - [ ] VFS
+   - ext2
+   - VFS
 - [ ] Graphics
-   - [ ] GUI library
+   - GUI library
 
 
 ## **Problems**
 #### Code
-
+- Keyboard interrupt only fires once, and never again
 #### Theory
 - [ ] Organize file structure better
   * Separate CPU based things
