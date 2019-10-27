@@ -29,6 +29,9 @@ extern void time_install(int freq);
 extern void PIC_install();
 extern void keyboard_install();
 
+//beginning of syscalls?
+extern unsigned int get_system_uptime();
+
 struct regs
 {
     unsigned int gs, fs, es, ds;
@@ -36,8 +39,5 @@ struct regs
     unsigned int int_no, err_code;
     unsigned int eip, cs, eflags, useresp, ss;
 };
-
-
-
 
 #endif //SYSLIB_H_
