@@ -7,8 +7,11 @@ static time_data time; // the master system clock, for now
 void timer_callback()//struct regs *r)
 {
     increment_time(&time);
-    //printf("TIME\n");
-    printf("Seconds %d\n\0",time.millisecs_since_poweron);
+}
+
+unsigned int get_system_uptime()
+{
+    return time.millisecs_since_poweron;
 }
 
 void time_install(int freq)

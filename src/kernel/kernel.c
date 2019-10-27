@@ -35,12 +35,12 @@ void kernel_main(void)
 	keyboard_install();
 
 	//start the system clock
-	time_install(1000); //100hz
+	time_install(1000); //1000hz
 
 	printf("Int: %d \nChar: %c \nHex: %x \nOct: %o \nStr: %s \n\0",-85,"R",255,128,"Hello");
 
 	set_text_green();
-    //printf("Seconds %d\n\0",time->seconds_since_poweron); TODO: make time accessable everywhere
+ 
 
 //exception test
 #ifdef INSTA_FAIL
@@ -52,6 +52,7 @@ void kernel_main(void)
 
 	while(true)
 	{
+		printf("Millisecs since poweron: %d\n\0",get_system_uptime()); //TODO: make time accessable everywhere
 	}
 
 }

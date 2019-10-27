@@ -19,11 +19,9 @@ enum PIT_Ports
 typedef struct time_data
 {
     int clock_divisor; //fed to timer to 
-    unsigned millisecs_since_poweron; //a huge spot to count all system ticks
-    unsigned seconds_since_poweron; //seconds 
-    unsigned minutes_since_poweron; //minutes
-    
-    
+    unsigned int millisecs_since_poweron; //a huge spot to count all system ticks
+    unsigned int seconds_since_poweron; //seconds 
+    unsigned int minutes_since_poweron; //minutes
     
     /*TODO: This not working for some reason
     time_data()
