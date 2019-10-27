@@ -5,7 +5,9 @@
 
 void keyboard_callback()
 {
-    printf("key pressed\n");
+    //printf("key pressed\n");
+    unsigned char scancode = inb(Keyboard_Encoder);
+    printf("Scancode: %d\n", scancode);
 }
 
 

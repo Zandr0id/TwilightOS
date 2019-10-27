@@ -52,7 +52,7 @@ void kernel_main(void)
 
 	while(true)
 	{
-		printf("Millisecs since poweron: %d\n\0",get_system_uptime()); //TODO: make time accessable everywhere
+		//printf("Millisecs since poweron: %d\n\0",get_system_uptime()); //TODO: make time accessable everywhere
 	}
 
 }
