@@ -12,7 +12,7 @@ Check out the make file to see all the options, but these are the most useful
 - `make files` will show you every file that is located for use in building process
 
 ## **Goals**
-This isan't a strict order, but make sense as a logical progression.
+This isan't a strict order, but makes sense as a logical progression.
 - [x] Be able to boot
 - [x] Display text to the screen
 - [x] GDT
@@ -33,7 +33,7 @@ This isan't a strict order, but make sense as a logical progression.
 
 ## **Problems**
 #### Code
-- Keyboard interrupt only fires once, and never again
+None right now...
 #### Theory
 - [ ] Organize file structure better
   * Separate CPU based things
