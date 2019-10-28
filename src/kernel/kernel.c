@@ -12,7 +12,7 @@ void kernel_main(void)
 	clear_screen();
 
 	set_text_red();
-    printf("   ____ _            ___  ____\n\0"); 
+    printf("  ____ _            ___  ____\n\0"); 
 	printf(" / ___| |__   __ _ / _ \\/ ___|\n\0");
 	printf("| |   | '_ \\ / _` | | | \\___ \\\n\0"); 
 	printf("| |___| | | | (_| | |_| |___) |\n\0");
