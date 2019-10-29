@@ -53,6 +53,13 @@ void kernel_main(void)
 	while(true)
 	{
 		//printf("Millisecs since poweron: %d\n\0",get_system_uptime()); //TODO: make time accessable everywhere
+		//unsigned char * temp = (unsigned char *)get_last_character();
+		char temp = get_last_character();
+		char * temp_2 = &temp;
+		if (0x00 != temp)
+		{
+			//printf("%d ", temp);
+			print_char(temp_2);
+		}
 	}
-
 }

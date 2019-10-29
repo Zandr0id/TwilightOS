@@ -31,6 +31,7 @@ extern void keyboard_install();
 
 //beginning of syscalls?
 extern unsigned int get_system_uptime();
+extern int get_last_character();
 
 struct regs
 {
