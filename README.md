@@ -25,7 +25,7 @@ This isn't a strict order, but makes sense as a logical progression.
 - [x] System clock
    - ~Keep time~
    - Delay/Sleep functions
-- [ ] Keyboard Support
+- [x] Keyboard Support
 - [ ] Dynamic Memory
    - malloc, heap
 - [ ] File System
