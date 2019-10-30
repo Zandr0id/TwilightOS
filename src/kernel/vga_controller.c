@@ -86,30 +86,45 @@ void scroll_screen() //TODO: use memcpy
         screen_buffer[i-vga_width] = screen_buffer[i];
     }
 
-    for (uint16_t i = -1; i < vga_width; i++)
+    for (uint16_t i = 0; i < vga_width; i++)
     {
-        place_char_at_location(' ', vga_height, i);
+        place_char_at_location(' ', vga_height-1, i);
     }
-    coursor_x-=1;
+    //coursor_x-=1;
 }
 
 //prints a single char to the screen, and keeps track of when 
 //there needs to be a carrage return
 void print_char(const char * c)
 {
-    if ((coursor_y > vga_width) || (*c == '\n'))
+    if ((coursor_y > vga_width-1) || (*c == '\n'))
     {
-        coursor_x++;
-        coursor_y=-1;
+        if (coursor_x >= vga_height-1)
+        {
+            scroll_screen();
+        }
+        else
+        {
+            coursor_x++;
+
+        }
+
+        coursor_y=0;
+        if (*c != '\n')
+        {
+            place_char_at_location(*c,coursor_x, coursor_y);
+        }
     }
     else if (coursor_x > vga_height-1)
     {
         scroll_screen();
+        place_char_at_location(*c,coursor_x, coursor_y);
     }
     else
     {
         place_char_at_location(*c,coursor_x, coursor_y);
     }
+    
 
     coursor_y++;
     update_cursor(coursor_x,coursor_y);
