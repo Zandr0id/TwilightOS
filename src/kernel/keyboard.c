@@ -4,37 +4,6 @@
 
 static keyboard_scancode_buffer keyboard_buffer;
 
-enum Keyboard_Keys
-{
-    Keyboard_A = 0x1E,
-    Keyboard_B = 0x30,
-    Keyboard_C = 0x2E,
-    Keyboard_D = 0x20,
-    Keyboard_E = 0x12,
-    Keyboard_F = 0x21,
-    Keyboard_G = 0x22,
-    Keyboard_H = 0x23,
-    Keyboard_I = 0x17,
-    Keyboard_J = 0x24,
-    Keyboard_K = 0x25,
-    Keyboard_L = 0x26,
-    Keyboard_M = 0x32,
-    Keyboard_N = 0x31,
-    Keyboard_O = 0x18,
-    Keyboard_P = 0x19,
-    Keyboard_Q = 0x10,
-    Keyboard_R = 0x13,
-    Keyboard_S = 0x1F,
-    Keyboard_T = 0x14,
-    Keyboard_U = 0x16,
-    Keyboard_V = 0x2F,
-    Keyboard_W = 0x11,
-    Keyboard_X = 0x2D,
-    Keyboard_Y = 0x15,
-    Keyboard_Z = 0x2C,
-    Keyboard_SPACE = 0x39,
-    Keyboard_TOGGLE = 0xE0
-};
 
 void keyboard_callback()
 {
@@ -44,156 +13,355 @@ void keyboard_callback()
     {
         keyboard_buffer.modified_table = true;
     }
+    else if ((Keyboard_SHIFT_L_PRESS == scancode) || (Keyboard_SHIFT_R_PRESS == scancode))
+    {
+        keyboard_buffer.shift_pressed = true;
+    }
+    else if ((Keyboard_SHIFT_L_RELEASE == scancode) || (Keyboard_SHIFT_R_RELEASE == scancode))
+    {
+        keyboard_buffer.shift_pressed = false;
+    }
     else
     {
         keyboard_buffer.scancode = scancode;
     }
 }
 
-int get_last_character()
+char get_last_character()
 {
-    if (
-        Keyboard_A == keyboard_buffer.scancode) 
+    char return_char;
+    switch (keyboard_buffer.scancode)
     {
-        keyboard_buffer.scancode = 0;
-        return 'a';
+        case Keyboard_A: 
+        {   
+            if (true == keyboard_buffer.shift_pressed)
+            {
+                return_char = 'A';
+            }
+            else
+            {
+                return_char ='a';
+            }
+            break;
+        }
+        case Keyboard_B:
+        {
+            if (true == keyboard_buffer.shift_pressed)
+            {
+                return_char = 'B';
+            }
+            else
+            {
+                return_char = 'b';
+            }
+            break;
+        }
+        case Keyboard_C:
+        {
+            if (true == keyboard_buffer.shift_pressed)
+            {
+                return_char = 'C';
+            }
+            else
+            {
+                return_char = 'c';
+            }
+            break;
+        }
+        case Keyboard_D:
+        {
+            if (true == keyboard_buffer.shift_pressed)
+            {
+                return_char = 'D';
+            }
+            else
+            {
+                return_char = 'd';
+            }
+            break;
+        }
+        case Keyboard_E: 
+        {
+            if (true == keyboard_buffer.shift_pressed)
+            {
+                return_char = 'E';
+            }
+            else
+            {
+                return_char = 'e';
+            }
+            break;
+        }
+        case Keyboard_F: 
+        {
+            if (true == keyboard_buffer.shift_pressed)
+            {
+                return_char = 'F';
+            }
+            else
+            {
+                return_char = 'f';
+            }
+            break;
+        }
+        case Keyboard_G:
+        {
+            if (true == keyboard_buffer.shift_pressed)
+            {
+                return_char = 'G';
+            }
+            else
+            {
+                return_char = 'g';
+            }
+            break;
+        }
+        case Keyboard_H:
+        {
+            if (true == keyboard_buffer.shift_pressed)
+            {
+                return_char = 'H';
+            }
+            else
+            {
+                return_char = 'h';
+            }
+            break;
+        }
+        case Keyboard_I:
+        {
+            if (true == keyboard_buffer.shift_pressed)
+            {
+                return_char = 'I';
+            }
+            else
+            {
+                return_char = 'i';
+            }
+            break;
+        }
+        case Keyboard_J:
+        {
+            if (true == keyboard_buffer.shift_pressed)
+            {
+                return_char = 'J';
+            }
+            else
+            {
+                return_char = 'j';
+            }
+            break;
+        }
+        case Keyboard_K:
+        {
+            if (true == keyboard_buffer.shift_pressed)
+            {
+                return_char = 'K';
+            }
+            else
+            {
+                return_char = 'k';
+            }
+            break;
+        }
+        case Keyboard_L:
+        {
+            if (true == keyboard_buffer.shift_pressed)
+            {
+                return_char = 'L';
+            }
+            else
+            {
+                return_char = 'l';
+            }
+            break;
+        }
+        case Keyboard_M: 
+        {
+            if (true == keyboard_buffer.shift_pressed)
+            {
+                return_char = 'M';
+            }
+            else
+            {
+                return_char = 'm';
+            }
+            break;
+        }
+        case Keyboard_N:
+        {
+            if (true == keyboard_buffer.shift_pressed)
+            {
+                return_char = 'N';
+            }
+            else
+            {
+                return_char = 'n';
+            }
+            break;
+        }
+        case Keyboard_O:
+        {
+            if (true == keyboard_buffer.shift_pressed)
+            {
+                return_char = 'O';
+            }
+            else
+            {
+                return_char = 'o';
+            }
+            break;
+        }
+        case Keyboard_P:
+        {
+            if (true == keyboard_buffer.shift_pressed)
+            {
+                return_char = 'P';
+            }
+            else
+            {
+                return_char = 'p';
+            }
+            break;
+        }
+        case Keyboard_Q:
+        {
+            if (true == keyboard_buffer.shift_pressed)
+            {
+                return_char = 'Q';
+            }
+            else
+            {
+                return_char = 'q';
+            }
+            break;
+        }
+        case Keyboard_R:
+        {
+            if (true == keyboard_buffer.shift_pressed)
+            {
+                return_char = 'R';
+            }
+            else
+            {
+                return_char = 'r';
+            }
+            break;
+        }
+        case Keyboard_S:
+        {
+            if (true == keyboard_buffer.shift_pressed)
+            {
+                return_char = 'S';
+            }
+            else
+            {
+                return_char = 's';
+            }
+            break;
+        }
+        case Keyboard_T:
+        {
+            if (true == keyboard_buffer.shift_pressed)
+            {
+                return_char = 'T';
+            }
+            else
+            {
+                return_char = 't';
+            }
+            break;
+        }
+        case Keyboard_U:
+        {
+            if (true == keyboard_buffer.shift_pressed)
+            {
+                return_char = 'U';
+            }
+            else
+            {
+                return_char = 'u';
+            }
+            break;
+        }
+        case Keyboard_V:
+        {
+            if (true == keyboard_buffer.shift_pressed)
+            {
+                return_char = 'V';
+            }
+            else
+            {
+                return_char = 'v';
+            }
+            break;
+        }
+        case Keyboard_W:
+        {
+            if (true == keyboard_buffer.shift_pressed)
+            {
+                return_char = 'W';
+            }
+            else
+            {
+                return_char = 'w';
+            }
+            break;
+        }
+        case Keyboard_X:
+        {
+            if (true == keyboard_buffer.shift_pressed)
+            {
+                return_char = 'X';
+            }
+            else
+            {
+                return_char = 'x';
+            }
+            break;
+        }
+        case Keyboard_Y:
+        {
+            if (true == keyboard_buffer.shift_pressed)
+            {
+                return_char = 'Y';
+            }
+            else
+            {
+                return_char = 'y';
+            }
+            break;
+        }
+        case Keyboard_Z:
+        {
+            if (true == keyboard_buffer.shift_pressed)
+            {
+                return_char = 'Z';
+            }
+            else
+            {
+                return_char = 'z';
+            }
+            break;
+        }
+        case Keyboard_SPACE:
+        {
+            return_char = ' ';
+            break;
+        }
+        case Keyboard_ENTER:
+        {
+            return_char = '\n';
+            break;
+        }
+        default:
+        {
+            return_char = 0x00;
+            break;
+        }
     }
-    else if (Keyboard_B == keyboard_buffer.scancode )
-    {
-        keyboard_buffer.scancode = 0;
-        return 'b';
-    }
-    else if (Keyboard_C == keyboard_buffer.scancode)
-    {
-        keyboard_buffer.scancode = 0;
-        return 'c';
-    }
-        else if (Keyboard_D == keyboard_buffer.scancode)
-    {
-        keyboard_buffer.scancode = 0;
-        return 'd';
-    }
-        else if (Keyboard_E == keyboard_buffer.scancode)
-    {
-        keyboard_buffer.scancode = 0;
-        return 'e';
-    }
-        else if (Keyboard_F == keyboard_buffer.scancode)
-    {
-        keyboard_buffer.scancode = 0;
-        return 'f';
-    }
-        else if (Keyboard_G == keyboard_buffer.scancode)
-    {
-        keyboard_buffer.scancode = 0;
-        return 'g';
-    }
-        else if (Keyboard_H == keyboard_buffer.scancode)
-    {
-        keyboard_buffer.scancode = 0;
-        return 'h';
-    }
-        else if (Keyboard_I == keyboard_buffer.scancode)
-    {
-        keyboard_buffer.scancode = 0;
-        return 'i';
-    }
-        else if (Keyboard_J == keyboard_buffer.scancode)
-    {
-        keyboard_buffer.scancode = 0;
-        return 'j';
-    }
-        else if (Keyboard_K == keyboard_buffer.scancode)
-    {
-        keyboard_buffer.scancode = 0;
-        return 'k';
-    }
-        else if (Keyboard_L == keyboard_buffer.scancode)
-    {
-        keyboard_buffer.scancode = 0;
-        return 'l';
-    }
-        else if (Keyboard_M == keyboard_buffer.scancode)
-    {
-        keyboard_buffer.scancode = 0;
-        return 'm';
-    }
-        else if (Keyboard_N == keyboard_buffer.scancode)
-    {
-        keyboard_buffer.scancode = 0;
-        return 'n';
-    }
-        else if (Keyboard_O == keyboard_buffer.scancode)
-    {
-        keyboard_buffer.scancode = 0;
-        return 'o';
-    }
-        else if (Keyboard_P == keyboard_buffer.scancode)
-    {
-        keyboard_buffer.scancode = 0;
-        return 'p';
-    }
-        else if (Keyboard_Q == keyboard_buffer.scancode)
-    {
-        keyboard_buffer.scancode = 0;
-        return 'q';
-    }
-        else if (Keyboard_R == keyboard_buffer.scancode)
-    {
-        keyboard_buffer.scancode = 0;
-        return 'r';
-    }
-        else if (Keyboard_S == keyboard_buffer.scancode)
-    {
-        keyboard_buffer.scancode = 0;
-        return 's';
-    }
-        else if (Keyboard_T == keyboard_buffer.scancode)
-    {
-        keyboard_buffer.scancode = 0;
-        return 't';
-    }
-        else if (Keyboard_U == keyboard_buffer.scancode)
-    {
-        keyboard_buffer.scancode = 0;
-        return 'u';
-    }
-        else if (Keyboard_V == keyboard_buffer.scancode)
-    {
-        keyboard_buffer.scancode = 0;
-        return 'v';
-    }
-        else if (Keyboard_W == keyboard_buffer.scancode)
-    {
-        keyboard_buffer.scancode = 0;
-        return 'w';
-    }
-        else if (Keyboard_X == keyboard_buffer.scancode)
-    {
-        keyboard_buffer.scancode = 0;
-        return 'x';
-    }
-        else if (Keyboard_Y == keyboard_buffer.scancode)
-    {
-        keyboard_buffer.scancode = 0;
-        return 'y';
-    }
-        else if (Keyboard_Z == keyboard_buffer.scancode)
-    {
-        keyboard_buffer.scancode = 0;
-        return 'z';
-    }
-        else if (Keyboard_SPACE == keyboard_buffer.scancode)
-    {
-        keyboard_buffer.scancode = 0;
-        return ' ';
-    }
-    else
-    {
-        keyboard_buffer.scancode = 0;
-        return 0x00;
-    }
-    
+    keyboard_buffer.scancode = 0;
+    return return_char;
 }
 
 void keyboard_install()

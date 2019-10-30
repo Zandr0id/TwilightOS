@@ -41,7 +41,6 @@ void kernel_main(void)
 
 	set_text_green();
  
-
 //exception test
 #ifdef INSTA_FAIL
 	int test = 0;
