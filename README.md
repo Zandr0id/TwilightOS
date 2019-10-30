@@ -23,16 +23,16 @@ This isn't a strict order, but makes sense as a logical progression.
 - [x] IDT
 - [x] Exceptions
 - [x] System clock
-   - ~Keep time~
-   - Delay/Sleep functions
+  - [x] Keep time
+  - [ ] Delay/Sleep functions
 - [x] Keyboard Support
 - [ ] Dynamic Memory
-   - malloc, heap
+  - [ ] malloc, heap
 - [ ] File System
-   - ext2
-   - VFS
+  - [ ] ext2
+  - [ ] VFS
 - [ ] Graphics
-   - GUI library
+  - [ ] GUI library
 
 
 ## **Problems**
