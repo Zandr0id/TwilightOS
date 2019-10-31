@@ -1,3 +1,5 @@
+extern "C"
+{
 #include "../include/stdlib.h"
 #include "../include/syslib.h"
 #include "../include/stdio.h"
@@ -79,7 +81,7 @@ void PIC_install()
     outb(PIC1_DATA,0x0);
 }
 
-char *exception_messages[] =
+const char*exception_messages[] =
 {
     "Divide By Zero exception\0",
     "Debug exception\0",
@@ -132,7 +134,7 @@ void fault_handler(struct regs *r)
     }
 }
 
-void irq_handler(struct regs *r)
+void irq_handler(struct regs * r)
 {
     unsigned int irq_number = r->int_no;
     
@@ -148,4 +150,6 @@ void irq_handler(struct regs *r)
        isr_t handler = interrupt_handlers[irq_number];
        handler(*r);
    }
+}
+
 }

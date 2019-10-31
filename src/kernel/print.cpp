@@ -1,3 +1,6 @@
+extern "C"
+{
+
 #include "../include/stdio.h"
 
 //converts a number to a base of choice
@@ -86,4 +89,4 @@ void printf( const char * format, ...)
     va_end(arg);
 }
 
-
+}

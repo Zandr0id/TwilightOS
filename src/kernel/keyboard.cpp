@@ -1,8 +1,14 @@
+extern "C"
+{
+
 #include "../include/keyboard.h"
 #include "../include/stdio.h"
 #include "../include/isr_helper.h"
 
 static keyboard_state_buffer keyboard_buffer;
+
+Keyboard_Device kb;
+
 
 //every time a key gets hit, grab the scancode and update the keyboard state buffer
 void keyboard_callback()
@@ -31,6 +37,7 @@ void keyboard_callback()
 char get_last_character()
 {
     char return_char;
+    printf("   %d   ",kb.other_data());
     switch (keyboard_buffer.scancode)
     {
         case Keyboard_A: 
@@ -368,6 +375,7 @@ char get_last_character()
 void keyboard_install()
 {
     printf("Install Keyboard\n\0 ");
-    register_interrupt_handler(33, &keyboard_callback);
+    register_interrupt_handler(33, (isr_t)keyboard_callback);
 }
 
+}

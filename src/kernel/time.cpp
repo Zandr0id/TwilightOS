@@ -1,3 +1,6 @@
+extern "C"
+{
+
 #include "../include/stdio.h"
 #include "../include/isr_helper.h"
 #include "../include/time.h"
@@ -16,7 +19,7 @@ unsigned int get_system_uptime()
 
 void time_install(int freq)
 {
-    register_interrupt_handler(32, &timer_callback);
+    register_interrupt_handler(32, (isr_t)timer_callback);
 
     printf("Install Timer at %dHz\n\0",freq);
     int divisor = 1193180 / freq;
@@ -29,4 +32,6 @@ void time_install(int freq)
     outb(PIT_CMD,0x36);
     outb(PIT_CHANNEL_0,low);
     outb(PIT_CHANNEL_0,high);
+}
+
 }

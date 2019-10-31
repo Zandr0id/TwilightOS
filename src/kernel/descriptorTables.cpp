@@ -2,12 +2,11 @@
 This is the layout for the Global Descriptor Table
  */
 
+extern "C"
+{
+
 #include "../include/stdlib.h"
 #include "../include/stdio.h"
-
-//__attribute__((packed)) is not working for some reason
-//both of these structs should have it.
-//using #pragma pack instead
 
 #pragma pack(2)
 struct gdt_entry
@@ -98,4 +97,6 @@ void idt_install()
     memset((unsigned char*)&idt,0,sizeof(idt)); //0 out all that memory
     idt_ptr.base = (unsigned int)&idt;
     idt_load();
+}
+
 }

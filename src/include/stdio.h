@@ -11,6 +11,7 @@ Written by Zane Youmans
 #include "basics.h"
 
 //I/O related functions
+
 extern void printf(const char * format, ...); // The good ol' printf function
 extern void print_char(const char * c);//print a single char to the next location in the screen
 
@@ -28,6 +29,4 @@ inline uint8_t inb(uint16_t port) //read a value from a port
     __asm volatile ("inb %1, %0" : "=a"(ret) : "Nd"(port) );
     return ret;
 }
-
-
 #endif //STDIO_H_

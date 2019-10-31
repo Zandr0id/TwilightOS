@@ -50,7 +50,7 @@ extern void isr31();
 //IRQs
 extern void irq0(); //timer
 extern void irq1(); //keyboard
-extern void irq2();
+extern void irq2(); //don't use this one!!!
 extern void irq3();
 extern void irq4();
 extern void irq5();

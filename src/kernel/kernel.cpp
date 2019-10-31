@@ -2,14 +2,14 @@
 	This is the kernel main! This is the entry point into the system
 	It calls all the functions needed for the initial processor setup
 */
+extern "C"
+{
 
 #include "../include/stdlib.h"
 #include "../include/stdio.h"
 #include "../include/syslib.h"
-
 //#define INSTA_FAIL
 
-//extern "C" 
 void kernel_main(void) 
 {
 	clear_screen();
@@ -66,4 +66,5 @@ void kernel_main(void)
 			print_char(temp_2);
 		}
 	}
+}
 }

@@ -13,11 +13,11 @@ INCLUDE_DIR := ./src/include
 #names will mess up the search if I try to do it in one command
 ASM_SRC_FILES := $(wildcard  $(SRC_DIR)/*.asm) 
 C_SRC_FILES := $(wildcard $(SRC_DIR)/*.c) 
-#CPP_SRC_FILES := $(wildcard $(SRC_DIR)/*.cpp)
+CPP_SRC_FILES := $(wildcard $(SRC_DIR)/*.cpp)
 
 #Put all the files together in one list
 #This is now a single list of every file that needs to be compiled together
-SRC_FILES := $(ASM_SRC_FILES) $(C_SRC_FILES) #$(CPP_SRC_FILES) 
+SRC_FILES := $(ASM_SRC_FILES) $(C_SRC_FILES) $(CPP_SRC_FILES) 
 
 #strip the SRC_DIR/*.sufix and change to OBJ_DIR/*.o
 #After this, every file with .asm, .c, etc. now has a .o
