@@ -23,28 +23,30 @@ This isn't a strict order, but makes sense as a logical progression.
 - [x] IDT
 - [x] Exceptions
 - [x] System clock
-   - ~Keep time~
-   - Delay/Sleep functions
+  - [x] Keep time
+  - [ ] Delay/Sleep functions
 - [x] Keyboard Support
 - [ ] Dynamic Memory
-   - malloc, heap
+  - [ ] malloc, heap
 - [ ] File System
-   - ext2
-   - VFS
+  - [ ] ext2
+  - [ ] VFS
 - [ ] Graphics
-   - GUI library
+  - [ ] GUI library
 
 
 ## **Problems**
 ----
 #### Code
-None right now...
+- Sometimes key presses are not detected. Should investigate.
+- vga_controler.c needs rework. The indexing on the screen is all messed up.
 #### Theory
-- [ ] Organize file structure better
+- Organize file structure better
   * Separate CPU based things
   * Look at POSIX libC
-- [ ] Decide on Makefile process
+- Decide on Makefile process
   * Can't decide what is better. Single make file, or individual Makefiles per folder of source
+- Project name. I like ChaOS, but TwilightOS was also suggested and that's kind of pretty...
   
 ## **Screen Shots**
 ----
