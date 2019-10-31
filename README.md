@@ -27,7 +27,8 @@ This isn't a strict order, but makes sense as a logical progression.
   - [ ] Delay/Sleep functions
 - [x] Keyboard Support
 - [ ] Dynamic Memory
-  - [ ] malloc, heap
+  - [ ] malloc
+  - [ ] heap
 - [ ] File System
   - [ ] ext2
   - [ ] VFS
