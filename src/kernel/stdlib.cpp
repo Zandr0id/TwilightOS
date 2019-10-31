@@ -1,8 +1,6 @@
 
 //this is where the functions unique to stdlib will be implemented
 
-extern "C"
-{
 #include "../include/stdlib.h"
 
 //takes to chars as locations and copies one to another
@@ -50,5 +48,4 @@ int strlen(const char* data)
         len++;
     }
     return len;
-}
 }

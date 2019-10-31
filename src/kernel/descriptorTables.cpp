@@ -2,9 +2,6 @@
 This is the layout for the Global Descriptor Table
  */
 
-extern "C"
-{
-
 #include "../include/stdlib.h"
 #include "../include/stdio.h"
 
@@ -49,9 +46,11 @@ struct gdt_ptr gdt_ptr;
 struct idt_entry idt[256];
 struct idt_ptr idt_ptr;
 
-
+extern "C"
+{
 extern void gdt_flush();
 extern void idt_load();
+}
 
 //sets up one segment of the GDT with the settings you give it
 void gdt_add_entry(int num, unsigned long base, unsigned long limit, unsigned char access, unsigned char gran)
@@ -97,6 +96,4 @@ void idt_install()
     memset((unsigned char*)&idt,0,sizeof(idt)); //0 out all that memory
     idt_ptr.base = (unsigned int)&idt;
     idt_load();
-}
-
 }

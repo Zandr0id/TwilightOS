@@ -1,5 +1,3 @@
-extern "C"
-{
 
 #include "../include/stdio.h"
 #include "../include/isr_helper.h"
@@ -32,6 +30,4 @@ void time_install(int freq)
     outb(PIT_CMD,0x36);
     outb(PIT_CHANNEL_0,low);
     outb(PIT_CHANNEL_0,high);
-}
-
 }

@@ -61,22 +61,4 @@ enum Scancode_decoder_table
     Keyboard_TOGGLE = 0xE0 //not an actual key, but appears before some other scancodes
 };
 
-
-class Keyboard_Device
-{
-    private:
-        int other_data;
-    
-    public:
-    Keyboard_Device()
-    {
-        data = 3;
-        other_data = 4;
-    }    
-
-    int data;
-    int other_data(){return other_data;};
-
-};
-
 #endif

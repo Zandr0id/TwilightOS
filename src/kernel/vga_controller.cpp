@@ -4,8 +4,6 @@
 //change text color
 //move the cursor
 
-extern "C"
-{
 #include "../include/stdlib.h"
 #include "../include/stdio.h"
 
@@ -168,6 +166,4 @@ void set_text_blue()
 void set_text_grey()
 {
     set_colors(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLACK);
-}
-
 }

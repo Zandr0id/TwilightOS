@@ -12,7 +12,8 @@ enum PIC_Ports
 };
 
 //all of these are defined in the boot_utils.asm file
-
+extern "C"
+{
 //Exceptions
 extern void isr0();
 extern void isr1();
@@ -65,6 +66,7 @@ extern void irq13();
 extern void irq14();
 extern void irq15();
 extern void irq16();
+}
 
 typedef void (*isr_t)(struct regs);
 void register_interrupt_handler(int n, isr_t handler);

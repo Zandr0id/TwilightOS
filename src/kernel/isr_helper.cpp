@@ -1,5 +1,4 @@
-extern "C"
-{
+
 #include "../include/stdlib.h"
 #include "../include/syslib.h"
 #include "../include/stdio.h"
@@ -117,6 +116,8 @@ const char*exception_messages[] =
     "Reserved Exception\0"
 };
 
+extern "C"
+{
 void fault_handler(struct regs *r)
 {
     printf("***EXCEPTION***\n");

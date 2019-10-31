@@ -1,5 +1,3 @@
-extern "C"
-{
 
 #include "../include/stdio.h"
 
@@ -89,4 +87,3 @@ void printf( const char * format, ...)
     va_end(arg);
 }
 
-}
