@@ -13,14 +13,16 @@
 void kernel_main(void) 
 {
 	clear_screen();
-
 	set_text_red();
-    printf("  ____ _            ___  ____\n\0"); 
-	printf(" / ___| |__   __ _ / _ \\/ ___|\n\0");
-	printf("| |   | '_ \\ / _` | | | \\___ \\\n\0"); 
-	printf("| |___| | | | (_| | |_| |___) |\n\0");
-	printf(" \\____|_| |_|\\__,_|\\___/|____/\n\0");
-	printf("\n\0");
+	
+	//print a really sweet message
+	//Twilight is running!
+	printf("  _____          _ _ _       _     _    \n"); 
+	printf("|_   _|_      _(_) (_) __ _| |__ | |_  \n");
+	printf("  | | \\ \\ /\\ / / | | |/ _` | '_ \\| __| \n");
+	printf("  | |  \\ V  V /| | | | (_| | | | | |_  \n");
+	printf("  |_|   \\_/\\_/ |_|_|_|\\__, |_| |_|\\__| \n");
+	printf("                      |___/            \n"); 
 
 	//set the Global Descriptor Table
 	gdt_install();

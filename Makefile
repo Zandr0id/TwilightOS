@@ -109,7 +109,7 @@ clean:
 	rm -f $(BIN_DIR)/*~ $(BIN_DIR)/*.bin
 
 print:
-	figlet -c ChaOS
+	figlet -c Twilight
 	
 run:
 	echo "Starting QEMU"
