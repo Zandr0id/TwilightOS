@@ -48,6 +48,6 @@ This isn't a strict order, but makes sense as a logical progression.
   * Can't decide what is better. Single make file, or individual Makefiles per folder of source
 - Project name. I like ChaOS, but TwilightOS was also suggested and that's kind of pretty...
   
-## **Screen Shots**
+## **Current Screenshot**
 ----
-![Latest Screenshot](/images/Keyboard_Input.png)
+![Latest Screenshot](/images/Keyboard_Input.PNG)
