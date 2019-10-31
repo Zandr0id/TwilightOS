@@ -48,4 +48,4 @@ None right now...
   
 ## **Screen Shots**
 ----
-![Current Screenshot](/images/ScreenShot.png)
+![Latest Screenshot](/images/Keyboard_Input.png)
