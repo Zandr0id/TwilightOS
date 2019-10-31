@@ -46,7 +46,6 @@ This isn't a strict order, but makes sense as a logical progression.
   * Look at POSIX libC
 - Decide on Makefile process
   * Can't decide what is better. Single make file, or individual Makefiles per folder of source
-- Project name. I like ChaOS, but TwilightOS was also suggested and that's kind of pretty...
   
 ## **Current Screenshot**
 ----
