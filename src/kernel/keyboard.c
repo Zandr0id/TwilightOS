@@ -2,9 +2,9 @@
 #include "../include/stdio.h"
 #include "../include/isr_helper.h"
 
-static keyboard_scancode_buffer keyboard_buffer;
+static keyboard_state_buffer keyboard_buffer;
 
-
+//every time a key gets hit, grab the scancode and update the keyboard state buffer
 void keyboard_callback()
 {
     unsigned char scancode = inb(Keyboard_Encoder);
@@ -27,6 +27,7 @@ void keyboard_callback()
     }
 }
 
+//Look at the keyboard state buffer and decide the character to send
 char get_last_character()
 {
     char return_char;

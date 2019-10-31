@@ -1,4 +1,7 @@
-
+/*
+	This is the kernel main! This is the entry point into the system
+	It calls all the functions needed for the initial processor setup
+*/
 
 #include "../include/stdlib.h"
 #include "../include/stdio.h"

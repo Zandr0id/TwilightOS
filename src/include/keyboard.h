@@ -7,20 +7,24 @@ keyboard.h
 #ifndef KEYBOARD_H_
 #define KEYBOARD_H_
 
+//the ports for PS/2 keyboard communication 
 enum Keyboard_Ports
 {
     Keyboard_Encoder = 0x60,
     Keyboard_Controller = 0x64
 };
 
-typedef struct keyboard_scancode_buffer
+//Holds the current scancod, and the state of modifier keys
+typedef struct keyboard_state_buffer
 {
-    bool modified_table;
-    bool shift_pressed;
+    bool modified_table; //got an 0xE0 scancode?
+    bool shift_pressed; //holding shift?
     unsigned char scancode;
-}keyboard_scancode_buffer;
+}keyboard_state_buffer;
 
-enum Keyboard_Keys
+//A scancode decoder table
+//Add more scancodes here
+enum Scancode_decoder_table
 {
     Keyboard_A = 0x1E,
     Keyboard_B = 0x30,
@@ -54,7 +58,7 @@ enum Keyboard_Keys
     Keyboard_SHIFT_R_RELEASE = 0xB6,
     Keyboard_ENTER = 0x1C,
     Keyboard_SPACE = 0x39,
-    Keyboard_TOGGLE = 0xE0
+    Keyboard_TOGGLE = 0xE0 //not an actual key, but appears before some other scancodes
 };
 
 #endif
