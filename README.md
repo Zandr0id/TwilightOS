@@ -1,10 +1,10 @@
-# ChaOS
+# TwilightOS
 ----
 This is a project that is intended to become my every day use OS. I want to learn how to make the tools that I use everyday. It's still in the very first stages, but there are promising resultes so far. It's going to be somewhat POSIX complient so porting software is possible, and it will have some unix-likeness to it. The future plan is to use it as a base to develope standalone applications for it, like a code IDE and web browser. Perhaps even a complier or language interpreter. 
 
 ## Building
 ----
-For now, ChaOS is built using the cross compiler described in the [OSDev.org Cross Compiler](https://wiki.osdev.org/GCC_Cross-Compiler) section. I'm using Visual Studio Code as the main editor and doing the compiling with the Windows Subsystem for Linux. I've only done testing on Qemu and VirtualBox, but you can try any emulator you want. You'll have to change the path in the `make run` recipe to use what you want if you want to use that command.
+For now, Twilight is built using the cross compiler described in the [OSDev.org Cross Compiler](https://wiki.osdev.org/GCC_Cross-Compiler) section. I'm using Visual Studio Code as the main editor and doing the compiling with the Windows Subsystem for Linux. I've only done testing on Qemu and VirtualBox, but you can try any emulator you want. You'll have to change the path in the `make run` recipe to use what you want if you want to use that command.
 
 ## **Some useful makefile commands**
 ----
