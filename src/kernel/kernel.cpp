@@ -6,6 +6,7 @@
 #include "../include/stdlib.h"
 #include "../include/stdio.h"
 #include "../include/syslib.h"
+#include "../include/memory.h"
 //#define INSTA_FAIL
 
 //Forward declare this as Extern C so it can be called from Assembly code
@@ -13,7 +14,6 @@ extern "C"
 {
 	void kernel_main(void);
 }
-
 
 void kernel_main(void) 
 {
@@ -48,9 +48,23 @@ void kernel_main(void)
 	time_install(1000); //1000hz
 
 	printf("Int: %d \nChar: %c \nHex: %x \nOct: %o \nStr: %s \n\0",-85,"R",255,128,"Hello");
+	//TODO: Fix %c to use ' ' instead of " "
 
 	set_text_green();
- 
+	
+	int * number = new int;
+	*number = 10;
+
+	long * number_2 = new long;
+	*number_2 = 539094;
+
+	char * number_3 = new char;	
+
+	//char * number_3 = (char *)malloc(sizeof(char));
+	*number_3 = 'R';
+
+	printf("%d %d %c\n", *number, *number_2, number_3);
+
 //exception test
 #ifdef INSTA_FAIL
 	int test = 0;
