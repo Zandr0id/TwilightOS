@@ -9,12 +9,12 @@ Written by Zane Youmans
 #ifndef MEMORY_H_
 #define MEMORY_H_
 
-enum Heap_keywords
+enum Heap_constants
 {
     //HEAP_BLOCK_SIZE = 8, //minimum one byte per block
-    //HEAP_BLOCK_HEADER_SIZE = 4, //block header is 4 bytes, to hold size of allocation
-    ETERNAL_HEAP_SIZE = 1024, //how many bytes the eternal heap is
-    DYNAMIC_HEAP_SIZE = 4096 //how many bytes the dynamic heap is
+    HEAP_MINIMUM_BLOCK_SIZE = 64, //Minimum size of block payload to allow splitting
+    HEAP_ETERNAL_SIZE = 1024, //how many bytes the eternal heap is
+    HEAP_DYNAMIC_SIZE = 16384 //how many bytes the dynamic heap is
 };
 
 //this will go at the front of every malloc segment
@@ -22,8 +22,8 @@ enum Heap_keywords
 typedef struct Heap_element_header
 {
     Heap_element_header * next; //pointer to the next header
-    bool in_use; //is this block in use?
     unsigned int payload_size; //number of bytes in this block
+    bool in_use; //is this block in use?
 }Heap_element_header;
 
 void heap_install(); //initialize the heap
