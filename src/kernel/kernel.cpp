@@ -10,7 +10,7 @@
 
 //#define INSTA_FAIL
 #define MALLOC_TEST
-#define PRINTF_TEST
+//#define PRINTF_TEST
 
 //Forward declare this as Extern C so it can be called from Assembly code
 extern "C"
@@ -55,26 +55,24 @@ void kernel_main(void)
 
 	print_char("\n");
 
+//printf test
 #ifdef PRINTF_TEST
 	printf("Int: %d Char: %c Hex: %x \nOct: %o Str: %s \n\0",-85,"R",255,128,"Hello");
 	//TODO: Fix %c to use ' ' instead of " "
 #endif
 	set_text_green();
 	
-	//dynamic memory testing
+//dynamic memory test
 #ifdef MALLOC_TEST
 	//turn on MALLOC_DEBUG for this
 	printf("\nMalloc Test: \n");
-	int * number = new int;
-	*number = 10;
-	char * number_2 = new char;
-	*number_2 = 'T';
-	delete number_2;
-	int * number_3 = new int;	
-	*number_3 = 418;
-	delete number_3;
-	int * number_4 = new int;
-	*number_4 = 85;
+	void * number1 = malloc(30);
+	void * number2 = malloc(90);
+	free(number1);
+	void * number3 = malloc(50);
+	(void)number3;
+	free(number2);
+
 #endif
 
 
