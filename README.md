@@ -26,10 +26,10 @@ This isn't a strict order, but makes sense as a logical progression.
   - [x] Keep time
   - [ ] Delay/Sleep functions
 - [x] Keyboard Support
-- [ ] Dynamic Memory
+- [x] Dynamic Memory
   - [x] malloc()
   - [x] heap
-  - [ ] free()
+  - [x] free()
 - [ ] File System
   - [ ] ext2
   - [ ] VFS
