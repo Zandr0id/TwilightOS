@@ -69,10 +69,10 @@ void kernel_main(void)
 	*number = 10;
 	char * number_2 = new char;
 	*number_2 = 'T';
-	free(number_2);
+	delete number_2;
 	int * number_3 = new int;	
 	*number_3 = 418;
-	free(number_3);
+	delete number_3;
 	int * number_4 = new int;
 	*number_4 = 85;
 #endif
