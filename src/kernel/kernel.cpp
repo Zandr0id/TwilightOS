@@ -6,8 +6,11 @@
 #include "../include/stdlib.h"
 #include "../include/stdio.h"
 #include "../include/syslib.h"
-#include "../include/memory.h"
+#include "../include/memory.h" //malloc
+
 //#define INSTA_FAIL
+#define MALLOC_TEST
+#define PRINTF_TEST
 
 //Forward declare this as Extern C so it can be called from Assembly code
 extern "C"
@@ -41,29 +44,39 @@ void kernel_main(void)
 	//reprogram the PIC
 	PIC_install();
 
+	//install the heap
+	heap_install();
+
 	//install the keyboard interrupt
 	keyboard_install();
 
 	//start the system clock
 	time_install(1000); //1000hz
 
-	printf("Int: %d \nChar: %c \nHex: %x \nOct: %o \nStr: %s \n\0",-85,"R",255,128,"Hello");
-	//TODO: Fix %c to use ' ' instead of " "
+	print_char("\n");
 
+#ifdef PRINTF_TEST
+	printf("Int: %d Char: %c Hex: %x \nOct: %o Str: %s \n\0",-85,"R",255,128,"Hello");
+	//TODO: Fix %c to use ' ' instead of " "
+#endif
 	set_text_green();
 	
+	//dynamic memory testing
+#ifdef MALLOC_TEST
+	//turn on MALLOC_DEBUG for this
+	printf("\nMalloc Test: \n");
 	int * number = new int;
 	*number = 10;
+	char * number_2 = new char;
+	*number_2 = 'T';
+	free(number_2);
+	int * number_3 = new int;	
+	*number_3 = 418;
+	free(number_3);
+	int * number_4 = new int;
+	*number_4 = 85;
+#endif
 
-	long * number_2 = new long;
-	*number_2 = 539094;
-
-	char * number_3 = new char;	
-
-	//char * number_3 = (char *)malloc(sizeof(char));
-	*number_3 = 'R';
-
-	printf("%d %d %c\n", *number, *number_2, number_3);
 
 //exception test
 #ifdef INSTA_FAIL
