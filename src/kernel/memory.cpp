@@ -1,18 +1,102 @@
 #include "../include/memory.h"
+#include "../include/stdio.h"
+
+#define MALLOC_DEBUG
 
 //static Heap kernel_heap;
-static char * kernel_heap = (char * )0x10FFF0; //TODO: put in specific spot
+//static char * eternal_heap = (char * )(0x100000+DYNAMIC_HEAP_SIZE+512); //TODO: put in specific spot
+static Heap_element_header * kernal_heap_start = (Heap_element_header * )0x200000;
+/*
+void * malloc_eternal(size_t size)
+{
+    void * loc = eternal_heap;
+    eternal_heap += size;
+    return loc;
+}
+*/
+
+int amount_of_free_heap()
+{
+    int free_heap = 0;
+    Heap_element_header * current_header = kernal_heap_start;
+    while(true)
+    {
+        if(false == current_header->in_use)
+        {
+            free_heap += current_header->payload_size;
+        }
+ 
+        if(nullptr != current_header->next)
+        {
+            current_header = current_header->next;
+        }
+        else
+        {
+            break;
+        }
+        
+    }
+    return free_heap;
+}
+
 
 void * malloc(size_t size)
 {
-    void * loc = kernel_heap;
-    kernel_heap += size;
-    return loc;
+    unsigned int total_allocation_size = size + sizeof(Heap_element_header);
+
+#ifdef MALLOC_DEBUG
+    printf("Before Malloc %d : %d\n",total_allocation_size, amount_of_free_heap());
+#endif
+    //printf("Allocation size: %d\n", total_allocation_size);
+
+    Heap_element_header * current_header = kernal_heap_start;
+
+    //jump from one header to the next until we find one that is not in use
+    while(true)
+    {
+        if((false==current_header->in_use) && (current_header->payload_size >= total_allocation_size))
+        {
+            break;
+        }
+        if(nullptr != current_header->next)
+        {   
+            current_header = current_header->next; // move to the next header
+            //printf("jump1\n");
+        }
+        else
+        {
+            return nullptr;
+        }
+    }
+
+    //we've found a free spot!!!
+    Heap_element_header * new_header = (current_header + total_allocation_size);
+    new_header->in_use = false;
+    new_header->next = nullptr;
+    new_header->payload_size = (current_header->payload_size - total_allocation_size);
+
+    //fill in our current header with its new info
+    current_header->next = new_header;
+    current_header->in_use = true;
+    current_header->payload_size = size;
+
+#ifdef MALLOC_DEBUG
+    printf("After Malloc %d : %d\n",total_allocation_size, amount_of_free_heap());
+#endif
+    return (current_header + sizeof(Heap_element_header));
 }
 
 void free(void * loc)
 {
-    loc = loc;
+    Heap_element_header * to_free = (Heap_element_header *)(loc) - sizeof(Heap_element_header);
+#ifdef MALLOC_DEBUG
+    int size = to_free->payload_size;
+    printf("Before Free %d : %d\n",size, amount_of_free_heap());
+#endif
+     to_free->in_use = false;
+#ifdef MALLOC_DEBUG
+    printf("After Free %d : %d\n",size, amount_of_free_heap());
+#endif
     //TODO: Implement me!!!
 }
 
@@ -32,61 +116,10 @@ void operator delete (void* ptr, size_t size)
     free(ptr);
 }
 
-
-/*
-void install_heap()
+void heap_install()
 {
-    //kernel_heap.location = &kernel_heap;
+   // Heap_element_header * heap_top = kernal_heap_start;
+    kernal_heap_start->in_use = false;
+    kernal_heap_start->payload_size = (DYNAMIC_HEAP_SIZE - sizeof(Heap_element_header));
+    kernal_heap_start->next = nullptr;
 }
-*/
-
-/*
-void * malloc(size_t size)
-{
-    int total_allocation_request_size = (size + HEAP_BLOCK_HEADER_SIZE);
-
-    int located_index = -1; //index of the bitmask that is large enough
-
-    for(int index = 0; index < (HEAP_SIZE-total_allocation_request_size); index++)
-    {
-        if(false == kernel_heap.bit_mask[index])
-        {
-            for(int contiguous = index; contiguous < (index+total_allocation_request_size); contiguous++)
-            {
-                if(true == kernel_heap.bit_mask[contiguous])
-                {
-                    index = contiguous;
-                    break;
-                }
-                else
-                {
-                    continue;
-                }
-            }
-            located_index = index; //save the index of the first contiguous bit
-            break;
-        }
-    }
-
-    if(located_index < 0)
-    {
-        return nullptr;
-    }
-    else
-    {
-        int * header_address = (int *)kernel_heap.pool[located_index]; 
-        *header_address = size;
-        return ((char*)(header_address) + HEAP_BLOCK_HEADER_SIZE);
-    }
-}
-
-void free(void * location)
-{
-    long long offset = (((char *)(location) - (char *)(kernel_heap.location)));
-    int size =
-    int index_to_free = (offset/HEAP_BLOCK_SIZE);
-
-    for(int index = index_to_free; index_to_free <)
-}
-
-*/
