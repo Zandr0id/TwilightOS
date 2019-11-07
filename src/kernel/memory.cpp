@@ -33,32 +33,79 @@ int amount_of_free_heap()
         {
             break;
         }
-        
     }
     return free_heap;
 }
 
-void merge_free_blocks()
+void merge_neighbor_blocks(void * loc)
 {
-    Heap_element_header * current_header = kernel_heap_start;
+    printf("MERGE\n");
+    //assume the neighbors are in use
+    bool next_in_use = true;
+    bool prev_in_use = true;
 
-    //don't start on nullptr, you're at the end
-    while(nullptr != current_header->next)
+    Heap_element_header * current_header = (Heap_element_header *)loc;
+
+    //look at both neighbors and see if they are in use
+    if (nullptr != current_header->next)
     {
-        Heap_element_header * first_free_block;
-        if(false == current_header->in_use)
-        {
-            first_free_block = current_header;
-            while((false == current_header->in_use) && (nullptr != current_header->next))
-            {
-                current_header = current_header->next;
-            } 
-            first_free_block->next = current_header;
-            printf("merge %d + %d\n",first_free_block->payload_size, current_header->payload_size);
-        }
-        current_header = current_header->next;
-        //printf("loop\n");
+        printf("stop1\n");
+        next_in_use = current_header->next->in_use;
     }
+    if (nullptr != current_header->previous)
+    {
+        printf("stop2\n");
+        prev_in_use = current_header->previous->in_use;
+    }
+
+    //both neighbors are free to use
+    //point the previous neighbor to point to after the next  neighbor
+    /*
+        --------       ---------       --------
+        | prev |------>|current|------>| next | ---->
+        --------       ---------       --------    ^
+           |_______________________________________|
+    */
+
+    if((false == next_in_use) && (false == prev_in_use))
+    {
+        current_header->previous->next = current_header->next->next;
+        printf("merge across\n");
+    }
+
+    //only the previous neighbor is free
+    //point previous neighbor to currnet neighbor.next
+    /*
+        --------       ---------       --------
+        | prev |------>|current|------>| next | ---->
+        --------       ---------   ^   --------    
+           |_______________________|
+    */
+    else if((true == next_in_use) && (false == prev_in_use))
+    {
+        current_header->previous->next = current_header->next;
+        printf("merge up\n");
+
+    }
+
+    //only the only the next neighbor is free
+    //point current.next to after next neighbor
+    /*
+        --------       ---------       --------
+        | prev |------>|current|------>| next | ---->
+        --------       ---------       --------    ^
+                           |_______________________|
+    */
+    else if ((false == next_in_use) && (true == prev_in_use))
+    {
+        current_header->next = current_header->next->next;
+        printf("merge down\n");
+    }
+    else
+    {
+        //nothing to do...
+    }
+
 }
 
 void * malloc(size_t size)
@@ -101,10 +148,11 @@ void * malloc(size_t size)
    //By "big enough", I mean we can get at least a minimum sized block out of it.
     if(current_header->payload_size >= ((size+HEAP_MINIMUM_BLOCK_SIZE)+sizeof(Heap_element_header)))
     {
-        printf("Split a block\n");
+       // printf("Split a block\n");
         Heap_element_header * new_header = (current_header + total_allocation_size);
         new_header->in_use = false;
         new_header->next = current_header->next;
+        new_header->previous = current_header;
         new_header->payload_size = (current_header->payload_size - total_allocation_size);
 
         current_header->next=new_header;
@@ -129,7 +177,7 @@ void free(void * loc)
 #endif
      
     to_free->in_use = false;
-    merge_free_blocks();
+    merge_neighbor_blocks(loc);
 
 #ifdef MALLOC_DEBUG
     printf("After Free %d : %d\n",size, amount_of_free_heap());
@@ -159,4 +207,5 @@ void heap_install()
     kernel_heap_start->in_use = false;
     kernel_heap_start->payload_size = (HEAP_DYNAMIC_SIZE - sizeof(Heap_element_header));
     kernel_heap_start->next = nullptr;
+    kernel_heap_start->previous = nullptr;
 }

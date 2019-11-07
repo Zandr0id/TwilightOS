@@ -70,8 +70,8 @@ void kernel_main(void)
 	void * number2 = malloc(90);
 	free(number1);
 	void * number3 = malloc(50);
-	(void)number3;
 	free(number2);
+	free(number3);
 
 #endif
 
@@ -88,8 +88,8 @@ void kernel_main(void)
 	{
 		//printf("Millisecs since poweron: %d\n\0",get_system_uptime()); //TODO: make time accessable everywhere
 		//unsigned char * temp = (unsigned char *)get_last_character();
-		char temp = get_last_character();
-		char * temp_2 = &temp;
+		auto temp = get_last_character();
+		auto temp_2 = &temp;
 		if (0x00 != temp)
 		{
 			//printf("%d ", temp);

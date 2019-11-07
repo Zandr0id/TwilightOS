@@ -11,7 +11,6 @@ Written by Zane Youmans
 
 enum Heap_constants
 {
-    //HEAP_BLOCK_SIZE = 8, //minimum one byte per block
     HEAP_MINIMUM_BLOCK_SIZE = 64, //Minimum size of block payload to allow splitting
     HEAP_ETERNAL_SIZE = 1024, //how many bytes the eternal heap is
     HEAP_DYNAMIC_SIZE = 16384 //how many bytes the dynamic heap is
@@ -22,6 +21,7 @@ enum Heap_constants
 typedef struct Heap_element_header
 {
     Heap_element_header * next; //pointer to the next header
+    Heap_element_header * previous; //pointer to the previous header
     unsigned int payload_size; //number of bytes in this block
     bool in_use; //is this block in use?
 }Heap_element_header;
