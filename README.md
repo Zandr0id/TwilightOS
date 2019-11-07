@@ -1,6 +1,6 @@
 # TwilightOS
 ----
-This is a project that is intended to become my every day use OS. I want to learn how to make the tools that I use everyday. It's still in the very first stages, but there are promising resultes so far. It's going to be somewhat POSIX complient so porting software is possible, and it will have some unix-likeness to it. The future plan is to use it as a base to develope standalone applications for it, like a code IDE and web browser. Perhaps even a complier or language interpreter. 
+This is a project that is intended to become my every day use OS. I want to learn how to make the tools that I use everyday. It's still in the very first stages, but there are promising resultes so far. I'm not going for a Unix clone, but I will include Unix design choices that I think are good ones, and there will be just enough POSIX compliance to port some software. The future plan is to use it as a base to develope standalone applications for it, like a code IDE and web browser. Perhaps even a complier or language interpreter. 
 
 ## Building
 ----
@@ -26,10 +26,10 @@ This isn't a strict order, but makes sense as a logical progression.
   - [x] Keep time
   - [ ] Delay/Sleep functions
 - [x] Keyboard Support
-- [ ] Dynamic Memory
+- [x] Dynamic Memory
   - [x] malloc()
   - [x] heap
-  - [ ] free()
+  - [x] free()
 - [ ] File System
   - [ ] ext2
   - [ ] VFS
