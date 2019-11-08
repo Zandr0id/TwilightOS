@@ -58,8 +58,9 @@ void merge_neighbor_blocks(void * loc)
         prev_in_use = current_header->previous->in_use;
     }
 
-    //both neighbors are free to use
-    //point the previous neighbor to point to after the next  neighbor
+    //both neighbors are free to merge
+    //point the previous neighbor to point to after the next neighbor
+    //thus combining all three
     /*
         --------       ---------       --------
         | prev |------>|current|------>| next | ---->
@@ -75,12 +76,13 @@ void merge_neighbor_blocks(void * loc)
 
     //only the previous neighbor is free
     //point previous neighbor to currnet neighbor.next
+    //only combine first two
     /*
         --------       ---------       --------
         | prev |------>|current|------>| next | ---->
         --------       ---------   ^   --------    
            |_______________________|
-    */
+    */ 
     else if((true == next_in_use) && (false == prev_in_use))
     {
         current_header->previous->next = current_header->next;
@@ -90,6 +92,7 @@ void merge_neighbor_blocks(void * loc)
 
     //only the only the next neighbor is free
     //point current.next to after next neighbor
+    //and combine the second two
     /*
         --------       ---------       --------
         | prev |------>|current|------>| next | ---->
