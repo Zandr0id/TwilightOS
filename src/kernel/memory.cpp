@@ -1,7 +1,7 @@
 #include "../include/memory.h"
 #include "../include/stdio.h"
 
-#define MALLOC_DEBUG
+//#define MALLOC_DEBUG
 
 //static Heap kernel_heap;
 //static char * eternal_heap = (char * )(0x100000+DYNAMIC_HEAP_SIZE+512); //TODO: put in specific spot
@@ -39,22 +39,18 @@ int amount_of_free_heap()
 
 void merge_neighbor_blocks(void * loc)
 {
-    printf("MERGE\n");
     //assume the neighbors are in use
     bool next_in_use = true;
     bool prev_in_use = true;
 
-    Heap_element_header * current_header = (Heap_element_header *)loc;
-
+    Heap_element_header * current_header = (Heap_element_header *)(loc) - sizeof(Heap_element_header);
     //look at both neighbors and see if they are in use
     if (nullptr != current_header->next)
     {
-        printf("stop1\n");
         next_in_use = current_header->next->in_use;
     }
     if (nullptr != current_header->previous)
     {
-        printf("stop2\n");
         prev_in_use = current_header->previous->in_use;
     }
 
@@ -62,16 +58,20 @@ void merge_neighbor_blocks(void * loc)
     //point the previous neighbor to point to after the next neighbor
     //thus combining all three
     /*
-        --------       ---------       --------
-        | prev |------>|current|------>| next | ---->
-        --------       ---------       --------    ^
-           |_______________________________________|
+        --------       ---------       --------       -------------
+        | prev |------>|current|------>| next | ---->| next->next |  
+        --------       ---------       --------   ^   -------------
+           |______________________________________|
     */
 
     if((false == next_in_use) && (false == prev_in_use))
     {
+        current_header->previous->payload_size += (current_header->next->payload_size +current_header->payload_size + (2 * sizeof(Heap_element_header)));
+        current_header->next->next->previous = current_header->previous;
         current_header->previous->next = current_header->next->next;
+#ifdef MALLOC_DEBUG
         printf("merge across\n");
+#endif
     }
 
     //only the previous neighbor is free
@@ -85,8 +85,12 @@ void merge_neighbor_blocks(void * loc)
     */ 
     else if((true == next_in_use) && (false == prev_in_use))
     {
+        current_header->previous->payload_size += (current_header->payload_size + sizeof(Heap_element_header));
+        current_header->next->previous = current_header->previous;
         current_header->previous->next = current_header->next;
+#ifdef MALLOC_DEBUG
         printf("merge up\n");
+#endif
 
     }
 
@@ -101,8 +105,12 @@ void merge_neighbor_blocks(void * loc)
     */
     else if ((false == next_in_use) && (true == prev_in_use))
     {
+        current_header->payload_size += (current_header->next->payload_size + sizeof(Heap_element_header));
+        current_header->next->next->previous = current_header;
         current_header->next = current_header->next->next;
+#ifdef MALLOC_DEBUG
         printf("merge down\n");
+#endif
     }
     else
     {

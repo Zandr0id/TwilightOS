@@ -68,13 +68,16 @@ void kernel_main(void)
 	printf("\nMalloc Test: \n");
 	void * number1 = malloc(30);
 	void * number2 = malloc(90);
+	void * number3 = malloc(120);
 	free(number1);
-	void * number3 = malloc(50);
+	//void * number3 = malloc(130);
+	void * number4 = malloc(40);
 	free(number2);
 	free(number3);
+	free(number4);
+	//free(number3);
 
 #endif
-
 
 //exception test
 #ifdef INSTA_FAIL
