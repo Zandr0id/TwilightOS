@@ -14,6 +14,8 @@ Written by Zane Youmans
 
 extern void printf(const char * format, ...); // The good ol' printf function
 extern void print_char(const char * c);//print a single char to the next location in the screen
+extern void write_serial_string(const char *c);
+extern void write_char_serial(char c);
 
 //These must be defined here to avoid compiler warnings
 //It wasn't liking me trying to use Extern Inline as a function signature, and have it defined somewhere else

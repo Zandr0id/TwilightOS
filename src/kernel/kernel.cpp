@@ -9,8 +9,9 @@
 #include "../include/memory.h" //malloc
 
 //#define INSTA_FAIL
-#define MALLOC_TEST
+//#define MALLOC_TEST
 //#define PRINTF_TEST
+#define SERIAL_TEST
 
 //Forward declare this as Extern C so it can be called from Assembly code
 extern "C"
@@ -31,6 +32,10 @@ void kernel_main(void)
 	printf("  | |  \\ V  V /| | | | (_| | | | | |_  \n");
 	printf("  |_|   \\_/\\_/ |_|_|_|\\__, |_| |_|\\__| \n");
 	printf("                      |___/            \n"); 
+
+
+	//set up serial port
+	serial_install();
 
 	//set the Global Descriptor Table
 	gdt_install();
@@ -57,7 +62,7 @@ void kernel_main(void)
 
 //printf test
 #ifdef PRINTF_TEST
-	printf("Int: %d Char: %c Hex: %x \nOct: %o Str: %s \n\0",-85,"R",255,128,"Hello");
+	printf("Int: %d Char: %c Hex: %x \nOct: %o Str: %s \n",-85,"R",255,128,"Hello");
 	//TODO: Fix %c to use ' ' instead of " "
 #endif
 	set_text_green();
@@ -79,13 +84,17 @@ void kernel_main(void)
 
 #endif
 
+#ifdef SERIAL_TEST
+	write_serial_string("HELLO\n");
+#endif
+
 //exception test
 #ifdef INSTA_FAIL
 	int test = 0;
 	__asm volatile ("div %b0" : "+a"(test));
 #endif
 
-	printf("DONE\n\0");
+	printf("DONE\n");
 
 	while(true)
 	{
