@@ -16,7 +16,7 @@ Check out the make file to see all the options, but these are the most useful
 
 ## **Goals**
 ----
-This isn't a strict order, but makes sense as a logical progression.
+This isn't a strict order, but makes sense as a logical progression. Look in the wiki for more detail about what is already in.
 - [x] Be able to boot
 - [x] Display text to the screen
 - [x] GDT
