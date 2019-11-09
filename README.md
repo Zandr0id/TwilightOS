@@ -4,7 +4,7 @@ This is a project that is intended to become my every day use OS. I want to lear
 
 ## Building
 ----
-For now, Twilight is built using the cross compiler described in the [OSDev.org Cross Compiler](https://wiki.osdev.org/GCC_Cross-Compiler) section. I'm using Visual Studio Code as the main editor and doing the compiling with the Windows Subsystem for Linux. I've only done testing on Qemu and VirtualBox, but you can try any emulator you want. You'll have to change the path in the `make run` recipe to use what you want if you want to use that command.
+For now, Twilight is built using the cross compiler described in the [OSDev.org Cross Compiler](https://wiki.osdev.org/GCC_Cross-Compiler) section, and NASM. I'm using Visual Studio Code as the main editor and doing the compiling with the Windows Subsystem for Linux, but standalone linux works fine too. I've only done testing on Qemu and VirtualBox. You'll have to change the path in the `make run` recipe to use what you want if you want to use that command.
 
 ## **Some useful makefile commands**
 ----
