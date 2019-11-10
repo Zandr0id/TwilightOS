@@ -5,6 +5,7 @@
 #include "../include/isr_helper.h"
 
 isr_t interrupt_handlers[256];
+//static Debug_Logger * logger = Debug_Logger::Instance();
 
 void register_interrupt_handler(int n, isr_t handler)
 {
