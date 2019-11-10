@@ -3,44 +3,48 @@
 #include "../include/isr_helper.h"
 
 
+
+Serial_port::Serial_port(short port_number)
+{
+    com_port_num_ = port_number; //save the port number, because reasons
+
+    outb(port_number+1,0x00);//disable interrupts
+    outb(port_number+3,0x80);//
+    outb(port_number+0,0x03);
+    outb(port_number+1,0x00);
+    outb(port_number+3,0x03);
+    outb(port_number+2,0xC7);
+    outb(port_number+4,0x0B);
+}
+
+int Serial_port::get_port_num()
+{
+    return com_port_num_;
+}
+
+void Serial_port::print(const char * string_to_print)
+{
+    while(*string_to_print != '\0') //check if it's the end of the string
+    {
+        while((inb(com_port_num_+5) & 0x20) == 0); //make sure the TX buffer is empty
+    
+        outb(com_port_num_, *string_to_print); //print the char
+        string_to_print++; //next char
+    }
+}
+
+char * Serial_port::read()
+{
+    return rx_buff;
+}
+
 void serial_port_callback()
 {
     //TODO: implement me!!!
 }
 
-void serial_install()
-{
-    outb(COM1+1,0x00);//disable interrupts
-    outb(COM1+3,0x80);//
-    outb(COM1+0,0x03);
-    outb(COM1+1,0x00);
-    outb(COM1+3,0x03);
-    outb(COM1+2,0xC7);
-    outb(COM1+4,0x0B);
-
-    register_interrupt_handler(36, (isr_t)serial_port_callback);
+void serial_tx_install()
+{    
+    //register_interrupt_handler(36, (isr_t)serial_port_callback);
 }
 
-//Check if nothing is being transmitted at the moment
-int check_TX_empty()
-{
-    int num = inb(COM1+5) & 0x20;
-    return num;
-}
-
-void write_char_serial(char c)
-{
-    while (check_TX_empty() == 0); //sit here until TX buffer is empty 
-  
-    outb(COM1, c);
-}
-
-void write_serial_string(const char *c)
-{
-    while(*c != '\0')
-    {
-        //print_char(c);
-        write_char_serial(*c);
-        c++;
-    }
-}
