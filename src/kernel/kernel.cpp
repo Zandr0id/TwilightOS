@@ -7,12 +7,13 @@
 #include "../include/stdio.h"
 #include "../include/syslib.h"
 #include "../include/memory.h" //malloc
+#include "../include/debugger_device.h"
 
 //#define INSTA_FAIL
 //#define MALLOC_TEST
 //#define PRINTF_TEST
-#define SERIAL_TEST
-
+//#define SERIAL_TEST
+ 
 //Forward declare this as Extern C so it can be called from Assembly code
 extern "C"
 {
@@ -21,6 +22,7 @@ extern "C"
 
 void kernel_main(void) 
 {
+
 	clear_screen();
 	set_text_red();
 	
@@ -33,9 +35,13 @@ void kernel_main(void)
 	printf("  |_|   \\_/\\_/ |_|_|_|\\__, |_| |_|\\__| \n");
 	printf("                      |___/            \n"); 
 
+	//install the heap
+	heap_install();
 
 	//set up serial port
-	serial_install();
+	//serial_tx_install();
+	//reprogram the PIC
+	PIC_install();
 
 	//set the Global Descriptor Table
 	gdt_install();
@@ -46,17 +52,12 @@ void kernel_main(void)
 	//fill the IDT with interrupt functions
 	isr_install();
 
-	//reprogram the PIC
-	PIC_install();
-
-	//install the heap
-	heap_install();
-
 	//install the keyboard interrupt
 	keyboard_install();
 
 	//start the system clock
 	time_install(1000); //1000hz
+
 
 	print_char("\n");
 
@@ -85,7 +86,9 @@ void kernel_main(void)
 #endif
 
 #ifdef SERIAL_TEST
-	write_serial_string("HELLO\n");
+	//write_serial_string("This is testing the serial port!\n");
+	Debug_Logger::Instance()->print("Hello\n");
+	Debug_Logger::Instance()->print("This is testing the serial port\n");
 #endif
 
 //exception test
