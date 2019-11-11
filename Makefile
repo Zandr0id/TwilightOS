@@ -113,6 +113,6 @@ print:
 	
 run:
 	echo "Starting QEMU"
-	#qemu-system-i386 -kernel $(OUTPUT_FILE)
-	powershell.exe start scripts/run_qemu.bat
+	qemu-system-i386 -kernel $(OUTPUT_FILE) -serial stdio
+	#powershell.exe start scripts/run_qemu.bat
 
