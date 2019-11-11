@@ -60,6 +60,22 @@ void isr_install()
     printf("Install IRQs\n");
     idt_add_entry(32, (unsigned)irq0, 0x08, 0x8E); //timer
     idt_add_entry(33, (unsigned)irq1, 0x08, 0x8E); //keyboard
+    //TODO: perhaps catch ISR 2 and produce error?
+    //idt_add_entry(34, (unsigned)irq2, 0x08, 0x8E); // This one should never be assigned
+    idt_add_entry(35, (unsigned)irq3, 0x08, 0x8E); // COM 2
+    idt_add_entry(36, (unsigned)irq4, 0x08, 0x8E); // COM 1
+    idt_add_entry(37, (unsigned)irq5, 0x08, 0x8E); // LPT2
+    idt_add_entry(38, (unsigned)irq6, 0x08, 0x8E); // Floppy disk
+    //TODO: react to spurious irq 7
+    idt_add_entry(39, (unsigned)irq7, 0x08, 0x8E); // LPT1/Spurious 
+    idt_add_entry(40, (unsigned)irq8, 0x08, 0x8E); // CMOS real-time
+    idt_add_entry(41, (unsigned)irq9, 0x08, 0x8E); // SCSI/NIC
+    idt_add_entry(42, (unsigned)irq10, 0x08, 0x8E); // SCSI/NIC
+    idt_add_entry(43, (unsigned)irq11, 0x08, 0x8E); // SCSI/NIC
+    idt_add_entry(44, (unsigned)irq12, 0x08, 0x8E); // Mouse
+    idt_add_entry(45, (unsigned)irq13, 0x08, 0x8E); // FPU
+    idt_add_entry(46, (unsigned)irq14, 0x08, 0x8E); // Primary ATA
+    idt_add_entry(47, (unsigned)irq15, 0x08, 0x8E); // Secondary ATA
 }
 
 void PIC_install()

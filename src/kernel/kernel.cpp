@@ -38,8 +38,6 @@ void kernel_main(void)
 	//install the heap
 	heap_install();
 
-	//set up serial port
-	//serial_tx_install();
 	//reprogram the PIC
 	PIC_install();
 
@@ -57,7 +55,6 @@ void kernel_main(void)
 
 	//start the system clock
 	time_install(1000); //1000hz
-
 
 	print_char("\n");
 
@@ -82,7 +79,6 @@ void kernel_main(void)
 	free(number3);
 	free(number4);
 	//free(number3);
-
 #endif
 
 #ifdef SERIAL_TEST
@@ -101,7 +97,7 @@ void kernel_main(void)
 
 	while(true)
 	{
-		//printf("Millisecs since poweron: %d\n\0",get_system_uptime()); //TODO: make time accessable everywhere
+		printf("Millisecs since poweron: %d\n\0",get_system_uptime()); //TODO: make time accessable everywhere
 		//unsigned char * temp = (unsigned char *)get_last_character();
 		auto temp = get_last_character();
 		auto temp_2 = &temp;
