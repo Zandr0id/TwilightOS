@@ -4,16 +4,7 @@
 //#define MALLOC_DEBUG
 
 //static Heap kernel_heap;
-//static char * eternal_heap = (char * )(0x100000+DYNAMIC_HEAP_SIZE+512); //TODO: put in specific spot
 static Heap_element_header * kernel_heap_start = (Heap_element_header * )0x200000;
-/*
-void * malloc_eternal(size_t size)
-{
-    void * loc = eternal_heap;
-    eternal_heap += size;
-    return loc;
-}
-*/
 
 int amount_of_free_heap()
 {
@@ -147,7 +138,6 @@ void * malloc(size_t size)
         if(nullptr != current_header->next)
         {   
             current_header = current_header->next; // move to the next header
-            //printf("jump1\n");
         }
         else
         {
@@ -193,7 +183,6 @@ void free(void * loc)
 #ifdef MALLOC_DEBUG
     printf("After Free %d : %d\n",size, amount_of_free_heap());
 #endif
-    //TODO: Implement me!!!
 }
 
 void * operator new (size_t size)
