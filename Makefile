@@ -7,13 +7,18 @@ BIN_DIR := ./bin
 SRC_DIR := ./src/kernel
 INCLUDE_DIR := ./src/include
 
-#This project is made of .asm, .c, and possibly .cpp files
+#This project is made of .asm and .cpp files
 #Go into the SRC_DIR and lookd for any of those.
 #each file type needs to be located separatly because duplicate
 #names will mess up the search if I try to do it in one command
-ASM_SRC_FILES := $(wildcard  $(SRC_DIR)/*.asm) 
-C_SRC_FILES := $(wildcard $(SRC_DIR)/*.c) 
-CPP_SRC_FILES := $(wildcard $(SRC_DIR)/*.cpp)
+
+#ASM_SRC_FILES := $(wildcard  $(SRC_DIR)/*.asm) 
+#C_SRC_FILES := $(wildcard $(SRC_DIR)/*.c) 
+#CPP_SRC_FILES := $(wildcard $(SRC_DIR)/*.cpp)
+
+ASM_SRC_FILES := $(wildcard $(SRC_DIR)/*.asm) $(wildcard $(SRC_DIR)/*/*.asm) $(wildcard $(SRC_DIR)/*/*/*.asm)
+CPP_SRC_FILES := $(wildcard $(SRC_DIR)/*.cpp) $(wildcard $(SRC_DIR)/*/*.cpp) $(wildcard $(SRC_DIR)/*/*/*.cpp)
+C_SRC_FILES := $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/*/*.c) $(wildcard $(SRC_DIR)/*/*/*.c)
 
 #Put all the files together in one list
 #This is now a single list of every file that needs to be compiled together
@@ -23,14 +28,16 @@ SRC_FILES := $(ASM_SRC_FILES) $(C_SRC_FILES) $(CPP_SRC_FILES)
 #After this, every file with .asm, .c, etc. now has a .o
 #This assumes for now that every file in the project is going into the same final output file
 #When I start building multiple output files, this will have to change somehow
+
+#OBJ_FILES := $($(notdir $(SRC_FILES)), $(OBJS_DIR), $(addsuffix .o, $(basename $(SRC_FILES))))
 OBJ_FILES := $(subst $(SRC_DIR), $(OBJS_DIR), $(addsuffix .o, $(basename $(SRC_FILES))))
+#OBJ_FILES := $(OBJS_DIR)/asm.o $(OBJS_DIR)/cpp.o $(OBJS_DIR)/c.o
 
 #This is what the output file will be called
 OUTPUT_FILE = $(BIN_DIR)/kernel.bin
 
-
 #flags used by both compilers
-COMMON_FLAGS = -c -O2 -ffreestanding -lgcc -Werror -Wall -Wextra -l$(INCLUDE_DIR)
+COMMON_FLAGS = -c -O2 -ffreestanding -lgcc -Werror -Wall -Wextra -I$(INCLUDE_DIR)
 
 #The compiler and its flags
 CC = i686-elf-gcc
@@ -38,7 +45,7 @@ CFLAGS = -std=gnu17 $(COMMON_FLAGS)
 
 #If I ever want to use C++
 CPP = i686-elf-c++
-CPPFLAGS = -ffreestanding -fno-exceptions $(COMMON_FLAGS) #-fno-rtti
+CPPFLAGS = -fno-exceptions -std=c++17 $(COMMON_FLAGS) -fno-rtti
 
 #Linker Flags
 LDFLAGS = -T link.ld -ffreestanding -O2 -lgcc -nostdlib
@@ -53,23 +60,32 @@ ASMFLAGS = -felf32
 #.ONESHELL: # this lets everything be run in one shell, so things like "cd" work as expected
 
 build : $(OUTPUT_FILE)
+
 $(OUTPUT_FILE) : $(OBJ_FILES)
-	#@cd $(OBJS_DIR) 
 	$(CC) $(LDFLAGS) $(OBJ_FILES) -o $(OUTPUT_FILE)
 	echo "Linking $(OBJ_FILES) ----------> $@"
 
 # assemble any .asm files and put them in the OBJS_DIR
 $(OBJS_DIR)/%.o : $(SRC_DIR)/%.asm
-	$(ASM) $(ASMFLAGS) $< -o $@
-	echo "$<  ----->  $@"
+	mkdir -p $(OBJS_DIR)/arch/x86
+	mkdir -p $(OBJS_DIR)/drivers
+	mkdir -p $(OBJS_DIR)/libc
+	$(ASM) $(ASMFLAGS) $^ -o $@
+	echo "$^  ----->  $@"
 
 #compile any .c files and put them in the OBJS_DIR
 $(OBJS_DIR)/%.o : $(SRC_DIR)/%.c 
+	mkdir -p $(OBJS_DIR)/arch/x86
+	mkdir -p $(OBJS_DIR)/drivers
+	mkdir -p $(OBJS_DIR)/libc
 	$(CC) $(CFLAGS) $< -o $@
 	echo "$<  ----->  $@"
 
 #compiile and .cpp files and put them in the OBJS_DIR
 $(OBJS_DIR)/%.o : $(SRC_DIR)/%.cpp 
+	mkdir -p $(OBJS_DIR)/arch/x86
+	mkdir -p $(OBJS_DIR)/drivers
+	mkdir -p $(OBJS_DIR)/libc
 	$(CPP) $(CPPFLAGS) $< -o $@
 	echo "$<  ----->  $@"
 
@@ -85,7 +101,7 @@ files:
 	echo "<----- Output File ----->"
 	echo $(OUTPUT_FILE)
 
-#.PHONY tells make that there will never be file called clean
+#.PHONY tells make that there will never be these files
 .PHONY: clean print run all list files
 
 list:
@@ -105,7 +121,8 @@ all: rebuild run
 
 clean:
 	echo "Clean up..."
-	rm -f $(OBJS_DIR)/*.o $(OBJS_DIR)/*~
+	rm -rf $(OBJS_DIR)
+
 	rm -f $(BIN_DIR)/*~ $(BIN_DIR)/*.bin
 
 print:
@@ -113,6 +130,6 @@ print:
 	
 run:
 	echo "Starting QEMU"
-	qemu-system-i386 -kernel $(OUTPUT_FILE) -serial stdio
-	#powershell.exe start scripts/run_qemu.bat
+	#qemu-system-i386 -kernel $(OUTPUT_FILE) -serial stdio
+	powershell.exe start scripts/run_qemu.bat
 

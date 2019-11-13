@@ -1,8 +1,8 @@
 
-#include "../include/stdlib.h"
-#include "../include/syslib.h"
-#include "../include/stdio.h"
-#include "../include/isr_helper.h"
+#include <libc/stdlib.h>
+#include <libc/syslib.h>
+#include <libc/stdio.h>
+#include <arch/x86/isr_helper.h>
 
 isr_t interrupt_handlers[256];
 //static Debug_Logger * logger = Debug_Logger::Instance();

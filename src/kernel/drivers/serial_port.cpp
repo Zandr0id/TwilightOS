@@ -1,6 +1,6 @@
-#include "../include/stdio.h"
-#include "../include/serial_port.h"
-#include "../include/isr_helper.h"
+#include <libc/stdio.h>
+#include <drivers/serial_port.h>
+#include <arch/x86/isr_helper.h>
 
 
 

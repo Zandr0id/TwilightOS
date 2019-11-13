@@ -1,7 +1,7 @@
 
-#include "../include/keyboard.h"
-#include "../include/stdio.h"
-#include "../include/isr_helper.h"
+#include <drivers/keyboard.h>
+#include <libc/stdio.h>
+#include <arch/x86/isr_helper.h>
 
 static keyboard_state_buffer keyboard_buffer;
 

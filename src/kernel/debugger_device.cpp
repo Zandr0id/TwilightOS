@@ -1,4 +1,4 @@
-#include "../include/debugger_device.h"
+#include <debugger_device.h>
 
 Debug_Logger * Debug_Logger::instance_ = nullptr;
 

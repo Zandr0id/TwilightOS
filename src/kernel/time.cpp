@@ -1,7 +1,7 @@
 
-#include "../include/stdio.h"
-#include "../include/isr_helper.h"
-#include "../include/time.h"
+#include <libc/stdio.h>
+#include <arch/x86/isr_helper.h>
+#include <time.h>
 
 static time_data time; // the master system clock, for now
 

@@ -1,7 +1,7 @@
 
 //this is where the functions unique to stdlib will be implemented
 
-#include "../include/stdlib.h"
+#include <libc/stdlib.h>
 
 //takes to chars as locations and copies one to another
 void memcpy(void * dest, const void * src, int count)

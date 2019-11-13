@@ -1,5 +1,5 @@
-#include "../include/memory.h"
-#include "../include/stdio.h"
+#include <libc/memory.h>
+#include <libc/stdio.h>
 
 //#define MALLOC_DEBUG
 

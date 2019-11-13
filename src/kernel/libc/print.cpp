@@ -1,5 +1,5 @@
 
-#include "../include/stdio.h"
+#include <libc/stdio.h>
 
 //converts a number to a base of choice
 char *convert(unsigned int num, int base) 

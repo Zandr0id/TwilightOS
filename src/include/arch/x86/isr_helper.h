@@ -1,7 +1,7 @@
 #ifndef ISR_HELPER_H_
 #define ISR_HELPER_H_
 
-#include "../include/syslib.h"
+#include <libc/syslib.h>
 
 enum PIC_Ports
 {

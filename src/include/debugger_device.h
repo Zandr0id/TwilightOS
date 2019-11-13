@@ -1,8 +1,8 @@
 #ifndef DEBUGGER_DEVICE_H_
 #define DEBUGGER_DEVICE_H_
 
-#include "../include/serial_port.h"
-#include "../include/basics.h"
+#include <drivers/serial_port.h>
+#include <basics.h>
 
 class Debug_Logger
 {

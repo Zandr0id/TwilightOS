@@ -2,8 +2,8 @@
 #ifndef SERIAL_PORT_H_
 #define SERIAL_PORT_H_
 
-#include "../include/memory.h"
-#include "../include/stdio.h"
+#include <libc/memory.h>
+#include <libc/stdio.h>
 
 enum Serial_port_keywords
 {

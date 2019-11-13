@@ -3,11 +3,11 @@
 	It calls all the functions needed for the initial processor setup
 */
 
-#include "../include/stdlib.h"
-#include "../include/stdio.h"
-#include "../include/syslib.h"
-#include "../include/memory.h" //malloc
-#include "../include/debugger_device.h"
+#include <libc/stdlib.h>
+#include <libc/stdio.h>
+#include <libc/syslib.h>
+#include <libc/memory.h> //malloc
+#include <debugger_device.h>
 
 //#define INSTA_FAIL
 //#define MALLOC_TEST

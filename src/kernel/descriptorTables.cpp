@@ -2,8 +2,8 @@
 This is the layout for the Global Descriptor Table
  */
 
-#include "../include/stdlib.h"
-#include "../include/stdio.h"
+#include <libc/stdlib.h>
+#include <libc/stdio.h>
 
 #pragma pack(2)
 struct gdt_entry

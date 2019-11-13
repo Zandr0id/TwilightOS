@@ -8,7 +8,7 @@ Written by Zane Youmans
 #ifndef STDIO_H_
 #define STDIO_H_
 
-#include "basics.h"
+#include "../basics.h"
 
 //I/O related functions
 
