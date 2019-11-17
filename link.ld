@@ -1,7 +1,6 @@
 
 /* i'm pretty sure this script only looks for symbols and places them in memory the way thay've been outlind below */
 
-OUTPUT_FORMAT("binary") /* the output file type is described here */
 ENTRY(start) /* search for this symbol and make it the entry point */
 phys = 0x00100000; /* the address to start at I guess? */
 SECTIONS

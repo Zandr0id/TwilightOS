@@ -33,7 +33,7 @@ OBJ_FILES := $(subst $(SRC_DIR), $(OBJS_DIR), $(addsuffix .o, $(basename $(SRC_F
 OUTPUT_FILE = $(BIN_DIR)/kernel.bin
 
 #flags used by both compilers
-COMMON_FLAGS = -c -O2 -ffreestanding -lgcc -fno-pic -Werror -Wall -Wextra -I$(INCLUDE_DIR)
+COMMON_FLAGS = -g -c -O0 -ffreestanding -lgcc -fno-pic -Werror -Wall -Wextra -I$(INCLUDE_DIR)
 
 #The compiler and its flags
 CC = i686-elf-gcc
@@ -44,11 +44,11 @@ CPP = i686-elf-c++
 CPPFLAGS = -fno-exceptions -std=c++17 $(COMMON_FLAGS) -fno-rtti
 
 #Linker Flags
-LDFLAGS = -T link.ld -ffreestanding -O2 -lgcc -nostdlib
+LDFLAGS = -T link.ld -ffreestanding -O0 -lgcc -nostdlib
 
 #The assembler and its flags
 ASM = nasm
-ASMFLAGS = -felf32
+ASMFLAGS = -felf32 -F dwarf -g
 
 #GCC assembler does not need flags
 #ASM=i686-elf-as
