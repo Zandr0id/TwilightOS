@@ -12,10 +12,6 @@ INCLUDE_DIR := ./src/include
 #each file type needs to be located separatly because duplicate
 #names will mess up the search if I try to do it in one command
 
-#ASM_SRC_FILES := $(wildcard  $(SRC_DIR)/*.asm) 
-#C_SRC_FILES := $(wildcard $(SRC_DIR)/*.c) 
-#CPP_SRC_FILES := $(wildcard $(SRC_DIR)/*.cpp)
-
 ASM_SRC_FILES := $(wildcard $(SRC_DIR)/*.asm) $(wildcard $(SRC_DIR)/*/*.asm) $(wildcard $(SRC_DIR)/*/*/*.asm)
 CPP_SRC_FILES := $(wildcard $(SRC_DIR)/*.cpp) $(wildcard $(SRC_DIR)/*/*.cpp) $(wildcard $(SRC_DIR)/*/*/*.cpp)
 C_SRC_FILES := $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/*/*.c) $(wildcard $(SRC_DIR)/*/*/*.c)
@@ -37,7 +33,8 @@ OBJ_FILES := $(subst $(SRC_DIR), $(OBJS_DIR), $(addsuffix .o, $(basename $(SRC_F
 OUTPUT_FILE = $(BIN_DIR)/kernel.bin
 
 #flags used by both compilers
-COMMON_FLAGS = -c -O2 -ffreestanding -lgcc -Werror -Wall -Wextra  -I$(INCLUDE_DIR)
+COMMON_FLAGS = -g -c -O0 -ffreestanding -lgcc -fno-pic -Werror -Wall -Wextra -I$(INCLUDE_DIR)
+
 
 #The compiler and its flags
 CC = i686-elf-gcc
@@ -48,11 +45,11 @@ CPP = i686-elf-c++
 CPPFLAGS = -fno-exceptions -std=c++17 $(COMMON_FLAGS) -fno-rtti
 
 #Linker Flags
-LDFLAGS = -T link.ld -ffreestanding -O2 -lgcc -nostdlib
+LDFLAGS = -T link.ld -ffreestanding -O0 -lgcc -nostdlib
 
 #The assembler and its flags
 ASM = nasm
-ASMFLAGS = -felf32
+ASMFLAGS = -felf32 -F dwarf -g
 
 #GCC assembler does not need flags
 #ASM=i686-elf-as
@@ -67,25 +64,19 @@ $(OUTPUT_FILE) : $(OBJ_FILES)
 
 # assemble any .asm files and put them in the OBJS_DIR
 $(OBJS_DIR)/%.o : $(SRC_DIR)/%.asm
-	mkdir -p $(OBJS_DIR)/arch/x86
-	mkdir -p $(OBJS_DIR)/drivers
-	mkdir -p $(OBJS_DIR)/libc
-	$(ASM) $(ASMFLAGS) $^ -o $@
-	echo "$^  ----->  $@"
+	mkdir -p $(dir $@)
+	$(ASM) $(ASMFLAGS) $< -o $@
+	echo "$<  ----->  $@"
 
 #compile any .c files and put them in the OBJS_DIR
 $(OBJS_DIR)/%.o : $(SRC_DIR)/%.c 
-	mkdir -p $(OBJS_DIR)/arch/x86
-	mkdir -p $(OBJS_DIR)/drivers
-	mkdir -p $(OBJS_DIR)/libc
+	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $< -o $@
 	echo "$<  ----->  $@"
 
 #compiile and .cpp files and put them in the OBJS_DIR
 $(OBJS_DIR)/%.o : $(SRC_DIR)/%.cpp 
-	mkdir -p $(OBJS_DIR)/arch/x86
-	mkdir -p $(OBJS_DIR)/drivers
-	mkdir -p $(OBJS_DIR)/libc
+	mkdir -p $(dir $@)
 	$(CPP) $(CPPFLAGS) $< -o $@
 	echo "$<  ----->  $@"
 
@@ -126,10 +117,11 @@ clean:
 	rm -f $(BIN_DIR)/*~ $(BIN_DIR)/*.bin
 
 print:
-	figlet -c Twilight
+	# don't fail if figlet isn't installed
+	if which figlet >/dev/null; then figlet -c Twilight; else echo "                        ##### Twilight #####"; fi
 	
 run:
 	echo "Starting QEMU"
 	#qemu-system-i386 -kernel $(OUTPUT_FILE) -serial stdio
-	powershell.exe start scripts/run_qemu.bat
+	cmd.exe /C "scripts\run_qemu.bat"
 
