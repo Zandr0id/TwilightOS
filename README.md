@@ -1,6 +1,10 @@
 # TwilightOS
 ----
-This is a project that is intended to become my every day use OS. I want to learn how to make the tools that I use everyday. It's still in the very first stages, but there are promising resultes so far. I'm not going for a Unix clone, but I will include Unix design choices that I think are good ones, and there will be just enough POSIX compliance to port some software. The future plan is to use it as a base to develope standalone applications for it, like a code IDE and web browser. Perhaps even a complier or language interpreter. 
+This is a project that is intended to become my every day use OS. I want to learn how to make the tools that I use everyday. It's still in the very first stages, but there are promising resultes so far. I'm not going for a Unix clone, but I will include Unix design choices that I think are good ones, and there will be just enough POSIX compliance to port some software. The future plan is to use it as a base to develope standalone applications for it, like a code IDE and web browser. Perhaps even a complier or language interpreter.
+
+## Design Philosophy
+----
+This OS is for me, but I'd love for others to help and use it as well. I want Twilight to be approchable and understandable to anyone looking at it for the first time. With that in mind, I'm making a conscious effort to make things readable and not do anything too fancy. Even though it probably effects performance, I'm valuing maintainability as a higher priority. I'd also prefer to be the one to add any major features, since this is primarily a learining excersise for me. If you have a large feature that would like to add, please talk to me about it first. I'm really only interesting in having functionality that I would personally use.
 
 ## Building
 ----
