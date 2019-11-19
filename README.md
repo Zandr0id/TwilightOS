@@ -4,7 +4,7 @@ This is a project that is intended to become my every day use OS. I want to lear
 
 ## Design Philosophy
 ----
-This OS is for me, but I'd love for others to help and use it as well. I want Twilight to be approchable and understandable to anyone looking at it for the first time. With that in mind, I'm making a conscious effort to make things readable and not do anything too fancy. Even though it probably affects performance, I'm valuing maintainability as a higher priority. I'd also prefer to be the one to add any major features, since this is primarily a learining excersise for me. If you have a large feature that would like to add, please talk to me about it first. I'm really only interesting in having functionality that I would personally use.
+This OS is for me, but I'd love for others to help and use it as well. I want Twilight to be approchable and understandable to anyone looking at it for the first time. With that in mind, I'm making a conscious effort to make things readable and not do anything too fancy. Even though it probably affects performance, I'm valuing maintainability as a higher priority. I'd also prefer to be the one to add any major features, since this is primarily a learining excersise for me. If you have a large feature that would like to add, please talk to me about it first. I'm really only interesting in having functionality that I would personally use. If you have made a contribution, you are more then welcome to put your name down at the bottom to make yourself known!
 
 ## Building
 ----
