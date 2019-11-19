@@ -32,7 +32,6 @@ void keyboard_callback()
 char get_last_character()
 {
     char return_char;
-
     switch (keyboard_buffer.scancode)
     {
         case Keyboard_A: 

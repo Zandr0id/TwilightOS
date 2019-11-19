@@ -35,6 +35,7 @@ OUTPUT_FILE = $(BIN_DIR)/kernel.bin
 #flags used by both compilers
 COMMON_FLAGS = -g -c -O0 -ffreestanding -lgcc -fno-pic -Werror -Wall -Wextra -I$(INCLUDE_DIR)
 
+
 #The compiler and its flags
 CC = i686-elf-gcc
 CFLAGS = -std=gnu17 $(COMMON_FLAGS)

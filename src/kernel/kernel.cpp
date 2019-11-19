@@ -8,11 +8,15 @@
 #include <libc/syslib.h>
 #include <libc/memory.h> //malloc
 #include <debugger_device.h>
+#include <paging.h>
+#include <assert.h>
+#include <unpacked_page_table_ent.h>
 
 //#define INSTA_FAIL
 //#define MALLOC_TEST
 //#define PRINTF_TEST
-#define SERIAL_TEST
+//#define SERIAL_TEST
+#define PAGING_TEST
  
 //Forward declare this as Extern C so it can be called from Assembly code
 extern "C"
@@ -37,6 +41,9 @@ void kernel_main(void)
 
 	//install the heap
 	heap_install();
+
+	//begin paging
+	paging_install();
 
 	//reprogram the PIC
 	PIC_install();
@@ -91,6 +98,16 @@ void kernel_main(void)
 #ifdef INSTA_FAIL
 	int test = 0;
 	__asm volatile ("div %b0" : "+a"(test));
+#endif
+
+#ifdef PAGING_TEST
+	auto * new_page = find_new_frame();
+	printf("%x\n",new_page);
+	auto * new_page2 = find_new_frame();
+	printf("%x\n",new_page2);
+	free_frame(new_page);
+	auto * new_page3 = find_new_frame();
+	printf("%x\n",new_page3);
 #endif
 
 	printf("DONE\n");

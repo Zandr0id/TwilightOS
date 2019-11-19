@@ -76,6 +76,7 @@ void isr_install()
     idt_add_entry(45, (unsigned)irq13, 0x08, 0x8E); // FPU
     idt_add_entry(46, (unsigned)irq14, 0x08, 0x8E); // Primary ATA
     idt_add_entry(47, (unsigned)irq15, 0x08, 0x8E); // Secondary ATA
+
 }
 
 void PIC_install()
@@ -157,6 +158,7 @@ void irq_handler(struct regs * r)
     unsigned int irq_number = r->int_no;
     
     //acknowledge the PIC so it will send more interrupts
+  
     if (irq_number >= 40)
     {
         outb(0xA0,0x20);

@@ -28,6 +28,7 @@ extern void isr_install();
 extern void time_install(int freq);
 extern void PIC_install();
 extern void keyboard_install();
+extern void paging_install();
 
 //beginning of syscalls?
 extern unsigned int get_system_uptime();
