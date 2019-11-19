@@ -4,7 +4,7 @@
 //#define MALLOC_DEBUG
 
 //static Heap kernel_heap;
-static Heap_element_header * kernel_heap_start = (Heap_element_header * )0x200000;
+static Heap_element_header * kernel_heap_start = (Heap_element_header * )0x100000; //up to 0x104000
 
 int amount_of_free_heap()
 {
