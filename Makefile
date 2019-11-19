@@ -37,7 +37,7 @@ OBJ_FILES := $(subst $(SRC_DIR), $(OBJS_DIR), $(addsuffix .o, $(basename $(SRC_F
 OUTPUT_FILE = $(BIN_DIR)/kernel.bin
 
 #flags used by both compilers
-COMMON_FLAGS = -c -O2 -ffreestanding -lgcc -Werror -Wall -Wextra -I$(INCLUDE_DIR)
+COMMON_FLAGS = -c -O2 -ffreestanding -lgcc -Werror -Wall -Wextra  -I$(INCLUDE_DIR)
 
 #The compiler and its flags
 CC = i686-elf-gcc
