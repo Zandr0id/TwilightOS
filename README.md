@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://user-images.githubusercontent.com/47342104/69205235-aa1da400-0b06-11ea-9ea1-80acbe22b110.png">
+<img src="https://user-images.githubusercontent.com/47342104/69205807-409e9500-0b08-11ea-85c9-28f7fead6af8.png">
 </p>
 This is a project that is intended to become my every day use OS. I want to learn how to make the tools that I use everyday. It's still in the very first stages, but there are promising resultes so far. I'm not going for a Unix clone, but I will include Unix design choices that I think are good ones, and there will be just enough POSIX compliance to port some software. The future plan is to use it as a base to develope standalone applications for it, like a code IDE and web browser. Perhaps even a complier or language interpreter.
 
