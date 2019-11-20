@@ -1,5 +1,4 @@
 #include <paging.h>
-#include <unpacked_page_table_ent.h>
 #include <libc/stdio.h>
 #include <assert.h>
 
@@ -12,6 +11,7 @@ static unsigned int frame_field_bitmap[8192]; //this is how many ints can fit in
 
 void paging_install()
 {
+    printf("Install Paging\n");
     for (int i=0;i<8192;i++)
     {
         frame_field_bitmap[i] = 0; //zero out the whole bitmap
@@ -48,7 +48,7 @@ void * find_new_frame()
             return (frame_field + bitmask_index); // return the address of the free frame! 
         }
     }  
-    ASSERT_NOT_REACHED();
+    ASSERT_NOT_REACHED(); //if we got here, something went wrong!
 }
 
 void free_frame(void * frame_to_free)

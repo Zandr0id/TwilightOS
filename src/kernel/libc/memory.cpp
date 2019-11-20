@@ -204,6 +204,7 @@ void operator delete (void* ptr, size_t size)
 void heap_install()
 {
    // Heap_element_header * heap_top = kernal_heap_start;
+    printf("Install Heap\n");
     kernel_heap_start->in_use = false;
     kernel_heap_start->payload_size = (HEAP_DYNAMIC_SIZE - sizeof(Heap_element_header));
     kernel_heap_start->next = nullptr;
