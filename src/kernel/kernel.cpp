@@ -10,13 +10,12 @@
 #include <debugger_device.h>
 #include <paging.h>
 #include <assert.h>
-#include <unpacked_page_table_ent.h>
 
 //#define INSTA_FAIL
 //#define MALLOC_TEST
 //#define PRINTF_TEST
 //#define SERIAL_TEST
-#define PAGING_TEST
+//#define PAGING_TEST
  
 //Forward declare this as Extern C so it can be called from Assembly code
 extern "C"
@@ -67,6 +66,7 @@ void kernel_main(void)
 
 //printf test
 #ifdef PRINTF_TEST
+	printf("PRINTF_TEST\n");
 	printf("Int: %d Char: %c Hex: %x \nOct: %o Str: %s \n",-85,"R",255,128,"Hello");
 	//TODO: Fix %c to use ' ' instead of " "
 #endif
@@ -75,7 +75,7 @@ void kernel_main(void)
 //dynamic memory test
 #ifdef MALLOC_TEST
 	//turn on MALLOC_DEBUG for this
-	printf("\nMalloc Test: \n");
+	printf("Malloc Test: \n");
 	void * number1 = malloc(30);
 	void * number2 = malloc(90);
 	void * number3 = malloc(120);
@@ -90,17 +90,14 @@ void kernel_main(void)
 
 #ifdef SERIAL_TEST
 	//write_serial_string("This is testing the serial port!\n");
+	printf("SERIAL_TEST\n");
 	Debug_Logger::Instance()->print("Hello\n");
 	Debug_Logger::Instance()->print("This is testing the serial port\n");
 #endif
 
-//exception test
-#ifdef INSTA_FAIL
-	int test = 0;
-	__asm volatile ("div %b0" : "+a"(test));
-#endif
 
 #ifdef PAGING_TEST
+	printf("PAGING_TEST\n");
 	auto * new_page = find_new_frame();
 	printf("%x\n",new_page);
 	auto * new_page2 = find_new_frame();
@@ -110,6 +107,12 @@ void kernel_main(void)
 	printf("%x\n",new_page3);
 #endif
 
+//exception test
+#ifdef INSTA_FAIL
+	printf("FAIL_TEST\n");
+	int test = 0;
+	__asm volatile ("div %b0" : "+a"(test));
+#endif
 	printf("DONE\n");
 
 	while(true)
