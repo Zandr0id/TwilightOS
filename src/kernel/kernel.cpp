@@ -25,7 +25,7 @@ extern "C"
 	void __cxa_pure_virtual(){};   // needed for pure virtual functions
 }
 
-void kernel_main(void) 
+void kernel_main(void)
 {
 	clear_screen();
 	set_text_red();
