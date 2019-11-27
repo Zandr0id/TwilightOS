@@ -17,15 +17,16 @@
 //#define SERIAL_TEST
 //#define PAGING_TEST
  
+
 //Forward declare this as Extern C so it can be called from Assembly code
 extern "C"
 {
 	void kernel_main(void);
+	void __cxa_pure_virtual(){};   // needed for pure virtual functions
 }
 
 void kernel_main(void) 
 {
-
 	clear_screen();
 	set_text_red();
 	
