@@ -8,7 +8,7 @@ Written by Zane Youmans
 #ifndef SYSLIB_H
 #define SYSLIB_H
 
-#include "basics.h"
+#include <basics.h>
 
 // screen related functions
 extern void clear_screen(); //whipe out the screen

@@ -4,7 +4,7 @@ This is the header for dynamic memory allocation functions
 Written by Zane Youmans
 11/02/2019
 */
-#include "../include/basics.h"
+#include <basics.h>
 
 #ifndef MEMORY_H_
 #define MEMORY_H_
