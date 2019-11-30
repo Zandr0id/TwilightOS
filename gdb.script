@@ -1,5 +1,0 @@
-# Run by starting qemu with "-s -S" parameters. Then run the following command:
-# gdb -tui -command=gdb.script
-target remote localhost:1234
-file bin/kernel.bin
-advance start
