@@ -3,7 +3,10 @@
 
 #include <basics.h>
 #include <libc/memory.h>
+#include <libc/iterator.h>
+
 static const int vector_size_unit = 8; //auto resize by this amount
+
 
 template<typename T> //T will get replaced with whatever Typename is supplied
 class Vector
@@ -14,6 +17,8 @@ public:
     unsigned int size(); //return the size
     unsigned int capacity(); //return the capacity
     void insert(unsigned int index, T new_item); //insert an item at a specific spot
+    Iterator<T> begin();
+    Iterator<T> end();
     Vector();
     ~Vector();
 private:
@@ -22,6 +27,7 @@ private:
    void resize_down(); //give up extra space
    unsigned int size_; //how many slots are filled
    unsigned int capacity_; //current max slots
+   Iterator<Vector<T>> iterator_;
 };
 
 template<typename T>
@@ -30,6 +36,7 @@ Vector<T>::Vector()
     size_ = 0;
     capacity_ = vector_size_unit;
     data_ = new int[capacity_];
+    iterator_.reposition(data_,data_);
 }
 
 template<typename T>
@@ -45,6 +52,8 @@ void Vector<T>::resize_up()
 {
     //T * bigger_data = new T[capacity_ + vector_size_unit]; //make a new array that is larger
     T * bigger_data = new T[capacity_ + vector_size_unit]; //make a new array that is larger
+    
+    //TODO: make this copy more robust
     for (size_t i = 0; i<capacity_; i++)
     {
         bigger_data[i] = data_[i];
@@ -52,6 +61,7 @@ void Vector<T>::resize_up()
     delete data_; // delete the old array
     data_ = bigger_data; //save the new one
     capacity_ += vector_size_unit; //update the max capacity
+    iterator_.reposition(data_,(data_+size_));
 }
 
 //if there's extra space unneeded,
@@ -99,6 +109,18 @@ template<typename T>
 unsigned int Vector<T>::size()
 {
     return size_;
+}
+
+template<typename T>
+Iterator<T> Vector<T>::begin()
+{
+    return iterator_.start_;
+}
+
+template<typename T>
+Iterator<T> Vector<T>::end()
+{
+    return iterator_.end_;
 }
 
 #endif //VECTOR_H_
