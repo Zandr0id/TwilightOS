@@ -8,15 +8,18 @@
 #include <libc/syslib.h>
 #include <libc/memory.h> //malloc
 #include <debugger_device.h>
+#include <drivers/vga_device.h>
 #include <paging.h>
 #include <assert.h>
+//#include <libc/vector.h>
+//#include <libc/iterator.h>
+//#include <libc/map.h>
 
 //#define INSTA_FAIL
 //#define MALLOC_TEST
 //#define PRINTF_TEST
 //#define SERIAL_TEST
 //#define PAGING_TEST
- 
 
 //Forward declare this as Extern C so it can be called from Assembly code
 extern "C"
@@ -27,8 +30,12 @@ extern "C"
 
 void kernel_main(void)
 {
-	clear_screen();
-	set_text_red();
+	//install the heap
+	heap_install();
+
+	VGA_Device::Instance()->set_color(VGA_COLOR_RED,VGA_COLOR_BLACK);
+
+	VGA_Device::Instance()->clear_screen();
 	
 	//print a really sweet message
 	//Twilight is running!
@@ -38,9 +45,6 @@ void kernel_main(void)
 	printf("  | |  \\ V  V /| | | | (_| | | | | |_  \n");
 	printf("  |_|   \\_/\\_/ |_|_|_|\\__, |_| |_|\\__| \n");
 	printf("                      |___/            \n"); 
-
-	//install the heap
-	heap_install();
 
 	//begin paging
 	paging_install();
@@ -63,7 +67,26 @@ void kernel_main(void)
 	//start the system clock
 	time_install(1000); //1000hz
 
-	print_char("\n");
+	printf("\n");
+
+/*
+	Vector<int> test_vec;
+	test_vec.push_back(5);
+	test_vec.push_back(8);
+	test_vec.push_back(-78);
+
+	for(Iterator<Vector<int>> it = test_vec.begin(); it <= test_vec.end(); it++)
+	{
+
+	}
+
+	printf("%d %d %d",test_vec.pop_back(),test_vec.pop_back(),test_vec.pop_back());
+
+
+	Map<int, int> test_map;
+	test_map.insert(1,4);
+	test_map.insert(2,8);
+*/
 
 //printf test
 #ifdef PRINTF_TEST
@@ -71,7 +94,8 @@ void kernel_main(void)
 	printf("Int: %d Char: %c Hex: %x \nOct: %o Str: %s \n",-85,"R",255,128,"Hello");
 	//TODO: Fix %c to use ' ' instead of " "
 #endif
-	set_text_green();
+	VGA_Device::Instance()->set_color(VGA_COLOR_GREEN,VGA_COLOR_BLACK);
+	
 	
 //dynamic memory test
 #ifdef MALLOC_TEST
@@ -86,16 +110,15 @@ void kernel_main(void)
 	free(number2);
 	free(number3);
 	free(number4);
-	//free(number3);
+	free(number3);
 #endif
 
 #ifdef SERIAL_TEST
 	//write_serial_string("This is testing the serial port!\n");
 	printf("SERIAL_TEST\n");
-	Debug_Logger::Instance()->print("Hello\n");
-	Debug_Logger::Instance()->print("This is testing the serial port\n");
+	Debug_Logger::Instance()->print_string("Hello\n");
+	Debug_Logger::Instance()->print_string("This is testing the serial port\n");
 #endif
-
 
 #ifdef PAGING_TEST
 	printf("PAGING_TEST\n");
@@ -120,12 +143,12 @@ void kernel_main(void)
 	{
 		//printf("Millisecs since poweron: %d\n\0",get_system_uptime()); //TODO: make time accessable everywhere
 		//unsigned char * temp = (unsigned char *)get_last_character();
-		auto temp = get_last_character();
-		auto temp_2 = &temp;
+		char temp = get_last_character();
+		char * temp_2 = &temp;
 		if (0x00 != temp)
 		{
-			//printf("%d ", temp);
-			print_char(temp_2);
+			VGA_Device::Instance()->put_char(temp_2);
+			//Debug_Logger::Instance()->print_char(temp_2);
 		}
 	}
 }
