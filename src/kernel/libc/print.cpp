@@ -1,5 +1,6 @@
 
 #include <libc/stdio.h>
+#include <drivers/vga_device.h>
 
 //converts a number to a base of choice
 char *convert(unsigned int num, int base) 
@@ -24,7 +25,8 @@ void print_until_null(const char * data)
 {
     while (*data != '\0')
     {
-        print_char(data);
+        VGA_Device::Instance()->put_char(data);
+        //print_char(data);
         data++;
     }
 }
@@ -80,7 +82,8 @@ void printf( const char * format, ...)
         }
         else
         {
-            print_char(traverse);
+            VGA_Device::Instance()->put_char(traverse);
+            //print_char(traverse);
         }
         traverse++;
     }
