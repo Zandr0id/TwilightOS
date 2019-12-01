@@ -96,7 +96,6 @@ void kernel_main(void)
 #endif
 	VGA_Device::Instance()->set_color(VGA_COLOR_GREEN,VGA_COLOR_BLACK);
 	
-	
 //dynamic memory test
 #ifdef MALLOC_TEST
 	//turn on MALLOC_DEBUG for this

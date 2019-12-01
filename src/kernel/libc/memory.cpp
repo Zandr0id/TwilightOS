@@ -1,7 +1,7 @@
 #include <libc/memory.h>
 #include <libc/stdio.h>
 
-//#define MALLOC_DEBUG
+#define MALLOC_DEBUG
 
 //static Heap kernel_heap;
 static Heap_element_header * kernel_heap_start = (Heap_element_header * )0x100000; //up to 0x104000
@@ -119,9 +119,9 @@ void * malloc(size_t size)
     }
     unsigned int total_allocation_size = size + sizeof(Heap_element_header);
 
-#ifdef MALLOC_DEBUG
-    printf("Before Malloc %d : %d\n",total_allocation_size, amount_of_free_heap());
-#endif
+//#ifdef MALLOC_DEBUG
+//    printf("Before Malloc %d : %d\n",total_allocation_size, 10);//amount_of_free_heap());
+//#endif
     //printf("Allocation size: %d\n", total_allocation_size);
 
     Heap_element_header * current_header = kernel_heap_start;
@@ -163,26 +163,31 @@ void * malloc(size_t size)
     //make note that this block is now being used
     current_header->in_use = true;
     
-#ifdef MALLOC_DEBUG
-    printf("After Malloc %d : %d\n",total_allocation_size, amount_of_free_heap());
-#endif
+//#ifdef MALLOC_DEBUG
+//    printf("After Malloc %d : %d\n",total_allocation_size, amount_of_free_heap());
+//#endif
     return (current_header + sizeof(Heap_element_header));
 }
 
 void free(void * loc)
 {
+    if((loc >= kernel_heap_start) && (loc < (kernel_heap_start+HEAP_DYNAMIC_SIZE-HEAP_MINIMUM_BLOCK_SIZE)))
+    {
     Heap_element_header * to_free = (Heap_element_header *)(loc) - sizeof(Heap_element_header);
-#ifdef MALLOC_DEBUG
-    int size = to_free->payload_size;
-    printf("Before Free %d : %d\n",size, amount_of_free_heap());
-#endif
-     
-    to_free->in_use = false;
-    merge_neighbor_blocks(loc);
 
-#ifdef MALLOC_DEBUG
-    printf("After Free %d : %d\n",size, amount_of_free_heap());
-#endif
+        if(to_free->in_use == true)
+        {
+            #ifdef MALLOC_DEBUG
+                int size = to_free->payload_size;
+                printf("Before Free %d : %d\n",size, amount_of_free_heap());
+            #endif
+                to_free->in_use = false;
+                merge_neighbor_blocks(loc);
+            #ifdef MALLOC_DEBUG
+                printf("After Free %d : %d\n",size, amount_of_free_heap());
+            #endif
+        }   
+    }
 }
 
 void * operator new (size_t size)
