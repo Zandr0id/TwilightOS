@@ -22,16 +22,23 @@ int Serial_port::get_port_num()
     return com_port_num_;
 }
 
-void Serial_port::print(const char * string_to_print)
+void Serial_port::print_char(const char * c)
+{
+    while((inb(com_port_num_+5) & 0x20) == 0); //make sure the TX buffer is empty
+    outb(com_port_num_, *c); //print the char
+    
+}
+
+void Serial_port::print_string(const char * string_to_print)
 {
     while(*string_to_print != '\0') //check if it's the end of the string
     {
-        while((inb(com_port_num_+5) & 0x20) == 0); //make sure the TX buffer is empty
-    
-        outb(com_port_num_, *string_to_print); //print the char
+        print_char(string_to_print);
         string_to_print++; //next char
     }
 }
+
+
 
 char * Serial_port::read()
 {

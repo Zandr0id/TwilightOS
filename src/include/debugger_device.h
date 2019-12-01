@@ -8,7 +8,8 @@ class Debug_Logger
 {
 public:
     static Debug_Logger * Instance();
-    void print(const char *);
+    void print_string(const char * string_to_print);
+    void print_char(const char * c);
 private:
     Debug_Logger();
     Serial_port * output; //where should output go?

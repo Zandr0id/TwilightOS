@@ -12,14 +12,14 @@
                 do { \
                     if(false == (expression)) \
                     { \
-                      Debug_Logger::Instance()->print("CHECK: " #expression ", File: " __FILE__ ", Line: " STRINGIFY(__LINE__) "\n");\
+                      Debug_Logger::Instance()->print_string("CHECK: " #expression ", File: " __FILE__ ", Line: " STRINGIFY(__LINE__) "\n");\
                       while(true);\
                     }\
                 }while(false)
                 
 #define ASSERT_NOT_REACHED() \
                         do { \
-                            Debug_Logger::Instance()->print("ASSERT REACHED! File: " __FILE__ ", Line: " STRINGIFY(__LINE__) "\n");\
+                            Debug_Logger::Instance()->print_string("ASSERT REACHED! File: " __FILE__ ", Line: " STRINGIFY(__LINE__) "\n");\
                             while(true);\
                         }while(false)
  

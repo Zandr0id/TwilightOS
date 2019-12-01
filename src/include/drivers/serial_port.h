@@ -17,7 +17,8 @@ class Serial_port
 {
 public:
     Serial_port(short port_number); //private constructor
-    void print(const char * string_to_print);
+    void print_string(const char * string_to_print);
+    void print_char(const char * c);
     char * read();
     int get_port_num(); //return the port number being used
 private:

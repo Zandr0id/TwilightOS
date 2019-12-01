@@ -16,7 +16,12 @@ Debug_Logger * Debug_Logger::Instance()
     return instance_;
 }
 
-void Debug_Logger::print(const char * string_to_print)
+void Debug_Logger::print_string(const char * string_to_print)
 {
-    output->print(string_to_print);
+    output->print_string(string_to_print);
+}
+
+void Debug_Logger::print_char(const char * c)
+{
+    output->print_char(c);
 }
