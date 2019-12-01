@@ -110,6 +110,7 @@ void merge_neighbor_blocks(void * loc)
 
 }
 
+//DON'T print any data in this function! Bad stuff happens! Very very bad stuff!
 void * malloc(size_t size)
 {
 
