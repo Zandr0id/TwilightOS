@@ -19,11 +19,9 @@
 //#define MALLOC_TEST
 //#define PRINTF_TEST
 //#define SERIAL_TEST
-//#define PAGING_TEST
-
-//Forward declare this as Extern C so it can be called from Assembly code
-extern "C"
-{
+//#define PAGING_TEST //Forward declare this as Extern C so it can be called from Assembly code 
+extern "C" 
+{ 
 	void kernel_main(void);
 	void __cxa_pure_virtual(){};   // needed for pure virtual functions
 }
@@ -33,7 +31,7 @@ void kernel_main(void)
 	//install the heap
 	heap_install();
 
-	VGA_Device::Instance()->set_color(VGA_COLOR_RED,VGA_COLOR_BLACK);
+	VGA_Device::Instance()->set_color(VGA_COLOR_LIGHT_CYAN,VGA_COLOR_BLACK);
 
 	VGA_Device::Instance()->clear_screen();
 	
@@ -45,6 +43,8 @@ void kernel_main(void)
 	printf("  | |  \\ V  V /| | | | (_| | | | | |_  \n");
 	printf("  |_|   \\_/\\_/ |_|_|_|\\__, |_| |_|\\__| \n");
 	printf("                      |___/            \n"); 
+
+	VGA_Device::Instance()->set_color(VGA_COLOR_LIGHT_RED,VGA_COLOR_BLACK);
 
 	//begin paging
 	paging_install();
@@ -94,7 +94,7 @@ void kernel_main(void)
 	printf("Int: %d Char: %c Hex: %x \nOct: %o Str: %s \n",-85,"R",255,128,"Hello");
 	//TODO: Fix %c to use ' ' instead of " "
 #endif
-	VGA_Device::Instance()->set_color(VGA_COLOR_GREEN,VGA_COLOR_BLACK);
+	VGA_Device::Instance()->set_color(VGA_COLOR_LIGHT_GREEN,VGA_COLOR_BLACK);
 	
 //dynamic memory test
 #ifdef MALLOC_TEST
