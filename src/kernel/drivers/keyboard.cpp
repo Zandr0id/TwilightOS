@@ -2,6 +2,7 @@
 #include <drivers/keyboard.h>
 #include <libc/stdio.h>
 #include <arch/x86/isr_helper.h>
+#include <drivers/vga_device.h>
 
 static keyboard_state_buffer keyboard_buffer;
 
@@ -26,6 +27,14 @@ void keyboard_callback()
     {
         keyboard_buffer.scancode = scancode;
     }
+
+		char temp = get_last_character();
+		char * temp_2 = &temp;
+		if (0x00 != temp)
+		{
+			VGA_Device::Instance()->put_char(temp_2);
+			//Debug_Logger::Instance()->print_char(temp_2);
+		}
 }
 
 //Look at the keyboard state buffer and decide the character to send
