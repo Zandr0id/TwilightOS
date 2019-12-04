@@ -3,8 +3,7 @@
 
 #include <basics.h>
 #include <libc/memory.h>
-#include <libc/iterator.h>
-
+#include <assert.h>
 static const int vector_size_unit = 8; //auto resize by this amount
 
 
@@ -17,17 +16,36 @@ public:
     unsigned int size(); //return the size
     unsigned int capacity(); //return the capacity
     void insert(unsigned int index, T new_item); //insert an item at a specific spot
-    Iterator<T> begin();
-    Iterator<T> end();
+    const T& operator[](int index);
+
     Vector();
     ~Vector();
+ 
+    class Iterator
+    {
+    public:
+        Iterator(Iterator& loc);
+        Iterator(Vector<T> * vec,unsigned int index);
+        ~Iterator();
+        Iterator operator++(int); //postfix
+        Iterator& operator++(); //prefix
+        const T& operator*(); //deref
+        bool operator!=(const Iterator &other); //not equal
+    private:
+        Vector<T> * iterator_;
+        int iterator_index_;
+    };
+
+public:
+    Iterator begin(); //return the start
+    Iterator end(); //return the end
+
 private:
    T * data_;
    void resize_up(); //get more space
    void resize_down(); //give up extra space
    unsigned int size_; //how many slots are filled
    unsigned int capacity_; //current max slots
-   Iterator<Vector<T>> iterator_;
 };
 
 template<typename T>
@@ -36,7 +54,6 @@ Vector<T>::Vector()
     size_ = 0;
     capacity_ = vector_size_unit;
     data_ = new int[capacity_];
-    iterator_.reposition(data_,data_);
 }
 
 template<typename T>
@@ -61,7 +78,6 @@ void Vector<T>::resize_up()
     delete data_; // delete the old array
     data_ = bigger_data; //save the new one
     capacity_ += vector_size_unit; //update the max capacity
-    iterator_.reposition(data_,(data_+size_));
 }
 
 //if there's extra space unneeded,
@@ -93,6 +109,13 @@ void Vector<T>::insert(unsigned int index, T new_item)
 }
 
 template<typename T>
+const T& Vector<T>::operator[](int index)
+{
+    // assert((index+1) <= size_);
+    return data_[index];
+}
+
+template<typename T>
 T Vector<T>::pop_back()
 {
     //return the top element, and back up one.
@@ -112,15 +135,60 @@ unsigned int Vector<T>::size()
 }
 
 template<typename T>
-Iterator<T> Vector<T>::begin()
+typename Vector<T>::Iterator Vector<T>::begin()
 {
-    return iterator_.start_;
+    return Vector<T>::Iterator{this,0};
 }
 
 template<typename T>
-Iterator<T> Vector<T>::end()
+typename Vector<T>::Iterator Vector<T>::end()
 {
-    return iterator_.end_;
+    return Vector<T>::Iterator{this,(size_ - 1)};
 }
 
+template<typename T>
+Vector<T>::Iterator::Iterator(Iterator& loc)
+{
+    iterator_ = loc.iterator_;
+    iterator_index_ = loc.iterator_index_;
+}
+
+template<typename T>
+Vector<T>::Iterator::Iterator(Vector<T> * vec, unsigned int index)
+{
+    iterator_ = vec;
+    iterator_index_ = index;
+}
+template<typename T>
+Vector<T>::Iterator::~Iterator()
+{
+
+}
+
+template<typename T>
+typename Vector<T>::Iterator Vector<T>::Iterator::operator++(int)
+{
+    Vector<T>::Iterator temp = *this;
+    iterator_index_ += 1;
+    return temp;
+}
+
+template<typename T>
+typename Vector<T>::Iterator& Vector<T>::Iterator::operator++()
+{
+    ++iterator_index_;
+    return *this;
+}
+
+template<typename T>
+const T& Vector<T>::Iterator::operator*()
+{
+    return iterator_->operator[](iterator_index_);    
+}
+
+template<typename T>
+bool Vector<T>::Iterator::operator!=(const Iterator &other)
+{
+    return (other.iterator_index_ == iterator_index_);
+}
 #endif //VECTOR_H_

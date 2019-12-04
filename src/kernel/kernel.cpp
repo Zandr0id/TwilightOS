@@ -11,15 +11,16 @@
 #include <drivers/vga_device.h>
 #include <paging.h>
 #include <assert.h>
-//#include <libc/vector.h>
-//#include <libc/iterator.h>
+#include <libc/vector.h>
 //#include <libc/map.h>
 
-//#define INSTA_FAIL
-//#define MALLOC_TEST
-//#define PRINTF_TEST
-//#define SERIAL_TEST
-//#define PAGING_TEST //Forward declare this as Extern C so it can be called from Assembly code 
+// #define VECTOR_TEST
+// #define INSTA_FAIL
+// #define MALLOC_TEST
+// #define PRINTF_TEST
+// #define SERIAL_TEST
+// #define PAGING_TEST
+//Forward declare this as Extern C so it can be called from Assembly code 
 extern "C" 
 { 
 	void kernel_main(void);
@@ -69,24 +70,16 @@ void kernel_main(void)
 
 	printf("\n");
 
-/*
+#ifdef VECTOR_TEST
 	Vector<int> test_vec;
 	test_vec.push_back(5);
 	test_vec.push_back(8);
 	test_vec.push_back(-78);
 
-	for(Iterator<Vector<int>> it = test_vec.begin(); it <= test_vec.end(); it++)
-	{
-
-	}
-
-	printf("%d %d %d",test_vec.pop_back(),test_vec.pop_back(),test_vec.pop_back());
-
-
-	Map<int, int> test_map;
-	test_map.insert(1,4);
-	test_map.insert(2,8);
-*/
+	Vector<int>::Iterator i(test_vec.begin());
+	++i;	
+	printf("%d\n",*i);
+#endif	
 
 //printf test
 #ifdef PRINTF_TEST
