@@ -40,6 +40,7 @@ This isn't a strict order, but makes sense as a logical progression. Look in the
   - [ ] ext2
   - [ ] VFS
 - [ ] Graphics
+  - [ ] Text terminal
   - [ ] GUI library
 
 
