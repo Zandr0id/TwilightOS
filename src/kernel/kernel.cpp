@@ -12,7 +12,7 @@
 #include <paging.h>
 #include <assert.h>
 #include <libc/vector.h>
-//#include <libc/map.h>
+#include <libc/map.h>
 
 // #define VECTOR_TEST
 // #define INSTA_FAIL
@@ -76,9 +76,20 @@ void kernel_main(void)
 	test_vec.push_back(8);
 	test_vec.push_back(-78);
 
-	Vector<int>::Iterator i(test_vec.begin());
-	++i;	
-	printf("%d\n",*i);
+	// Vector<int>::Iterator i(test_vec.begin());
+	// ++i;	
+	// printf("%d\n",*i);
+	for(auto i : test_vec)
+	{
+		printf("HI\n");
+		(void)i;
+	}
+
+	Map<int,int> test_map;
+	test_map.insert(15,10);
+	int res;
+	test_map.search(15,res);
+	printf("%d\n",res);
 #endif	
 
 //printf test

@@ -31,6 +31,7 @@ public:
         Iterator& operator++(); //prefix
         const T& operator*(); //deref
         bool operator!=(const Iterator &other); //not equal
+        int iterator_index();
     private:
         Vector<T> * iterator_;
         int iterator_index_;
@@ -190,5 +191,11 @@ template<typename T>
 bool Vector<T>::Iterator::operator!=(const Iterator &other)
 {
     return (other.iterator_index_ == iterator_index_);
+}
+
+template<typename T>
+int Vector<T>::Iterator::iterator_index()
+{
+    return iterator_index_;
 }
 #endif //VECTOR_H_
