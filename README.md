@@ -36,17 +36,18 @@ This isn't a strict order, but makes sense as a logical progression. Look in the
   - [x] heap
   - [x] free()
 - [ ] File System
+  - [ ] SimpleFS
   - [ ] ext2
   - [ ] VFS
 - [ ] Graphics
+  - [ ] Text terminal
   - [ ] GUI library
 
 
 ## **Problems**
 ----
 #### Code
-- Sometimes key presses are not detected. Should investigate.
-- vga_controler.c needs rework. The indexing on the screen is all messed up.
+
 #### Theory
 - Organize file structure better
   * Separate CPU based things
