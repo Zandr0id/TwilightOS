@@ -1,10 +1,14 @@
 
 #include <drivers/keyboard.h>
+#include <libc/map.h>
 #include <libc/stdio.h>
 #include <arch/x86/isr_helper.h>
 #include <drivers/vga_device.h>
 
 static keyboard_state_buffer keyboard_buffer;
+//static Map<int,char> lower_keymap;
+//static Map<int,char> upper_keymap;
+
 
 //every time a key gets hit, grab the scancode and update the keyboard state buffer
 void keyboard_callback()
@@ -41,6 +45,9 @@ void keyboard_callback()
 char get_last_character()
 {
     char return_char;
+    //lower_keymap.search(keyboard_buffer.scancode, return_char);
+    //return return_char;
+    
     switch (keyboard_buffer.scancode)
     {
         case Keyboard_A: 
@@ -373,10 +380,46 @@ char get_last_character()
     }
     keyboard_buffer.scancode = 0;
     return return_char;
+    
 }
+
+/*
+void fill_keyboard_map()
+{
+    lower_keymap.insert(Keyboard_A,'a');
+    lower_keymap.insert(Keyboard_B,'b');
+    lower_keymap.insert(Keyboard_C,'c');
+    lower_keymap.insert(Keyboard_D,'d');
+    lower_keymap.insert(Keyboard_E,'e');
+    lower_keymap.insert(Keyboard_F,'f');
+    lower_keymap.insert(Keyboard_G,'g');
+    lower_keymap.insert(Keyboard_H,'h');
+    lower_keymap.insert(Keyboard_I,'i');
+    lower_keymap.insert(Keyboard_J,'j');
+    lower_keymap.insert(Keyboard_K,'k');
+    lower_keymap.insert(Keyboard_L,'l');
+    lower_keymap.insert(Keyboard_M,'m');
+    lower_keymap.insert(Keyboard_N,'n');
+    lower_keymap.insert(Keyboard_O,'o');
+    lower_keymap.insert(Keyboard_P,'p');
+    lower_keymap.insert(Keyboard_Q,'q');
+    lower_keymap.insert(Keyboard_R,'r');
+    lower_keymap.insert(Keyboard_S,'s');
+    lower_keymap.insert(Keyboard_T,'t');
+    lower_keymap.insert(Keyboard_U,'u');
+    lower_keymap.insert(Keyboard_V,'v');
+    lower_keymap.insert(Keyboard_W,'w');
+    lower_keymap.insert(Keyboard_X,'x');
+    lower_keymap.insert(Keyboard_Y,'y');
+    lower_keymap.insert(Keyboard_Z,'z');
+    lower_keymap.insert(Keyboard_SPACE,' ');
+    lower_keymap.insert(Keyboard_ENTER,'\n'); 
+}
+*/
 
 void keyboard_install()
 {
     printf("Install Keyboard\n\0 ");
     register_interrupt_handler(33, (isr_t)keyboard_callback);
+    //fill_keyboard_map();
 }
