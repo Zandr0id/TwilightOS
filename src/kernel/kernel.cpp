@@ -25,6 +25,24 @@ extern "C"
 { 
 	void kernel_main(void);
 	void __cxa_pure_virtual(){};   // needed for pure virtual functions
+	
+	//needed cause I dunno
+	void *__dso_handle; 
+	void __cxa_atexit(){};
+	void __cxa_finalize(){};
+	/*
+	int __cxa_atexit(void (*destructor) (void *), void *arg, void *dso)
+	{
+		(void)destructor;
+		(void)arg;
+		(void)dso;
+		return 1;
+	};
+	void __cxa_finalize(void *f)
+	{
+		(void)f;
+	};
+	*/
 }
 
 void kernel_main(void)
@@ -33,7 +51,6 @@ void kernel_main(void)
 	heap_install();
 
 	VGA_Device::Instance()->set_color(VGA_COLOR_LIGHT_CYAN,VGA_COLOR_BLACK);
-
 	VGA_Device::Instance()->clear_screen();
 	
 	//print a really sweet message
@@ -90,6 +107,7 @@ void kernel_main(void)
 	int res;
 	test_map.search(15,res);
 	printf("%d\n",res);
+
 #endif	
 
 //printf test
