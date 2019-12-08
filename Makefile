@@ -54,13 +54,16 @@ ASMFLAGS = -felf32 -F dwarf -g
 #GCC assembler does not need flags
 #ASM=i686-elf-as
 
+CRTBEGIN_OBJ:=$(shell $(CPP) -print-file-name=crtbegin.o)
+CRTEND_OBJ:=$(shell $(CPP) -print-file-name=crtend.o)
+
 #.ONESHELL: # this lets everything be run in one shell, so things like "cd" work as expected
 
 build : $(OUTPUT_FILE)
 
 $(OUTPUT_FILE) : $(OBJ_FILES)
 	$(CC) $(LDFLAGS) $(OBJ_FILES) -o $(OUTPUT_FILE)
-	echo "Linking $(OBJ_FILES) ----------> $@"
+	echo "Linking $(OBJ_FILES) $(CRTEND_OBJ) $(CRTEND_OBJ) ----------> $@"
 
 # assemble any .asm files and put them in the OBJS_DIR
 $(OBJS_DIR)/%.o : $(SRC_DIR)/%.asm
