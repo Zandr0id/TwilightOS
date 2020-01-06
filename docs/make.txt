@@ -1,0 +1,30 @@
+NOTE: $@ is right of the :, and $< is the left
+
+This project is made of .asm and .cpp files
+Go into the SRC_DIR and lookd for any of those.
+each file type needs to be located separatly because duplicate
+names will mess up the search if I try to do it in one command
+
+Put all the files together in one list
+This is now a single list of every file that needs to be compiled together
+
+strip the SRC_DIR/*.sufix and change to OBJ_DIR/*.o
+After this, every file with .asm, .c, etc. now has a .o
+This assumes for now that every file in the project is going into the same final output file
+When I start building multiple output files, this will have to change somehow
+
+kernel.bin is what the output file will be called
+
+COMMON_FLAGS are flags used by both compilers.
+
+Nasm, the assembler, and its flags in ASM and ASMFLAGS.
+
+Build Order:
+
+     - Assemble any .asm files and put them in the OBJS_DIR
+
+     - Compile any .c files and put them in the OBJS_DIR
+
+     - Compile and .cpp files and put them in the OBJS_DIR
+
+.PHONY tells make that there will never be these files
