@@ -36,7 +36,7 @@ This isn't a strict order, but makes sense as a logical progression. Look in the
   - [x] heap
   - [x] free()
 - [ ] File System
-  - [ ] SimpleFS
+  - [ ] FAT32
   - [ ] ext2
   - [ ] VFS
 - [ ] Graphics
