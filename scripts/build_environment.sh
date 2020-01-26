@@ -58,8 +58,7 @@ fi
 if type clang++ 2>/dev/null; then
 	echo "Toolchain already present"
 else
-	#apt-get install -y clang
-	echo "skip"
+	apt-get install -y clang
 
 	if type clang++ 2>/dev/null; then
 		exit 1;
