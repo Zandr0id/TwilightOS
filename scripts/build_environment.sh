@@ -58,7 +58,7 @@ fi
 if type clang++ 2>/dev/null; then
 	echo "Toolchain already present"
 else
-	apt-get install -y clang
+	#apt-get install -y clang
 
 	if type clang++ 2>/dev/null; then
 		exit 1;
@@ -117,7 +117,7 @@ else
 		cxx_path=$(which g++)
 		export CC=$cc_path
 		export CXX=$cxx_path
-		cmake -DCMAKE_BUILD_TYPE:STRING=Release ../llvm/
+		cmake -DCMAKE_BUILD_TYPE:STRING=Release -DLLVM_ENABLE_PROJECTS=lld;clang ../llvm/
 		make
 		make install
 	fi
