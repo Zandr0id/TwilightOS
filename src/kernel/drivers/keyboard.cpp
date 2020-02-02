@@ -4,17 +4,22 @@
 #include <libc/stdio.h>
 #include <arch/x86/isr_helper.h>
 #include <drivers/vga_device.h>
+#include <debugger_device.h>
+
+//#define KEYBOARD_DEBUG
 
 static keyboard_state_buffer keyboard_buffer;
 //static Map<int,char> lower_keymap;
 //static Map<int,char> upper_keymap;
 
-
 //every time a key gets hit, grab the scancode and update the keyboard state buffer
 void keyboard_callback()
 {
     unsigned char scancode = inb(Keyboard_Encoder);
-    //printf("Scancode: %x\n", scancode);
+#ifdef KEYBOARD_DEBUG
+    printf("Scancode: %x\n", scancode);
+#endif
+
     if (Keyboard_TOGGLE == scancode)
     {
         keyboard_buffer.modified_table = true;
