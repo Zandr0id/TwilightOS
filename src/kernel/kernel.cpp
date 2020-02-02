@@ -9,7 +9,7 @@
 #include <libc/memory.h> //malloc
 #include <debugger_device.h>
 #include <drivers/vga_device.h>
-#include <paging.h>
+#include <pmm.h>
 #include <assert.h>
 #include <libc/vector.h>
 #include <libc/map.h>
@@ -19,7 +19,7 @@
 // #define MALLOC_TEST
 // #define PRINTF_TEST
 // #define SERIAL_TEST
-// #define PAGING_TEST
+ #define PAGING_TEST
 //Forward declare this as Extern C so it can be called from Assembly code 
 extern "C" 
 { 
@@ -135,10 +135,13 @@ void kernel_main(void)
 #endif
 
 #ifdef SERIAL_TEST
-	//write_serial_string("This is testing the serial port!\n");
+	// write_serial_string("This is testing the serial port!\n");
 	printf("SERIAL_TEST\n");
 	Debug_Logger::Instance()->print_string("Hello\n");
+	char test = '\n';
+	Debug_Logger::Instance()->print_char(&test);
 	Debug_Logger::Instance()->print_string("This is testing the serial port\n");
+	printf("end\n");
 #endif
 
 #ifdef PAGING_TEST
@@ -150,6 +153,8 @@ void kernel_main(void)
 	free_frame(new_page);
 	auto * new_page3 = find_new_frame();
 	printf("%x\n",new_page3);
+	auto * new_page4 = find_new_frame();
+	printf("%x\n", new_page4);
 #endif
 
 //exception test
@@ -163,6 +168,7 @@ void kernel_main(void)
 	while(true)
 	{
 		//printf("Millisecs since poweron: %d\n\0",get_system_uptime()); //TODO: make time accessable everywhere
+		
 		//unsigned char * temp = (unsigned char *)get_last_character();
 		//char temp = get_last_character();
 		//char * temp_2 = &temp;
