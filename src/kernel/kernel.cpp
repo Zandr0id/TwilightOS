@@ -14,12 +14,12 @@
 #include <libc/vector.h>
 #include <libc/map.h>
 
-// #define VECTOR_TEST
+//#define VECTOR_TEST
 // #define INSTA_FAIL
 // #define MALLOC_TEST
 // #define PRINTF_TEST
-// #define SERIAL_TEST
- #define PAGING_TEST
+//#define SERIAL_TEST
+//#define PAGING_TEST
 //Forward declare this as Extern C so it can be called from Assembly code 
 extern "C" 
 { 
@@ -83,30 +83,34 @@ void kernel_main(void)
 	keyboard_install();
 
 	//start the system clock
-	time_install(1000); //1000hz
+	//time_install(1000); //1000hz
 
-	printf("\n");
-
+//This is the start of test code, to check stuff that's been installed
+	VGA_Device::Instance()->set_color(VGA_COLOR_LIGHT_MAGENTA,VGA_COLOR_BLACK);
+	printf("Begin\n");
+	VGA_Device::Instance()->set_color(VGA_COLOR_LIGHT_GREEN,VGA_COLOR_BLACK);
 #ifdef VECTOR_TEST
+	printf("Vector nad Map test\n");
 	Vector<int> test_vec;
 	test_vec.push_back(5);
 	test_vec.push_back(8);
 	test_vec.push_back(-78);
 
-	// Vector<int>::Iterator i(test_vec.begin());
-	// ++i;	
-	// printf("%d\n",*i);
-	for(auto i : test_vec)
-	{
-		printf("HI\n");
-		(void)i;
-	}
+	//Vector<int>::Iterator i(test_vec.begin());
+	//++i;	
+	printf("%d\n",test_vec[2]);
+	//for(auto i : test_vec)
+	//{
+	//	(void)i;
+	//	printf("%d\n",i);
+	//}
 
 	Map<int,int> test_map;
 	test_map.insert(15,10);
 	int res;
 	test_map.search(15,res);
 	printf("%d\n",res);
+	printf("End Vector test\n");
 
 #endif	
 
@@ -115,8 +119,8 @@ void kernel_main(void)
 	printf("PRINTF_TEST\n");
 	printf("Int: %d Char: %c Hex: %x \nOct: %o Str: %s \n",-85,"R",255,128,"Hello");
 	//TODO: Fix %c to use ' ' instead of " "
+	printf("End Printf Test\n");
 #endif
-	VGA_Device::Instance()->set_color(VGA_COLOR_LIGHT_GREEN,VGA_COLOR_BLACK);
 	
 //dynamic memory test
 #ifdef MALLOC_TEST
@@ -132,6 +136,7 @@ void kernel_main(void)
 	free(number3);
 	free(number4);
 	free(number3);
+	printf("End Malloc Test\n")
 #endif
 
 #ifdef SERIAL_TEST
@@ -141,7 +146,7 @@ void kernel_main(void)
 	char test = '\n';
 	Debug_Logger::Instance()->print_char(&test);
 	Debug_Logger::Instance()->print_string("This is testing the serial port\n");
-	printf("end\n");
+	printf("end Serial Test\n");
 #endif
 
 #ifdef PAGING_TEST
@@ -155,6 +160,7 @@ void kernel_main(void)
 	printf("%x\n",new_page3);
 	auto * new_page4 = find_new_frame();
 	printf("%x\n", new_page4);
+	printf("End PAGING_TEST\n");
 #endif
 
 //exception test
