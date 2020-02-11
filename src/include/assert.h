@@ -2,7 +2,7 @@
 #define ASSERT_H_
 
 #include <libc/stdio.h>
-#include <debugger_device.h>
+//#include <debugger_device.h>
 
 //junk to make __LINE__ print as a string
 #define STRINGIFY(X) STRINGIFY2(X)
@@ -12,14 +12,14 @@
                 do { \
                     if(false == (expression)) \
                     { \
-                      Debug_Logger::Instance()->print_string("CHECK: " #expression ", File: " __FILE__ ", Line: " STRINGIFY(__LINE__) "\n");\
+                      printf("CHECK: " #expression ", File: " __FILE__ ", Line: " STRINGIFY(__LINE__) "\n");\
                       while(true);\
                     }\
                 }while(false)
                 
 #define ASSERT_NOT_REACHED() \
                         do { \
-                            Debug_Logger::Instance()->print_string("ASSERT REACHED! File: " __FILE__ ", Line: " STRINGIFY(__LINE__) "\n");\
+                            printf("ASSERT REACHED! File: " __FILE__ ", Line: " STRINGIFY(__LINE__) "\n");\
                             while(true);\
                         }while(false)
  
