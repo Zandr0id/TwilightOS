@@ -15,9 +15,9 @@
 #include <libc/map.h>
 
 //#define VECTOR_TEST
-// #define INSTA_FAIL
-// #define MALLOC_TEST
-// #define PRINTF_TEST
+//#define INSTA_FAIL
+//#define MALLOC_TEST
+//#define PRINTF_TEST
 //#define SERIAL_TEST
 //#define PAGING_TEST
 //Forward declare this as Extern C so it can be called from Assembly code 
@@ -65,7 +65,7 @@ void kernel_main(void)
 	VGA_Device::Instance()->set_color(VGA_COLOR_LIGHT_RED,VGA_COLOR_BLACK);
 
 	//begin paging
-	paging_install();
+	//paging_install();
 
 	//reprogram the PIC
 	PIC_install();
@@ -136,7 +136,7 @@ void kernel_main(void)
 	free(number3);
 	free(number4);
 	free(number3);
-	printf("End Malloc Test\n")
+	printf("End Malloc Test\n");
 #endif
 
 #ifdef SERIAL_TEST
