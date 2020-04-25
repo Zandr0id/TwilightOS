@@ -29,7 +29,7 @@ Vector<T>::Vector()
 {
     size_ = 0;
     capacity_ = vector_size_unit;
-    data_ = new int[capacity_];
+    data_ = new T[capacity_];
 }
 
 template<typename T>
