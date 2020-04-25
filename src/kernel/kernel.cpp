@@ -10,13 +10,26 @@
 #include <debugger_device.h>
 #include <paging.h>
 #include <assert.h>
+#include <libc/vector.h>
+
+//#define ALL_TESTS
 
 //#define INSTA_FAIL
 //#define MALLOC_TEST
 //#define PRINTF_TEST
 //#define SERIAL_TEST
 //#define PAGING_TEST
+//#define VECTOR_TEST
  
+
+#ifdef ALL_TESTS
+#define INSTA_FAIL
+#define MALLOC_TEST
+#define PRINTF_TEST
+#define SERIAL_TEST
+#define PAGING_TEST
+#define VECTOR_TEST
+#endif
 
 //Forward declare this as Extern C so it can be called from Assembly code
 extern "C"
@@ -70,6 +83,7 @@ void kernel_main(void)
 	printf("PRINTF_TEST\n");
 	printf("Int: %d Char: %c Hex: %x \nOct: %o Str: %s \n",-85,"R",255,128,"Hello");
 	//TODO: Fix %c to use ' ' instead of " "
+	printf("END PRINTF_TEST\n");
 #endif
 	set_text_green();
 	
@@ -87,15 +101,30 @@ void kernel_main(void)
 	free(number3);
 	free(number4);
 	//free(number3);
+	printf("END MALLOC_TEST\n");
 #endif
 
 #ifdef SERIAL_TEST
 	//write_serial_string("This is testing the serial port!\n");
 	printf("SERIAL_TEST\n");
-	Debug_Logger::Instance()->print("Hello\n");
-	Debug_Logger::Instance()->print("This is testing the serial port\n");
+	Debug_Logger::Instance()->print_string("Hello\n");
+	Debug_Logger::Instance()->print_string("This is testing the serial port\n");
+	printf("look in the terminal...\n");
+	printf("END SERIAL_TEST\n");
 #endif
 
+#ifdef VECTOR_TEST
+	printf("VECTOR_TEST\n");
+	Vector<int> vec;
+	vec.push_back(5);
+	vec.push_back(6);
+	vec.push_back(10);
+	int test1 = vec.pop_back();
+	int test2 = vec.pop_back();
+	int test3 = vec.pop_back();
+	printf("%d %d %d\n",test1,test2,test3);
+	printf("END VECTOR_TEST\n");
+#endif
 
 #ifdef PAGING_TEST
 	printf("PAGING_TEST\n");
@@ -106,6 +135,7 @@ void kernel_main(void)
 	free_frame(new_page);
 	auto * new_page3 = find_new_frame();
 	printf("%x\n",new_page3);
+	printf("END PAGING_TEST\n");
 #endif
 
 //exception test
@@ -118,7 +148,14 @@ void kernel_main(void)
 
 	while(true)
 	{
-		//printf("Millisecs since poweron: %d\n\0",get_system_uptime()); //TODO: make time accessable everywhere
+		#ifdef TIME_TEST
+		unsigned int sys_time = get_system_uptime();
+		if (0 == (sys_time % 1000))
+		{
+			printf("Millisecs since poweron: %d\n\0",(sys_time/1000)); //TODO: make time accessable everywhere
+		}
+		#endif
+
 		//unsigned char * temp = (unsigned char *)get_last_character();
 		auto temp = get_last_character();
 		auto temp_2 = &temp;
