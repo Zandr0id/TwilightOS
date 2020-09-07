@@ -16,12 +16,13 @@ public:
     void insert(unsigned int index, T new_item); //insert an item at a specific spot
     Vector();
     ~Vector();
-private:
+protected:
    T * data_;
    void resize_up(); //get more space
    void resize_down(); //give up extra space
    unsigned int size_; //how many slots are filled
    unsigned int capacity_; //current max slots
+   T operator[](int index);
 };
 
 template<typename T>
@@ -36,6 +37,17 @@ template<typename T>
 Vector<T>::~Vector()
 {
     delete data_; // free the data section
+}
+
+template<typename T>
+T Vector<T>::operator[](int index)
+{
+    T ret = NULL;
+    if (index < size_)
+    {
+        ret = data_[index];
+    }
+    return ret;
 }
 
 //create a new data array that is larger,
