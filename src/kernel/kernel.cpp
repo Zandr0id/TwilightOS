@@ -10,19 +10,20 @@
 #include <debugger_device.h>
 #include <paging.h>
 #include <assert.h>
-#include <libc/vector.h>
+#include <libc/vector.hpp>
 
 //#define ALL_TESTS
 
 //#define INSTA_FAIL
-//#define MALLOC_TEST
-//#define PRINTF_TEST
+#define MALLOC_TEST
+#define PRINTF_TEST
 //#define SERIAL_TEST
-//#define PAGING_TEST
-//#define VECTOR_TEST
+#define PAGING_TEST
+#define VECTOR_TEST
+//#define TIME_TEST
  
-
 #ifdef ALL_TESTS
+#define TIME_TEST
 #define INSTA_FAIL
 #define MALLOC_TEST
 #define PRINTF_TEST
@@ -157,12 +158,12 @@ void kernel_main(void)
 		#endif
 
 		//unsigned char * temp = (unsigned char *)get_last_character();
-		auto temp = get_last_character();
-		auto temp_2 = &temp;
-		if (0x00 != temp)
+		char c = getchar();
+		auto add = &c;
+		if (0x00 != c)
 		{
 			//printf("%d ", temp);
-			print_char(temp_2);
+			print_char(add);
 		}
 	}
 }

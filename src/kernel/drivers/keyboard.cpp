@@ -1,42 +1,21 @@
 
 #include <drivers/keyboard.h>
 #include <libc/stdio.h>
+#include <libc/queue.hpp>
 #include <arch/x86/isr_helper.h>
 
-static keyboard_state_buffer keyboard_buffer;
-
-//every time a key gets hit, grab the scancode and update the keyboard state buffer
-void keyboard_callback()
-{
-    unsigned char scancode = inb(Keyboard_Encoder);
-    //printf("Scancode: %x\n", scancode);
-    if (Keyboard_TOGGLE == scancode)
-    {
-        keyboard_buffer.modified_table = true;
-    }
-    else if ((Keyboard_SHIFT_L_PRESS == scancode) || (Keyboard_SHIFT_R_PRESS == scancode))
-    {
-        keyboard_buffer.shift_pressed = true;
-    }
-    else if ((Keyboard_SHIFT_L_RELEASE == scancode) || (Keyboard_SHIFT_R_RELEASE == scancode))
-    {
-        keyboard_buffer.shift_pressed = false;
-    }
-    else
-    {
-        keyboard_buffer.scancode = scancode;
-    }
-}
+static keyboard_state_buffer keyboard_state;
+static Queue<char> keyboard_buffer;
 
 //Look at the keyboard state buffer and decide the character to send
-char get_last_character()
+char decode_to_ascii()
 {
     char return_char;
-    switch (keyboard_buffer.scancode)
+    switch (keyboard_state.scancode)
     {
         case Keyboard_A: 
         {   
-            if (true == keyboard_buffer.shift_pressed)
+            if (true == keyboard_state.shift_pressed)
             {
                 return_char = 'A';
             }
@@ -48,7 +27,7 @@ char get_last_character()
         }
         case Keyboard_B:
         {
-            if (true == keyboard_buffer.shift_pressed)
+            if (true == keyboard_state.shift_pressed)
             {
                 return_char = 'B';
             }
@@ -60,7 +39,7 @@ char get_last_character()
         }
         case Keyboard_C:
         {
-            if (true == keyboard_buffer.shift_pressed)
+            if (true == keyboard_state.shift_pressed)
             {
                 return_char = 'C';
             }
@@ -72,7 +51,7 @@ char get_last_character()
         }
         case Keyboard_D:
         {
-            if (true == keyboard_buffer.shift_pressed)
+            if (true == keyboard_state.shift_pressed)
             {
                 return_char = 'D';
             }
@@ -84,7 +63,7 @@ char get_last_character()
         }
         case Keyboard_E: 
         {
-            if (true == keyboard_buffer.shift_pressed)
+            if (true == keyboard_state.shift_pressed)
             {
                 return_char = 'E';
             }
@@ -96,7 +75,7 @@ char get_last_character()
         }
         case Keyboard_F: 
         {
-            if (true == keyboard_buffer.shift_pressed)
+            if (true == keyboard_state.shift_pressed)
             {
                 return_char = 'F';
             }
@@ -108,7 +87,7 @@ char get_last_character()
         }
         case Keyboard_G:
         {
-            if (true == keyboard_buffer.shift_pressed)
+            if (true == keyboard_state.shift_pressed)
             {
                 return_char = 'G';
             }
@@ -120,7 +99,7 @@ char get_last_character()
         }
         case Keyboard_H:
         {
-            if (true == keyboard_buffer.shift_pressed)
+            if (true == keyboard_state.shift_pressed)
             {
                 return_char = 'H';
             }
@@ -132,7 +111,7 @@ char get_last_character()
         }
         case Keyboard_I:
         {
-            if (true == keyboard_buffer.shift_pressed)
+            if (true == keyboard_state.shift_pressed)
             {
                 return_char = 'I';
             }
@@ -144,7 +123,7 @@ char get_last_character()
         }
         case Keyboard_J:
         {
-            if (true == keyboard_buffer.shift_pressed)
+            if (true == keyboard_state.shift_pressed)
             {
                 return_char = 'J';
             }
@@ -156,7 +135,7 @@ char get_last_character()
         }
         case Keyboard_K:
         {
-            if (true == keyboard_buffer.shift_pressed)
+            if (true == keyboard_state.shift_pressed)
             {
                 return_char = 'K';
             }
@@ -168,7 +147,7 @@ char get_last_character()
         }
         case Keyboard_L:
         {
-            if (true == keyboard_buffer.shift_pressed)
+            if (true == keyboard_state.shift_pressed)
             {
                 return_char = 'L';
             }
@@ -180,7 +159,7 @@ char get_last_character()
         }
         case Keyboard_M: 
         {
-            if (true == keyboard_buffer.shift_pressed)
+            if (true == keyboard_state.shift_pressed)
             {
                 return_char = 'M';
             }
@@ -192,7 +171,7 @@ char get_last_character()
         }
         case Keyboard_N:
         {
-            if (true == keyboard_buffer.shift_pressed)
+            if (true == keyboard_state.shift_pressed)
             {
                 return_char = 'N';
             }
@@ -204,7 +183,7 @@ char get_last_character()
         }
         case Keyboard_O:
         {
-            if (true == keyboard_buffer.shift_pressed)
+            if (true == keyboard_state.shift_pressed)
             {
                 return_char = 'O';
             }
@@ -216,7 +195,7 @@ char get_last_character()
         }
         case Keyboard_P:
         {
-            if (true == keyboard_buffer.shift_pressed)
+            if (true == keyboard_state.shift_pressed)
             {
                 return_char = 'P';
             }
@@ -228,7 +207,7 @@ char get_last_character()
         }
         case Keyboard_Q:
         {
-            if (true == keyboard_buffer.shift_pressed)
+            if (true == keyboard_state.shift_pressed)
             {
                 return_char = 'Q';
             }
@@ -240,7 +219,7 @@ char get_last_character()
         }
         case Keyboard_R:
         {
-            if (true == keyboard_buffer.shift_pressed)
+            if (true == keyboard_state.shift_pressed)
             {
                 return_char = 'R';
             }
@@ -252,7 +231,7 @@ char get_last_character()
         }
         case Keyboard_S:
         {
-            if (true == keyboard_buffer.shift_pressed)
+            if (true == keyboard_state.shift_pressed)
             {
                 return_char = 'S';
             }
@@ -264,7 +243,7 @@ char get_last_character()
         }
         case Keyboard_T:
         {
-            if (true == keyboard_buffer.shift_pressed)
+            if (true == keyboard_state.shift_pressed)
             {
                 return_char = 'T';
             }
@@ -276,7 +255,7 @@ char get_last_character()
         }
         case Keyboard_U:
         {
-            if (true == keyboard_buffer.shift_pressed)
+            if (true == keyboard_state.shift_pressed)
             {
                 return_char = 'U';
             }
@@ -288,7 +267,7 @@ char get_last_character()
         }
         case Keyboard_V:
         {
-            if (true == keyboard_buffer.shift_pressed)
+            if (true == keyboard_state.shift_pressed)
             {
                 return_char = 'V';
             }
@@ -300,7 +279,7 @@ char get_last_character()
         }
         case Keyboard_W:
         {
-            if (true == keyboard_buffer.shift_pressed)
+            if (true == keyboard_state.shift_pressed)
             {
                 return_char = 'W';
             }
@@ -312,7 +291,7 @@ char get_last_character()
         }
         case Keyboard_X:
         {
-            if (true == keyboard_buffer.shift_pressed)
+            if (true == keyboard_state.shift_pressed)
             {
                 return_char = 'X';
             }
@@ -324,7 +303,7 @@ char get_last_character()
         }
         case Keyboard_Y:
         {
-            if (true == keyboard_buffer.shift_pressed)
+            if (true == keyboard_state.shift_pressed)
             {
                 return_char = 'Y';
             }
@@ -336,7 +315,7 @@ char get_last_character()
         }
         case Keyboard_Z:
         {
-            if (true == keyboard_buffer.shift_pressed)
+            if (true == keyboard_state.shift_pressed)
             {
                 return_char = 'Z';
             }
@@ -362,8 +341,45 @@ char get_last_character()
             break;
         }
     }
-    keyboard_buffer.scancode = 0;
+    keyboard_state.scancode = 0;
     return return_char;
+}
+
+//every time a key gets hit, grab the scancode and update the keyboard state buffer
+void keyboard_callback()
+{
+    unsigned char scancode = inb(Keyboard_Encoder);
+    //printf("Scancode: %x\n", scancode);
+    if (Keyboard_TOGGLE == scancode)
+    {
+        keyboard_state.modified_table = true;
+    }
+    else if ((Keyboard_SHIFT_L_PRESS == scancode) || (Keyboard_SHIFT_R_PRESS == scancode))
+    {
+        keyboard_state.shift_pressed = true;
+    }
+    else if ((Keyboard_SHIFT_L_RELEASE == scancode) || (Keyboard_SHIFT_R_RELEASE == scancode))
+    {
+        keyboard_state.shift_pressed = false;
+    }
+    else
+    {
+        keyboard_state.scancode = scancode;
+    }
+
+    keyboard_buffer.push(decode_to_ascii());
+}
+
+char getchar()
+{  
+    if(keyboard_buffer.size() > 0)
+    {
+        return keyboard_buffer.pop();
+    }
+    else
+    {
+        return 0x00;
+    }
 }
 
 void keyboard_install()

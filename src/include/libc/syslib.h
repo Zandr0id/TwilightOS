@@ -32,7 +32,7 @@ extern void paging_install();
 
 //beginning of syscalls?
 extern unsigned int get_system_uptime();
-extern char get_last_character();
+extern char getchar();
 
 struct regs
 {
