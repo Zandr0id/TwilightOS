@@ -13,7 +13,7 @@ Written by Zane Youmans
 //I/O related functions
 
 extern void printf(const char * format, ...); // The good ol' printf function
-extern void print_char(const char * c);//print a single char to the next location in the screen
+extern void print_char(const char c);//print a single char to the next location in the screen
 extern void write_serial_string(const char *c);
 extern void write_char_serial(char c);
 

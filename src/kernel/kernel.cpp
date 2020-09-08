@@ -17,10 +17,10 @@
 
 //#define INSTA_FAIL
 //#define MALLOC_TEST
-//#define PRINTF_TEST
+#define PRINTF_TEST
 //#define SERIAL_TEST
 //#define PAGING_TEST
-#define VECTOR_TEST
+//#define VECTOR_TEST
 //#define TIME_TEST
  
 #ifdef ALL_TESTS
@@ -78,13 +78,12 @@ void kernel_main(void)
 	//start the system clock
 	time_install(1000); //1000hz
 
-	print_char("\n");
+	printf("\n");
 
 //printf test
 #ifdef PRINTF_TEST
 	printf("PRINTF_TEST\n");
-	printf("Int: %d Char: %c Hex: %x \nOct: %o Str: %s \n",-85,"R",255,128,"Hello");
-	//TODO: Fix %c to use ' ' instead of " "
+	printf("Int: %d Char: %c Hex: %x \nOct: %o Str: %s \n",-85,'R',47893,128,"Hello");
 	printf("END PRINTF_TEST\n");
 #endif
 	set_text_green();
@@ -172,11 +171,11 @@ void kernel_main(void)
 
 		//unsigned char * temp = (unsigned char *)get_last_character();
 		char c = getchar();
-		auto add = &c;
+		//auto add = &c;
 		if (0x00 != c)
 		{
 			//printf("%d ", temp);
-			print_char(add);
+			print_char(c);
 		}
 	}
 }

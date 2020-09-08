@@ -24,7 +24,7 @@ void print_until_null(const char * data)
 {
     while (*data != '\0')
     {
-        print_char(data);
+        print_char(*data);
         data++;
     }
 }
@@ -46,7 +46,7 @@ void printf( const char * format, ...)
             switch (*traverse)
             {
             case 'c': i = va_arg(arg, int);
-                print_until_null((const char *)i);
+                print_until_null((const char *)&i);
                 break;
             
             case 'd': i = va_arg(arg, int);
@@ -80,7 +80,7 @@ void printf( const char * format, ...)
         }
         else
         {
-            print_char(traverse);
+            print_char(*traverse);
         }
         traverse++;
     }
