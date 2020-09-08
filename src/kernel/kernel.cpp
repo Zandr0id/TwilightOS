@@ -15,11 +15,11 @@
 //#define ALL_TESTS
 
 //#define INSTA_FAIL
-#define MALLOC_TEST
-#define PRINTF_TEST
+//#define MALLOC_TEST
+//#define PRINTF_TEST
 //#define SERIAL_TEST
-#define PAGING_TEST
-#define VECTOR_TEST
+//#define PAGING_TEST
+//#define VECTOR_TEST
 //#define TIME_TEST
  
 #ifdef ALL_TESTS
