@@ -3,6 +3,7 @@
 #include <libc/stdio.h>
 #include <libc/queue.hpp>
 #include <arch/x86/isr_helper.h>
+#include <libc/stdio.h>
 
 static keyboard_state_buffer keyboard_state;
 static Queue<char> keyboard_buffer;
@@ -341,6 +342,7 @@ char decode_to_ascii()
             break;
         }
     }
+   // printf("%x %x ",keyboard_state.scancode,keyboard_state.shift_pressed);
     keyboard_state.scancode = 0;
     return return_char;
 }
@@ -366,7 +368,6 @@ void keyboard_callback()
     {
         keyboard_state.scancode = scancode;
     }
-
     keyboard_buffer.push(decode_to_ascii());
 }
 
