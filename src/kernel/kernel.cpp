@@ -11,6 +11,7 @@
 #include <paging.h>
 #include <assert.h>
 #include <libc/vector.hpp>
+#include <libc/queue.hpp>
 
 //#define ALL_TESTS
 
@@ -19,7 +20,7 @@
 //#define PRINTF_TEST
 //#define SERIAL_TEST
 //#define PAGING_TEST
-//#define VECTOR_TEST
+#define VECTOR_TEST
 //#define TIME_TEST
  
 #ifdef ALL_TESTS
@@ -125,6 +126,18 @@ void kernel_main(void)
 	int test3 = vec.pop_back();
 	printf("%d %d %d\n",test1,test2,test3);
 	printf("END VECTOR_TEST\n");
+
+	printf("QUEUE_TEST\n");
+	Queue<int> queue;
+	printf("size: %d\n",queue.size());
+	queue.push(12);
+	queue.push(-9);
+	queue.push(5);
+	printf("%d ",queue.pop());
+	printf("%d ",queue.pop());
+	printf("%d ",queue.pop());
+	printf("size: %d\n",queue.size());
+	printf("END QUEUE_TEST\n");
 #endif
 
 #ifdef PAGING_TEST
