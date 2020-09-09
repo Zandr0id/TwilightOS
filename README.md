@@ -45,7 +45,6 @@ This isn't a strict order, but makes sense as a logical progression. Look in the
 ## **Problems**
 ----
 #### Code
-- Sometimes key presses are not detected. Should investigate.
 - vga_controler.c needs rework. The indexing on the screen is all messed up.
 #### Theory
 - Organize file structure better
