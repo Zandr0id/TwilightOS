@@ -17,7 +17,7 @@
 
 //#define INSTA_FAIL
 //#define MALLOC_TEST
-#define PRINTF_TEST
+//#define PRINTF_TEST
 //#define SERIAL_TEST
 //#define PAGING_TEST
 //#define VECTOR_TEST
@@ -47,12 +47,13 @@ void kernel_main(void)
 	
 	//print a really sweet message
 	//Twilight is running!
-	printf("  _____          _ _ _       _     _    \n"); 
-	printf("|_   _|_      _(_) (_) __ _| |__ | |_  \n");
-	printf("  | | \\ \\ /\\ / / | | |/ _` | '_ \\| __| \n");
-	printf("  | |  \\ V  V /| | | | (_| | | | | |_  \n");
-	printf("  |_|   \\_/\\_/ |_|_|_|\\__, |_| |_|\\__| \n");
-	printf("                      |___/            \n"); 
+	printf(
+	"  _____          _ _ _       _     _    \n"
+	"|_   _|_      _(_) (_) __ _| |__ | |_  \n"
+	"  | | \\ \\ /\\ / / | | |/ _` | '_ \\| __| \n"
+	"  | |  \\ V  V /| | | | (_| | | | | |_  \n"
+	"  |_|   \\_/\\_/ |_|_|_|\\__, |_| |_|\\__| \n"
+	"                      |___/            \n");
 
 	//install the heap
 	heap_install();
