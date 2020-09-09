@@ -34,7 +34,7 @@ size_t coursor_y = 0;
 
 uint8_t text_colors = VGA_COLOR_LIGHT_GREY;
 int8_t background = VGA_COLOR_BLACK;
-    
+ 
 uint16_t * screen_buffer = (uint16_t *)0xB8000;//location of screen memory
 
 void set_colors(char text, char back)
@@ -77,20 +77,14 @@ void place_char_at_location(char c, size_t x, size_t y)
     screen_buffer[(x * vga_width) + y] = format_char_data(c); //put the char at the location
 }
 
-void scroll_screen() //TODO: use memcpy
+void scroll_screen()
 {
-    uint32_t max = vga_height * vga_width;
-
-    for (uint16_t i = vga_width+1; i<max; i++)
+    for(size_t i = 0;i<vga_height;i++)
     {
-        screen_buffer[i-vga_width] = screen_buffer[i];
+        memcpy(screen_buffer+(vga_width*i),screen_buffer+(vga_width*(i+1)),vga_width*2);
     }
-
-    for (uint16_t i = 0; i < vga_width; i++)
-    {
-        place_char_at_location(' ', vga_height-1, i);
-    }
-    //coursor_x-=1;
+    short c = format_char_data(' ');
+    memsetw(screen_buffer+(vga_width*vga_height),c,vga_width);
 }
 
 //prints a single char to the screen, and keeps track of when 
@@ -106,7 +100,6 @@ void print_char(const char c)
         else
         {
             coursor_x++;
-
         }
 
         coursor_y=0;
@@ -124,12 +117,8 @@ void print_char(const char c)
     {
         place_char_at_location(c,coursor_x, coursor_y);
     }
-    
-
     coursor_y++;
     update_cursor(coursor_x,coursor_y);
-
-
 }
 
 //goes through the entire screen and puts in blank spaces
@@ -137,12 +126,10 @@ void clear_screen()
 {
     enable_cursor(0,25);
     update_cursor(0,0);
-    for (size_t i = 0; i < vga_width; i++)
+    unsigned short c = format_char_data(' ');
+    for (size_t i = 0; i < vga_width * vga_height; i++)
     {
-        for (size_t j = 0; j < vga_height; j++)
-        {
-            place_char_at_location(' ', j, i);
-        }
+        screen_buffer[i] = c;
     }
     coursor_x = 0;
     coursor_y = 0;
