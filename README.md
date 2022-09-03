@@ -22,24 +22,24 @@ Check out the make file to see all the options, but these are the most useful
 ## **Goals**
 ----
 This isn't a strict order, but makes sense as a logical progression. Look in the wiki for more detail about what is already in.
-- [x] Be able to boot
-- [x] Display text to the screen
-- [x] GDT
-- [x] IDT
-- [x] Exceptions
-- [x] System clock
-  - [x] Keep time
-  - [ ] Delay/Sleep functions
-- [x] Keyboard Support
-- [x] Dynamic Memory
-  - [x] malloc()
-  - [x] heap
-  - [x] free()
-- [ ] File System
-  - [ ] ext2
-  - [ ] VFS
-- [ ] Graphics
-  - [ ] GUI library
+- Be able to boot ✔️
+- Display text to the screen ✔️
+- GDT ✔️
+- IDT ✔️
+- Exceptions ✔️
+- System clock ✔️
+  - Keep time ✔️
+  - Delay/Sleep functions ❌
+- Keyboard Support ✔️
+- Dynamic Memory ✔️
+  - malloc() ✔️
+  - heap ✔️
+  - free() ✔️
+- File System ❌
+  - ext2 ❌
+  - VFS ❌
+- Graphics ❌
+  - GUI library ❌
 
 
 ## **Problems**
